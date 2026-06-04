@@ -1,0 +1,71 @@
+---
+// ============================================================
+// google analytics 4 + consent mode v2
+// ------------------------------------------------------------
+// only renders if a real measurement id is configured.
+// initialises consent in "denied" state — gtag fires anonymized
+// pings (no cookies, no user id) until the visitor accepts via
+// the consent banner. once they accept, ConsentBanner.astro
+// calls gtag('consent', 'update', ...) to flip the flags.
+// ============================================================
+import { ANALYTICS, analyticsConfigured } from '../config/analytics';
+
+const id = ANALYTICS.measurementId;
+const cookieDomain = ANALYTICS.cookieDomain;
+---
+
+{analyticsConfigured && (
+  <>
+    {/* gtag init — runs synchronously before the gtag library loads */}
+    <script is:inline define:vars={{ id, cookieDomain }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+
+      // ── internal / owner opt-out ───────────────────────────────────────
+      // visit once with ?ga-optout on a given browser to stop YOUR own visits
+      // from being tracked there. it persists in localStorage. use ?ga-optin
+      // to re-enable.
+      try {
+        if (location.search.indexOf('ga-optout') !== -1) {
+          localStorage.setItem('forward.ga_optout', '1');
+          console.info('[forward] analytics disabled on this browser (ga-optout).');
+        } else if (location.search.indexOf('ga-optin') !== -1) {
+          localStorage.removeItem('forward.ga_optout');
+          console.info('[forward] analytics re-enabled on this browser (ga-optin).');
+        }
+      } catch (e) {}
+      try {
+        window['ga-disable-' + id] = localStorage.getItem('forward.ga_optout') === '1';
+      } catch (e) {}
+
+      // consent mode v2 — denied by default, flipped on user accept.
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500,
+      });
+
+      // restore prior consent choice from localStorage, if any
+      try {
+        var prior = localStorage.getItem('forward.consent');
+        if (prior === 'accepted') {
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+        }
+      } catch (e) {}
+
+      gtag('js', new Date());
+      gtag('config', id, {
+        cookie_domain: cookieDomain,
+        anonymize_ip: true,
+      });
+    </script>
+
+    {/* gtag library — async, doesn't block render */}
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
+  </>
+)}

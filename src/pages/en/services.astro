@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localized, tr } from '../../i18n/utils';
+
+const locale = 'en' as const;
+const t = tr(locale);
+
+const services = [
+  { i: '01', name: 'Feasibility & interconnection', desc: 'Site technical viability and grid connection studies. The first filter of a sound project.' },
+  { i: '02', name: 'Engineering', desc: 'Electrical and civil design, surveys, topography and environmental studies. Concept to detail.' },
+  { i: '03', name: 'Permitting', desc: 'Regulatory management before ASEP and other bodies. The differentiator in Panama.' },
+  { i: '04', name: 'Power purchase agreements', desc: 'Structuring and technical support for PPAs.' },
+  { i: '05', name: 'Construction management', desc: 'EPC oversight, contractor management, QA/QC, schedule control and commissioning.' },
+  { i: '06', name: 'Maintenance', desc: 'On-site operations and service: preventive, performance monitoring and diagnostics.' },
+  { i: '07', name: 'Warranty thermography', desc: 'Thermal inspection to support warranty claims.' },
+  { i: '08', name: 'Financial due diligence', desc: 'Independent technical support for financing and close.' },
+  { i: '09', name: 'Project optimization', desc: 'Performance and return improvements on the existing asset.' },
+];
+---
+
+<BaseLayout
+  title="services · forward energy"
+  description="engineering services for renewable energy projects in panama: feasibility, engineering, permitting, construction, maintenance and owner's engineer."
+  locale={locale}
+>
+  <section class="page-head">
+    <div class="site-wrap">
+      <div class="ph-eb">// services</div>
+      <h1>From feasibility to <span class="accent">operation.</span></h1>
+      <p class="ph-lede">
+        One firm for the whole project lifecycle. Each service can be engaged on its own or
+        as part of an end-to-end delivery.
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="svc-list" style="margin-top:0;">
+        {services.map((s) => (
+          <div class="svc-row">
+            <span class="idx">{s.i}</span>
+            <span class="name">{s.name}</span>
+            <span class="desc">{s.desc}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// next step</div>
+        <h2 class="closing-h">Let’s talk about your project.</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.consult')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:info@forward-nrg.com">info@forward-nrg.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

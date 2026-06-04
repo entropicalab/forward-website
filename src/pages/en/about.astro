@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localized, tr } from '../../i18n/utils';
+
+const locale = 'en' as const;
+const t = tr(locale);
+---
+
+<BaseLayout
+  title="about · forward energy"
+  description="forward energy is a panama-based engineering and services firm for renewable energy projects. experience, judgment and clarity."
+  locale={locale}
+>
+  <section class="page-head">
+    <div class="site-wrap">
+      <div class="ph-eb">// about</div>
+      <h1>Experience, judgment and <span class="accent">clarity.</span></h1>
+      <p class="ph-lede">
+        Forward Energy is a Panama-based engineering and services firm for renewable
+        generation projects. We support developers, owners, governments and funds at every
+        stage — from feasibility to operation.
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="grid-2">
+        <div>
+          <div class="block-eb">// the firm</div>
+          <h2 class="block-h">We move projects forward.</h2>
+        </div>
+        <div class="prose">
+          <p>
+            The name says it: forward. We move projects that often stall on permits, technical
+            uncertainty or investment decisions. We don’t promise to save the planet; we solve
+            what it takes to make renewable energy work in the real world.
+          </p>
+          <p class="muted">
+            We work with technical judgment and clear answers. Every claim has data and
+            engineering behind it — no empty green promises.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="site-wrap">
+      <div class="block-eb">// why panama</div>
+      <h2 class="block-h">We know the ground and the <span class="accent">regulation.</span></h2>
+      <p class="block-sub">
+        Panama’s regulatory environment — ASEP, interconnection, environmental permitting —
+        is one of the main hurdles for renewable projects. That’s exactly where we add the
+        most value: we navigate that process so your project reaches operation.
+      </p>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// let’s work together</div>
+        <h2 class="closing-h">An experienced brand that looks forward.</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.contact')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:info@forward-nrg.com">info@forward-nrg.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

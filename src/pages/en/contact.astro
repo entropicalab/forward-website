@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const locale = 'en' as const;
+
+// to make the form deliver email: create a form at https://formspree.io
+// (or similar static-form service) and paste its endpoint below.
+const FORM_ENDPOINT = ''; // e.g. 'https://formspree.io/f/xxxxxxx'
+---
+
+<BaseLayout
+  title="contact · forward energy"
+  description="let's talk about your renewable energy project in panama. request a consultation with forward energy."
+  locale={locale}
+>
+  <section class="page-head">
+    <div class="site-wrap">
+      <div class="ph-eb">// contact</div>
+      <h1>Let’s talk about your <span class="accent">project.</span></h1>
+      <p class="ph-lede">Tell us what stage you’re at and what you need. We reply within two working days.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="grid-2">
+        <div>
+          <div class="block-eb">// direct</div>
+          <ul class="contact-list">
+            <li><span class="cl-k">email</span><a href="mailto:info@forward-nrg.com">info@forward-nrg.com</a></li>
+            <li><span class="cl-k">location</span><span>Panama City · Panama</span></li>
+          </ul>
+        </div>
+
+        <form class="contact-form" method="POST" action={FORM_ENDPOINT || undefined}>
+          <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required /></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required /></div>
+          <div class="field"><label for="company">Company (optional)</label><input id="company" name="company" type="text" /></div>
+          <div class="field"><label for="brief">Tell us about the project</label><textarea id="brief" name="brief" required></textarea></div>
+          <button class="btn accent" type="submit">Send<span class="arrow-tail" aria-hidden="true"></span></button>
+          {!FORM_ENDPOINT && <p class="form-note">The form isn’t connected yet. For now, email us at <a href="mailto:info@forward-nrg.com">info@forward-nrg.com</a>.</p>}
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
+  .contact-list li { display: flex; flex-direction: column; gap: 4px; font-size: 17px; }
+  .cl-k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); }
+  .contact-list a:hover { color: var(--forest); }
+  .contact-form { display: flex; flex-direction: column; gap: 18px; }
+  .form-note { font-size: 13px; color: var(--mute-on-paper); margin: 4px 0 0; }
+  .form-note a { color: var(--forest); border-bottom: 1px solid currentColor; }
+</style>

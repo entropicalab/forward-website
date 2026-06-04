@@ -1,0 +1,137 @@
+---
+import { tr } from '../i18n/utils';
+import type { Locale } from '../i18n/strings';
+import { analyticsConfigured } from '../config/analytics';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = tr(locale);
+---
+
+{analyticsConfigured && (
+  <div id="consent-banner" class="consent-banner" hidden aria-live="polite">
+    <div class="consent-inner">
+      <div class="consent-eb">{t('consent.eyebrow')}</div>
+      <p class="consent-text">{t('consent.text')}</p>
+      <div class="consent-actions">
+        <button class="consent-btn decline" data-consent="decline">{t('consent.decline')}</button>
+        <button class="consent-btn accept" data-consent="accept">{t('consent.accept')}</button>
+      </div>
+    </div>
+  </div>
+)}
+
+{analyticsConfigured && (
+  <script is:inline>
+    (function () {
+      var key = 'forward.consent';
+      var banner = document.getElementById('consent-banner');
+      if (!banner) return;
+
+      var prior;
+      try { prior = localStorage.getItem(key); } catch (e) {}
+      if (prior === 'accepted' || prior === 'declined') return;
+
+      setTimeout(function () {
+        banner.hidden = false;
+        banner.classList.add('is-visible');
+      }, 600);
+
+      banner.addEventListener('click', function (e) {
+        var target = e.target.closest('[data-consent]');
+        if (!target) return;
+        var choice = target.getAttribute('data-consent');
+        try { localStorage.setItem(key, choice === 'accept' ? 'accepted' : 'declined'); } catch (e) {}
+        if (choice === 'accept' && typeof window.gtag === 'function') {
+          window.gtag('consent', 'update', { analytics_storage: 'granted' });
+        }
+        banner.classList.remove('is-visible');
+        setTimeout(function () { banner.hidden = true; }, 200);
+      });
+    })();
+  </script>
+)}
+
+<style is:global>
+  .consent-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: var(--ink-surface);
+    border-top: 1px solid var(--line-on-ink);
+    transform: translateY(8px);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .consent-banner.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .consent-inner {
+    max-width: var(--site-max);
+    margin: 0 auto;
+    padding: 14px var(--site-pad-x);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .consent-eb {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    white-space: nowrap;
+  }
+  .consent-text {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--bone);
+    margin: 0;
+    max-width: 64ch;
+  }
+  .consent-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .consent-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid var(--bone);
+    background: transparent;
+    color: var(--bone);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .consent-btn.decline:hover {
+    background: var(--bone);
+    color: var(--pine);
+  }
+  .consent-btn.accept {
+    background: var(--green);
+    border-color: var(--green);
+    color: #0e2113;
+  }
+  .consent-btn.accept:hover {
+    background: var(--green-bright);
+    border-color: var(--green-bright);
+  }
+  @media (max-width: 720px) {
+    .consent-inner {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .consent-actions {
+      flex-wrap: wrap;
+    }
+  }
+</style>

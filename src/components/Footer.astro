@@ -1,0 +1,45 @@
+---
+import { tr, localized } from '../i18n/utils';
+import type { Locale } from '../i18n/strings';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = tr(locale);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="inner">
+    <div class="brand">
+      <a href={localized('/', locale)} aria-label="forward energy">
+        <img src="/forward-logo-reversed.png" alt="forward energy" width="180" height="28" />
+      </a>
+      <div class="tag">{t('footer.bio')}</div>
+    </div>
+
+    <div class="col">
+      <h4>{t('footer.company')}</h4>
+      <ul>
+        <li><a href={localized('/services', locale)}>{t('nav.services')}</a></li>
+        <li><a href={localized('/projects', locale)}>{t('nav.projects')}</a></li>
+        <li><a href={localized('/about', locale)}>{t('nav.about')}</a></li>
+        <li><a href={localized('/contact', locale)}>{t('nav.contact')}</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>{t('footer.contact')}</h4>
+      <ul>
+        <li><a href="mailto:info@forward-nrg.com">info@forward-nrg.com</a></li>
+        <li>{t('footer.address')}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="legal">
+    <div>{t('footer.copyright')} · {year}</div>
+    <div>{t('footer.legal')}</div>
+  </div>
+</footer>

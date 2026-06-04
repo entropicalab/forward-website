@@ -1,0 +1,48 @@
+---
+import { tr, alternateUrls, localized } from '../i18n/utils';
+import type { Locale } from '../i18n/strings';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+const { locale, pathname } = Astro.props;
+const t = tr(locale);
+const alts = alternateUrls(pathname);
+
+const navItems = [
+  { key: 'nav.services' as const, path: '/services' },
+  { key: 'nav.projects' as const, path: '/projects' },
+  { key: 'nav.about' as const, path: '/about' },
+  { key: 'nav.contact' as const, path: '/contact' },
+];
+
+const isActive = (path: string): boolean => {
+  const here = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+  const target = localized(path, locale);
+  if (target === '/' || target === `/${locale}`) {
+    return here === target;
+  }
+  return here === target || here.startsWith(`${target}/`);
+};
+---
+
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href={localized('/', locale)} aria-label="forward energy">
+      <img src="/forward-logo-reversed.png" alt="forward energy" width="160" height="24" />
+    </a>
+    <nav class="primary" aria-label="primary">
+      {navItems.map((item) => (
+        <a href={localized(item.path, locale)} aria-current={isActive(item.path) ? 'page' : undefined}>
+          {t(item.key)}
+        </a>
+      ))}
+    </nav>
+    <div class="lang-toggle" aria-label="language">
+      <a href={alts.es} class={locale === 'es' ? 'active' : ''} hreflang="es">es</a>
+      <span class="sep">/</span>
+      <a href={alts.en} class={locale === 'en' ? 'active' : ''} hreflang="en">en</a>
+    </div>
+  </div>
+</header>

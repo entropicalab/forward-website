@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { localized, tr } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('projects', ({ data }) => data.locale === 'en');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const locale = 'en' as const;
+const t = tr(locale);
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const band = [
+  { k: t('meta.location'), v: data.location },
+  { k: t('meta.year'), v: String(data.year) },
+  { k: t('meta.sector'), v: t(`sector.${data.sector}` as any) },
+  data.status ? { k: t('meta.status'), v: data.status } : null,
+].filter(Boolean) as { k: string; v: string }[];
+---
+
+<BaseLayout title={`${data.title} · forward energy`} description={data.lede} locale={locale}>
+  <section class="page-head">
+    <div class="site-wrap">
+      <a class="ph-eb" href={localized('/projects', locale)}>{t('cta.back')}</a>
+      {data.eyebrow && <div class="ph-eb" style="margin-top:18px;">{data.eyebrow}</div>}
+      <h1>{data.title}</h1>
+      <p class="ph-lede">{data.lede}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="proj-band">
+        {band.map((b) => (
+          <div class="band-cell"><span class="band-k">{b.k}</span><span class="band-v">{b.v}</span></div>
+        ))}
+        {data.metric && (
+          <div class="band-cell"><span class="band-k">{data.metric.label}</span><span class="band-v accent">{data.metric.value} {data.metric.unit}</span></div>
+        )}
+      </div>
+
+      <div class="prose" style="margin-top:48px;">
+        {data.challenge && (<><h2 class="block-h" style="font-size:clamp(24px,3vw,34px);">The challenge</h2><p>{data.challenge}</p></>)}
+        {data.approach && (<><h2 class="block-h" style="font-size:clamp(24px,3vw,34px);">The approach</h2><p>{data.approach}</p></>)}
+        {data.result && (<><h2 class="block-h" style="font-size:clamp(24px,3vw,34px);">The result</h2><p>{data.result}</p></>)}
+        <Content />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .proj-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-on-paper); border: 1px solid var(--line-on-paper); }
+  .band-cell { background: var(--paper); padding: 20px 22px; display: flex; flex-direction: column; gap: 6px; }
+  .band-k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); }
+  .band-v { font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .band-v.accent { color: var(--forest); }
+  @media (max-width: 760px) { .proj-band { grid-template-columns: 1fr 1fr; } }
+</style>

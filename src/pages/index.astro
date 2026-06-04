@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { localized, tr } from '../i18n/utils';
+
+const locale = 'es' as const;
+const t = tr(locale);
+
+const featured = (await getCollection('projects', ({ data }) => data.locale === locale && data.featured && !data.comingSoon))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const lifecycle = ['Desarrollo', 'Ingeniería', 'Permisos', 'Construcción', 'Puesta en marcha', 'Operación'];
+
+const values = [
+  { n: '01', h: 'Experiencia regulatoria local', p: 'Conocemos el entorno de ASEP y los procesos de interconexión en Panamá. Movemos proyectos que se detienen por permisos.' },
+  { n: '02', h: 'De la idea a la operación', p: 'Acompañamos cada etapa — factibilidad, ingeniería, construcción y operación — sin entregar el proyecto a medio camino.' },
+  { n: '03', h: 'Ingeniería independiente', p: 'Criterio técnico al servicio de propietarios, fondos y prestamistas. Respaldo honesto, con datos verificables.' },
+  { n: '04', h: 'Optimización de activos', p: 'No termina en la puesta en marcha. Mantenemos el desempeño del activo durante toda su vida útil.' },
+];
+
+const services = [
+  { i: '01', name: 'Factibilidad e interconexión', desc: 'Viabilidad técnica y conexión a la red' },
+  { i: '02', name: 'Ingeniería', desc: 'Diseño eléctrico, levantamientos, topografía y estudios ambientales' },
+  { i: '03', name: 'Permisos', desc: 'Gestión y tramitación regulatoria' },
+  { i: '04', name: 'Contratos de venta de energía', desc: 'Estructuración de acuerdos PPA' },
+  { i: '05', name: 'Mantenimiento', desc: 'Operación y servicio en sitio' },
+  { i: '06', name: 'Due diligence financiero', desc: 'Respaldo técnico para financiamiento' },
+];
+
+const sectors = [
+  { icon: 'solar_power', h: 'Solar utility-scale', p: 'Plantas de generación conectadas a la red, de la factibilidad a la operación.' },
+  { icon: 'wind_power', h: 'Eólica', p: 'Evaluación de recurso, ingeniería y gestión de proyectos eólicos.' },
+  { icon: 'home_work', h: 'Solar distribuida', p: 'Generación en sitio para clientes comerciales e industriales.' },
+  { icon: 'factory', h: 'Soluciones industriales', p: 'Eficiencia y autogeneración para grandes consumidores de energía.' },
+  { icon: 'battery_charging_full', h: 'Almacenamiento', p: 'Integración de baterías para firmeza y gestión de demanda.' },
+  { icon: 'verified', h: 'Owner’s engineer', p: 'Ingeniería independiente para inversionistas y prestamistas.' },
+];
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'forward energy',
+  description: 'firma de ingeniería y servicios para proyectos de energía renovable en panamá.',
+  url: 'https://forward-nrg.com/',
+  email: 'info@forward-nrg.com',
+  areaServed: { '@type': 'Country', name: 'Panama' },
+  knowsLanguage: ['es', 'en'],
+};
+---
+
+<BaseLayout
+  title="forward energy · desarrollo y entrega de proyectos de energía renovable en panamá"
+  description="forward energy es una firma panameña de ingeniería y servicios para proyectos de energía renovable — de la factibilidad a la operación."
+  locale={locale}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+
+  <section class="hero">
+    <div class="site-wrap">
+      <div class="hero-inner">
+        <div class="hero-eb">// energía renovable · panamá · desde la factibilidad a la operación</div>
+        <h1 class="hero-h">De la idea a la <span class="accent">operación.</span></h1>
+      </div>
+      <p class="hero-lede">
+        Forward Energy lleva proyectos de energía renovable de principio a fin: factibilidad,
+        ingeniería, permisos, construcción y operación. El socio técnico que reduce su riesgo
+        y mantiene el activo funcionando.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn accent" href={localized('/contact', locale)}>
+          {t('cta.consult')}<span class="arrow-tail" aria-hidden="true"></span>
+        </a>
+        <a class="btn" href={localized('/services', locale)}>{t('cta.viewServices')}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="lifecycle">
+    <div class="site-wrap">
+      <div class="block-eb">// ciclo de vida del proyecto</div>
+      <div class="lifecycle-steps">
+        {lifecycle.map((step, idx) => (
+          <div class="lc-step">
+            <span class="lc-idx">{String(idx + 1).padStart(2, '0')}</span>
+            <span class="lc-name">{step}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block dark">
+    <div class="site-wrap">
+      <div class="block-eb">// por qué Forward</div>
+      <h2 class="block-h">Certeza de ejecución, no promesas verdes.</h2>
+      <div class="vcards">
+        {values.map((v) => (
+          <div class="vcard">
+            <span class="vc-num">{v.n}</span>
+            <h3>{v.h}</h3>
+            <p>{v.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// qué hacemos</div>
+      <h2 class="block-h">Servicios para todo el <span class="accent">ciclo del proyecto.</span></h2>
+      <p class="block-sub">Una sola firma desde la factibilidad hasta la operación de largo plazo.</p>
+      <div class="svc-list">
+        {services.map((s) => (
+          <div class="svc-row">
+            <span class="idx">{s.i}</span>
+            <span class="name">{s.name}</span>
+            <span class="desc">{s.desc}</span>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top:40px;">
+        <a class="btn" href={localized('/services', locale)}>
+          {t('cta.viewServices')}<span class="arrow-tail" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="site-wrap">
+      <div class="block-eb">// sectores</div>
+      <h2 class="block-h">Dónde trabajamos.</h2>
+      <div class="sector-grid">
+        {sectors.map((s) => (
+          <div class="sector">
+            <span class="material-symbols-outlined icon-md sector-icon">{s.icon}</span>
+            <h3>{s.h}</h3>
+            <p>{s.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// proyectos</div>
+      <h2 class="block-h">Proyectos destacados.</h2>
+      {featured.length > 0 ? (
+        <div class="proj-grid">
+          {featured.map((p) => (
+            <a class="proj-card" href={localized(`/projects/${p.data.slug}`, locale)}>
+              <div class="proj-photo">{p.data.heroImage && <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />}</div>
+              {p.data.metric && (
+                <div class="proj-metric">
+                  <span class="proj-num">{p.data.metric.value}<span class="unit">{p.data.metric.unit}</span></span>
+                  <span class="proj-mlabel">{p.data.metric.label}</span>
+                </div>
+              )}
+              <div>
+                <div class="proj-title">{p.data.title}</div>
+                <div class="proj-meta"><span>{p.data.location}</span><span class="sep">·</span><span>{p.data.year}</span></div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <img src="/forward-mark.png" alt="" />
+          <p>Estamos documentando nuestro portafolio de proyectos. Mientras tanto, con gusto le contamos qué hemos llevado a operación en Panamá — escríbanos.</p>
+          <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// manos a la obra</div>
+        <h2 class="closing-h">¿Tiene un proyecto renovable en mente?</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.contact')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:info@forward-nrg.com">info@forward-nrg.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

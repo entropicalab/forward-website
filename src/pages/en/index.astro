@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { localized, tr } from '../../i18n/utils';
+
+const locale = 'en' as const;
+const t = tr(locale);
+
+const featured = (await getCollection('projects', ({ data }) => data.locale === locale && data.featured && !data.comingSoon))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const lifecycle = ['Development', 'Engineering', 'Permitting', 'Construction', 'Commissioning', 'Operations'];
+
+const values = [
+  { n: '01', h: 'Local regulatory expertise', p: 'We know ASEP and the interconnection process in Panama. We move projects that stall on permits.' },
+  { n: '02', h: 'Concept to operation', p: 'We stay through every stage — feasibility, engineering, construction and operations — without handing the project off halfway.' },
+  { n: '03', h: 'Independent engineering', p: 'Technical judgment in service of owners, funds and lenders. Honest support, with verifiable data.' },
+  { n: '04', h: 'Asset optimization', p: 'It doesn’t end at commissioning. We keep the asset performing across its full operating life.' },
+];
+
+const services = [
+  { i: '01', name: 'Feasibility & interconnection', desc: 'Technical viability and grid connection' },
+  { i: '02', name: 'Engineering', desc: 'Electrical design, surveys, topography and environmental studies' },
+  { i: '03', name: 'Permitting', desc: 'Regulatory management and processing' },
+  { i: '04', name: 'Power purchase agreements', desc: 'PPA structuring and support' },
+  { i: '05', name: 'Maintenance', desc: 'On-site operations and service' },
+  { i: '06', name: 'Financial due diligence', desc: 'Technical support for financing' },
+];
+
+const sectors = [
+  { icon: 'solar_power', h: 'Utility-scale solar', p: 'Grid-connected generation, from feasibility to operation.' },
+  { icon: 'wind_power', h: 'Wind', p: 'Resource assessment, engineering and project management for wind.' },
+  { icon: 'home_work', h: 'Distributed solar', p: 'On-site generation for commercial and industrial clients.' },
+  { icon: 'factory', h: 'Industrial solutions', p: 'Efficiency and self-generation for large energy users.' },
+  { icon: 'battery_charging_full', h: 'Storage', p: 'Battery integration for firmness and demand management.' },
+  { icon: 'verified', h: 'Owner’s engineer', p: 'Independent engineering for investors and lenders.' },
+];
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'forward energy',
+  description: 'engineering and services firm for renewable energy projects in panama.',
+  url: 'https://forward-nrg.com/',
+  email: 'info@forward-nrg.com',
+  areaServed: { '@type': 'Country', name: 'Panama' },
+  knowsLanguage: ['es', 'en'],
+};
+---
+
+<BaseLayout
+  title="forward energy · renewable energy project development & delivery in panama"
+  description="forward energy is a panama-based engineering and services firm for renewable energy projects — from feasibility to operations."
+  locale={locale}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+
+  <section class="hero">
+    <div class="site-wrap">
+      <div class="hero-inner">
+        <div class="hero-eb">// renewable energy · panama · from feasibility to operation</div>
+        <h1 class="hero-h">From concept to <span class="accent">operation.</span></h1>
+      </div>
+      <p class="hero-lede">
+        Forward Energy takes renewable energy projects from start to finish: feasibility,
+        engineering, permitting, construction and operations. The technical partner that
+        reduces your risk and keeps the asset performing.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn accent" href={localized('/contact', locale)}>
+          {t('cta.consult')}<span class="arrow-tail" aria-hidden="true"></span>
+        </a>
+        <a class="btn" href={localized('/services', locale)}>{t('cta.viewServices')}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="lifecycle">
+    <div class="site-wrap">
+      <div class="block-eb">// project lifecycle</div>
+      <div class="lifecycle-steps">
+        {lifecycle.map((step, idx) => (
+          <div class="lc-step">
+            <span class="lc-idx">{String(idx + 1).padStart(2, '0')}</span>
+            <span class="lc-name">{step}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block dark">
+    <div class="site-wrap">
+      <div class="block-eb">// why forward</div>
+      <h2 class="block-h">Execution certainty, not green promises.</h2>
+      <div class="vcards">
+        {values.map((v) => (
+          <div class="vcard">
+            <span class="vc-num">{v.n}</span>
+            <h3>{v.h}</h3>
+            <p>{v.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// what we do</div>
+      <h2 class="block-h">Services across the <span class="accent">whole project lifecycle.</span></h2>
+      <p class="block-sub">One firm, from feasibility through long-term operations.</p>
+      <div class="svc-list">
+        {services.map((s) => (
+          <div class="svc-row">
+            <span class="idx">{s.i}</span>
+            <span class="name">{s.name}</span>
+            <span class="desc">{s.desc}</span>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top:40px;">
+        <a class="btn" href={localized('/services', locale)}>
+          {t('cta.viewServices')}<span class="arrow-tail" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="site-wrap">
+      <div class="block-eb">// sectors</div>
+      <h2 class="block-h">Where we work.</h2>
+      <div class="sector-grid">
+        {sectors.map((s) => (
+          <div class="sector">
+            <span class="material-symbols-outlined icon-md sector-icon">{s.icon}</span>
+            <h3>{s.h}</h3>
+            <p>{s.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// projects</div>
+      <h2 class="block-h">Featured projects.</h2>
+      {featured.length > 0 ? (
+        <div class="proj-grid">
+          {featured.map((p) => (
+            <a class="proj-card" href={localized(`/projects/${p.data.slug}`, locale)}>
+              <div class="proj-photo">{p.data.heroImage && <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />}</div>
+              {p.data.metric && (
+                <div class="proj-metric">
+                  <span class="proj-num">{p.data.metric.value}<span class="unit">{p.data.metric.unit}</span></span>
+                  <span class="proj-mlabel">{p.data.metric.label}</span>
+                </div>
+              )}
+              <div>
+                <div class="proj-title">{p.data.title}</div>
+                <div class="proj-meta"><span>{p.data.location}</span><span class="sep">·</span><span>{p.data.year}</span></div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <img src="/forward-mark.png" alt="" />
+          <p>We’re documenting our project portfolio. In the meantime, we’re glad to walk you through what we’ve brought to operation in Panama — get in touch.</p>
+          <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// let’s get to work</div>
+        <h2 class="closing-h">Have a renewable project in mind?</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.contact')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:info@forward-nrg.com">info@forward-nrg.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

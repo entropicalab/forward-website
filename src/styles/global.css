@@ -1,0 +1,278 @@
+/* ============================================================
+   forward energy · global stylesheet
+   ------------------------------------------------------------
+   load order:
+     1. self-hosted fonts via @fontsource
+     2. forward.css (brand design system — tokens, base, utils)
+     3. site chrome below (shell, header/footer, nav, lang toggle,
+        forms, consent helpers)
+   ============================================================ */
+
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/ibm-plex-sans/300.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import './forward.css';
+@import './pages.css';
+
+/* ------------------------------------------------------------
+   page shell
+   ------------------------------------------------------------ */
+:root {
+  --site-pad-x: 56px;
+  --site-pad-x-tight: 32px;
+  --site-max: 1280px;
+  --header-h: 76px;
+}
+@media (max-width: 900px) {
+  :root {
+    --site-pad-x: 24px;
+    --site-pad-x-tight: 18px;
+  }
+}
+
+.site-wrap {
+  width: 100%;
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 0 var(--site-pad-x);
+}
+
+main {
+  display: block;
+}
+
+/* skip link --------------------------------------------------- */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink-surface);
+  color: var(--on-ink);
+  padding: 10px 16px;
+  z-index: 200;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.skip:focus {
+  left: 8px;
+  top: 8px;
+}
+
+/* ------------------------------------------------------------
+   header (top nav, dark pine bar)
+   ------------------------------------------------------------ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(18, 33, 24, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-on-ink);
+}
+.site-header .inner {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 14px var(--site-pad-x);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 32px;
+  min-height: var(--header-h);
+}
+.site-header .logo img {
+  height: 24px;
+  width: auto;
+  display: block;
+}
+.site-header .primary {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+}
+.site-header .primary a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: 0.72;
+  transition: opacity 0.2s, color 0.2s;
+}
+.site-header .primary a:hover,
+.site-header .primary a[aria-current='page'] {
+  opacity: 1;
+  color: var(--green-bright);
+}
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mute-on-ink);
+}
+.lang-toggle a {
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+}
+.lang-toggle a.active {
+  opacity: 1;
+  color: var(--green-bright);
+}
+.lang-toggle a:hover {
+  opacity: 1;
+}
+.lang-toggle .sep {
+  opacity: 0.4;
+}
+@media (max-width: 880px) {
+  .site-header .primary {
+    display: none;
+  }
+  .site-header .inner {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+}
+
+/* ------------------------------------------------------------
+   page "last updated" line
+   ------------------------------------------------------------ */
+.page-updated {
+  padding: 14px 0 4px;
+  border-top: 1px solid var(--line-on-paper);
+  background: var(--paper);
+}
+.page-updated time {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute-on-paper-2);
+  font-weight: 400;
+}
+
+/* ------------------------------------------------------------
+   footer (dark pine)
+   ------------------------------------------------------------ */
+.site-footer {
+  background: var(--ink-surface);
+  color: var(--on-ink);
+  padding: 80px 0 44px;
+}
+.site-footer .inner {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 0 var(--site-pad-x);
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 48px;
+}
+.site-footer .brand img {
+  height: 28px;
+  width: auto;
+  margin-bottom: 20px;
+}
+.site-footer .tag {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--mute-on-ink);
+  max-width: 42ch;
+}
+.site-footer h4 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  font-weight: 500;
+  margin: 0 0 16px;
+}
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.site-footer ul a,
+.site-footer ul li {
+  font-size: 14px;
+  color: var(--bone);
+  opacity: 0.82;
+  transition: color 0.2s, opacity 0.2s;
+}
+.site-footer ul a:hover {
+  opacity: 1;
+  color: var(--green-bright);
+}
+.site-footer .legal {
+  max-width: var(--site-max);
+  margin: 56px auto 0;
+  padding: 24px var(--site-pad-x) 0;
+  border-top: 1px solid var(--line-on-ink);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute-on-ink);
+}
+@media (max-width: 760px) {
+  .site-footer .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .site-footer .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ------------------------------------------------------------
+   forms (shared contact-form styling)
+   ------------------------------------------------------------ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.field label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute-on-paper);
+}
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink-on-paper);
+  background: var(--paper);
+  border: 1px solid var(--line-on-paper);
+  padding: 13px 14px;
+  border-radius: 4px;
+  width: 100%;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--green);
+}
+.field textarea {
+  min-height: 140px;
+  resize: vertical;
+}

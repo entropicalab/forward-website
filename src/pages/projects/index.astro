@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { localized, tr } from '../../i18n/utils';
+
+const locale = 'es' as const;
+const t = tr(locale);
+
+const projects = (await getCollection('projects', ({ data }) => data.locale === locale && !data.comingSoon))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<BaseLayout
+  title="proyectos · forward energy"
+  description="proyectos de energía renovable desarrollados, construidos y operados por forward energy en panamá."
+  locale={locale}
+>
+  <section class="page-head">
+    <div class="site-wrap">
+      <div class="ph-eb">// proyectos</div>
+      <h1>Lo que hemos llevado a <span class="accent">operación.</span></h1>
+      <p class="ph-lede">Casos reales en Panamá: el problema, el enfoque y el resultado, con cifras verificables.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      {projects.length > 0 ? (
+        <div class="proj-grid">
+          {projects.map((p) => (
+            <a class="proj-card" href={localized(`/projects/${p.data.slug}`, locale)}>
+              <div class="proj-photo">{p.data.heroImage && <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />}</div>
+              {p.data.metric && (
+                <div class="proj-metric">
+                  <span class="proj-num">{p.data.metric.value}<span class="unit">{p.data.metric.unit}</span></span>
+                  <span class="proj-mlabel">{p.data.metric.label}</span>
+                </div>
+              )}
+              <div>
+                <div class="proj-title">{p.data.title}</div>
+                <div class="proj-meta"><span>{t(`sector.${p.data.sector}` as any)}</span><span class="sep">·</span><span>{p.data.location}</span><span class="sep">·</span><span>{p.data.year}</span></div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <img src="/forward-mark.png" alt="" />
+          <p>Estamos documentando nuestro portafolio. Con gusto le compartimos referencias y casos concretos según el tipo de proyecto que esté evaluando.</p>
+          <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

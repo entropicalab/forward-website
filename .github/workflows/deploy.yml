@@ -1,0 +1,47 @@
+name: deploy to github pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+# opt the workflow into node 24 for all bundled javascript actions, silencing
+# the node 20 deprecation warnings on actions/checkout, actions/deploy-pages, etc.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          # full history so per-file git dates (sitemap lastmod + page
+          # "last updated") are accurate, not collapsed to the latest commit
+          fetch-depth: 0
+
+      - name: install, build, and upload
+        uses: withastro/action@v4
+        with:
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: deploy to github pages
+        id: deployment
+        uses: actions/deploy-pages@v4

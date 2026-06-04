@@ -1,0 +1,445 @@
+For a company like yours, the website should not primarily sell "solar" or "wind". It should sell **certainty, execution capability, regulatory expertise, and lifecycle project delivery**.
+
+Most renewable energy firms in Latin America build websites that look like engineering portfolios. The stronger positioning is to present yourselves as the company that takes a project from concept to operation and keeps it performing for decades.
+
+## Marketing Objectives
+
+Your website should help visitors answer:
+
+1. Can these people deliver a project?
+2. Can they navigate Panama's regulatory environment?
+3. Have they done similar projects before?
+4. Can they reduce my risk?
+5. How do I contact them for a proposal?
+
+The site should support multiple audiences:
+
+* Project developers
+* Investors and funds
+* Commercial & industrial energy users
+* Utilities
+* EPC partners
+* Government entities
+* Landowners
+* Engineering firms
+
+---
+
+# Recommended Site Structure
+
+## 1. Home
+
+Not a brochure. A strategic overview.
+
+### Hero Section
+
+**Renewable Energy Project Development & Delivery in Panama**
+
+From feasibility studies to EPC management and long-term operations.
+
+CTA:
+
+* Request Consultation
+* Discuss a Project
+
+### Core Service Overview
+
+Use a visual project lifecycle:
+
+Development → Design → Permitting → Construction → Commissioning → Operations
+
+### Why Clients Choose You
+
+Examples:
+
+* Local regulatory expertise
+* End-to-end project delivery
+* Independent engineering support
+* Asset performance optimization
+* Panama-specific market knowledge
+
+### Featured Projects
+
+3-4 major projects.
+
+### Industry Sectors
+
+* Utility-scale solar
+* Distributed solar
+* Wind energy
+* Industrial energy solutions
+* Energy storage (if applicable)
+
+### Client Testimonials
+
+### Contact CTA
+
+---
+
+# 2. About Us
+
+Focus on credibility.
+
+Sections:
+
+### Company Overview
+
+Mission, history, market focus.
+
+### Leadership Team
+
+Use professional photos.
+
+### Certifications & Memberships
+
+Examples:
+
+* ASEP related experience
+* Cámara Panameña de Energía Solar memberships
+* ISO certifications
+
+### Why Panama
+
+Show your understanding of local market conditions.
+
+---
+
+# 3. Services
+
+This should be one of your strongest sections.
+
+Create a landing page plus dedicated subpages.
+
+## Services Overview
+
+### Project Development
+
+Subpage:
+
+* Site identification
+* Resource assessment
+* Financial analysis
+* Grid interconnection studies
+* Land due diligence
+
+---
+
+### Engineering & Design
+
+Subpage:
+
+* Conceptual design
+* Detailed engineering
+* Electrical systems
+* Civil works
+* Energy modeling
+
+---
+
+### Permitting & Regulatory Approvals
+
+Subpage:
+
+* Environmental permitting
+* Utility coordination
+* Government approvals
+* Grid connection processes
+
+This is a major differentiator in Panama.
+
+---
+
+### Construction Management
+
+Subpage:
+
+* EPC oversight
+* Contractor management
+* QA/QC
+* Schedule control
+* Commissioning
+
+---
+
+### Operations & Maintenance
+
+Subpage:
+
+* Preventive maintenance
+* Performance monitoring
+* Troubleshooting
+* Asset management
+
+---
+
+### Owner's Engineer Services
+
+Subpage:
+
+Especially attractive to investors and lenders.
+
+Include:
+
+* Technical due diligence
+* Design review
+* Construction monitoring
+* Independent engineering reports
+
+---
+
+# 4. Projects
+
+Arguably the most important section.
+
+Create filters:
+
+* Solar
+* Wind
+* Utility-scale
+* Commercial
+* Industrial
+* Development
+* EPC
+* O&M
+
+Each project page should contain:
+
+### Project Summary
+
+### Capacity
+
+MW / MWh
+
+### Location
+
+Use maps.
+
+### Services Provided
+
+### Challenges
+
+### Solutions
+
+### Results
+
+### Photos and Drone Footage
+
+### Key Metrics
+
+Examples:
+
+* Capacity
+* Energy production
+* CO₂ avoided
+* Completion date
+
+---
+
+# 5. Industries
+
+A powerful but often overlooked section.
+
+Separate pages for:
+
+### Utility Developers
+
+### Commercial & Industrial Clients
+
+### Investors & Infrastructure Funds
+
+### Government Agencies
+
+### Landowners
+
+Each page should explain:
+
+* Their challenges
+* Your solutions
+* Relevant projects
+
+---
+
+# 6. Insights / Knowledge Center
+
+Critical for SEO.
+
+Create articles around:
+
+### Solar Development in Panama
+
+### Wind Resource Assessment
+
+### Renewable Energy Regulations
+
+### Grid Interconnection
+
+### Energy Storage
+
+### Project Finance
+
+### Environmental Compliance
+
+### Energy Market Updates
+
+This section can become your strongest lead generator over time.
+
+---
+
+# 7. Resources
+
+High-value downloadable content.
+
+Examples:
+
+* Renewable Project Development Guide
+* Panama Solar Market Report
+* Wind Project Feasibility Checklist
+* Interconnection Process Guide
+* O&M Best Practices
+
+Require email registration for some downloads.
+
+---
+
+# 8. Careers
+
+Often ignored.
+
+Include:
+
+* Open positions
+* Internship opportunities
+* Company culture
+* Project photos
+
+---
+
+# 9. Contact
+
+Multiple conversion paths.
+
+### Contact Form
+
+### Direct Email
+
+### Phone
+
+### Office Location
+
+Use:
+
+Panama City
+
+### Consultation Booking
+
+Strongly recommend integrating a calendar scheduling tool.
+
+---
+
+# Additional Features That Increase Conversions
+
+## Project Lifecycle Graphic
+
+A visual diagram showing:
+
+Site Selection → Feasibility → Permitting → Engineering → Construction → Operation
+
+This immediately communicates full-service capability.
+
+---
+
+## Interactive Project Map
+
+One of the highest-value additions.
+
+Display:
+
+* Solar sites
+* Wind sites
+* Projects under development
+* O&M assets
+
+---
+
+## Case Studies
+
+Separate from projects.
+
+Structure:
+
+Problem → Approach → Outcome
+
+Investors and developers love these.
+
+---
+
+## Performance Dashboard
+
+If appropriate, showcase anonymized portfolio metrics:
+
+* Total MW developed
+* Total MW managed
+* Annual MWh generated
+* CO₂ emissions avoided
+* Years of experience
+
+---
+
+## Multilingual Site
+
+At minimum:
+
+* Spanish
+* English
+
+Many investors and developers evaluating Panama are international.
+
+---
+
+# Ideal Navigation Menu
+
+**Home**
+
+**About**
+
+* Company
+* Leadership
+* Certifications
+
+**Services**
+
+* Project Development
+* Engineering & Design
+* Permitting
+* Construction Management
+* Owner's Engineer
+* O&M
+
+**Projects**
+
+* Solar
+* Wind
+* Featured Projects
+
+**Industries**
+
+* Developers
+* Investors
+* Commercial & Industrial
+* Government
+
+**Insights**
+
+**Resources**
+
+**Careers**
+
+**Contact**
+
+---
+
+If your goal is to position yourselves as one of Panama's leading renewable energy project firms, the strongest structure is:
+
+**Home → Services → Projects → Industries → Insights → Contact**
+
+That sequence mirrors how sophisticated clients evaluate engineering and energy companies: first capability, then proof, then relevance to their sector, then expertise. The website should feel less like an engineering company brochure and more like the digital presence of a project delivery platform.

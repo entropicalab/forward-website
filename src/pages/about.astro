@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localized, tr } from '../i18n/utils';
+
+const locale = 'es' as const;
+const t = tr(locale);
+---
+
+<BaseLayout
+  title="nosotros · forward energy"
+  description="forward energy es una firma panameña de ingeniería y servicios para proyectos de energía renovable. experiencia, criterio y claridad."
+  locale={locale}
+>
+  <section class="page-head">
+    <div class="site-wrap">
+      <div class="ph-eb">// nosotros</div>
+      <h1>Experiencia, criterio y <span class="accent">claridad.</span></h1>
+      <p class="ph-lede">
+        Forward Energy es una firma panameña de ingeniería y servicios para proyectos de
+        generación renovable. Acompañamos a desarrolladores, propietarios, gobiernos y fondos
+        en cada etapa — desde la factibilidad hasta la operación.
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="grid-2">
+        <div>
+          <div class="block-eb">// la firma</div>
+          <h2 class="block-h">Hacemos que los proyectos avancen.</h2>
+        </div>
+        <div class="prose">
+          <p>
+            El nombre lo dice: hacia adelante. Movemos proyectos que muchas veces se detienen
+            por permisos, dudas técnicas o decisiones de inversión. No prometemos salvar el
+            planeta; resolvemos lo que hace falta para que la energía renovable funcione en el
+            mundo real.
+          </p>
+          <p class="muted">
+            Trabajamos con criterio técnico y respuestas claras. Cada afirmación tiene datos e
+            ingeniería detrás — sin promesas verdes vacías.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="site-wrap">
+      <div class="block-eb">// por qué Panamá</div>
+      <h2 class="block-h">Conocemos el terreno y la <span class="accent">regulación.</span></h2>
+      <p class="block-sub">
+        El entorno regulatorio panameño — ASEP, interconexión, permisos ambientales — es uno
+        de los principales obstáculos para los proyectos renovables. Es justo donde más valor
+        aportamos: navegamos ese proceso para que su proyecto llegue a operación.
+      </p>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// trabajemos juntos</div>
+        <h2 class="closing-h">Una marca con experiencia, que mira hacia adelante.</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.contact')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:info@forward-nrg.com">info@forward-nrg.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
