@@ -1,0 +1,27 @@
+---
+/**
+ * forward energy · progression mark (three advancing triangles)
+ * mist-soft → mist → green: "movement forward / data & advance"
+ * (brandbook v2 §07). A small accent for eyebrows, dividers, section heads.
+ */
+interface Props {
+  width?: number;
+  class?: string;
+}
+const { width = 56 } = Astro.props;
+const cls = Astro.props.class ?? '';
+const height = Math.round((width * 74) / 120);
+---
+
+<svg
+  class:list={['tri-mark', cls]}
+  width={width}
+  height={height}
+  viewBox="0 0 120 74"
+  fill="none"
+  aria-hidden="true"
+>
+  <path d="M10 24 L10 50 L26 37 Z" fill="var(--mist-soft)"></path>
+  <path d="M44 18 L44 56 L67 37 Z" fill="var(--mist)"></path>
+  <path d="M86 10 L86 64 L120 37 Z" fill="var(--green)"></path>
+</svg>

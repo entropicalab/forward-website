@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
 import { getLocaleFromPath, alternateUrls } from '../i18n/utils';
-import { lastmodForPath } from '../lib/lastmod.mjs';
 import type { Locale } from '../i18n/strings';
 
 interface Props {
@@ -29,15 +28,6 @@ const {
 const fullTitle = title.toLowerCase().includes('forward energy') ? title : `${title} · forward energy`;
 const canonical = new URL(pathname, Astro.site).toString();
 
-const lastmod = lastmodForPath(pathname);
-const lastmodIso = lastmod.toISOString();
-const lastmodLabel = new Intl.DateTimeFormat(locale === 'es' ? 'es-PA' : 'en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-}).format(lastmod);
-const updatedText = locale === 'es' ? 'última actualización' : 'last updated';
-
 const alts = alternateUrls(pathname);
 const hreflang = [
   { lang: 'es', href: new URL(alts.es, Astro.site).toString() },
@@ -58,14 +48,6 @@ const hreflang = [
     {hreflang.map((h) => <link rel="alternate" hreflang={h.lang} href={h.href} />)}
     <link rel="icon" type="image/png" href="/favicon.png" />
 
-    {/* material symbols outlined — weight 300 to match the brand's light feel */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0"
-    />
-
     {/* opengraph + twitter */}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
@@ -75,7 +57,7 @@ const hreflang = [
     <meta property="og:locale" content={locale === 'es' ? 'es_PA' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <meta name="theme-color" content="#15291d" />
+    <meta name="theme-color" content="#0f120a" />
 
     <Analytics />
   </head>
@@ -85,11 +67,6 @@ const hreflang = [
     <main id="main">
       <slot />
     </main>
-    <div class="page-updated">
-      <div class="site-wrap">
-        <time datetime={lastmodIso}>{updatedText}: {lastmodLabel}</time>
-      </div>
-    </div>
     <Footer locale={locale} />
     <ConsentBanner locale={locale} />
   </body>

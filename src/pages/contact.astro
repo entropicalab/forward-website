@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { FORM_ENDPOINT } from '../config/forms';
 
 const locale = 'es' as const;
@@ -65,7 +66,7 @@ const locale = 'es' as const;
           </form>
 
           <div class="form-success" hidden>
-            <span class="material-symbols-outlined icon-md fs-check">check_circle</span>
+            <Icon name="check_circle" class="fs-check" size={40} />
             <h3>Mensaje recibido.</h3>
             <p>Gracias por escribirnos. Le respondemos en un máximo de dos días hábiles.</p>
           </div>

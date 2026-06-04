@@ -1,0 +1,65 @@
+---
+/**
+ * forward energy · brand icon set
+ * 2px line, soft corners, simple geometry — functional, never illustrative
+ * (per brandbook v2 §07). Renders an inline SVG by name; color follows
+ * currentColor so utility classes (ic-icon, lr-icon, …) keep working.
+ */
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+const { name, size = 30 } = Astro.props;
+const cls = Astro.props.class ?? '';
+
+const paths: Record<string, string> = {
+  // — sectors —
+  solar_power:
+    '<circle cx="20" cy="20" r="6.5"/><path d="M20 4.5v4M20 31.5v4M4.5 20h4M31.5 20h4M8.7 8.7l2.8 2.8M28.5 28.5l2.8 2.8M31.3 8.7l-2.8 2.8M11.5 28.5l-2.8 2.8"/>',
+  wind_power:
+    '<path d="M20 16v20"/><path d="M20 16V6M20 16l-8.6 5M20 16l8.6 5"/><circle cx="20" cy="16" r="1.8"/>',
+  home_work:
+    '<path d="M6 18.5L20 7l14 11.5"/><path d="M9.5 17v16h21V17"/><path d="M16.5 33v-7h7v7"/>',
+  factory:
+    '<path d="M5 34V18l8 5v-5l8 5v-5l8 5v11z"/><path d="M11 27.5v3M19 27.5v3M27 27.5v3"/>',
+  battery_charging_full:
+    '<rect x="5" y="13" width="25" height="14" rx="2"/><path d="M32 18v4"/><path d="M19 15.5l-3.5 6h4l-3 6"/>',
+  verified:
+    '<path d="M20 5l11 4v8c0 7-4.7 12.2-11 14-6.3-1.8-11-7-11-14V9z"/><path d="M14.5 20l4 4 7-8"/>',
+  // — resources —
+  menu_book:
+    '<path d="M20 11.5v21.5"/><path d="M20 11.5C16 8.8 10.5 8.5 5.5 9.5v20.5c5-1 10.5-.7 14.5 2 4-2.7 9.5-3 14.5-2V9.5c-5-1-10.5-.7-14.5 2z"/>',
+  insights:
+    '<path d="M6 7v27h28"/><path d="M11 27l6-7 5 4 8-10.5"/><path d="M30.5 13.5h-4M30.5 13.5v4"/>',
+  fact_check:
+    '<path d="M11 5h12l6 6v22a1 1 0 01-1 1H11a1 1 0 01-1-1V6a1 1 0 011-1z"/><path d="M23 5v6h6"/><path d="M14 21l3 3 6-6"/>',
+  electrical_services:
+    '<path d="M22 4L9 23h9l-2 13 13-19h-9z"/>',
+  build:
+    '<path d="M25 8a6 6 0 00-8 7.5L8 24.5a3 3 0 000 4.2l3.3 3.3a3 3 0 004.2 0l9-9A6 6 0 0032 15l-4 4-3-3 4-4a6 6 0 00-4-4z"/>',
+  // — ui / misc —
+  check_circle: '<circle cx="20" cy="20" r="15"/><path d="M13 20l5 5 9-10"/>',
+  grid:
+    '<rect x="6" y="6" width="11" height="11" rx="1.5"/><rect x="23" y="6" width="11" height="11" rx="1.5"/><rect x="6" y="23" width="11" height="11" rx="1.5"/><rect x="23" y="23" width="11" height="11" rx="1.5"/>',
+  search: '<circle cx="17" cy="17" r="10"/><path d="M24.5 24.5L34 34"/>',
+  engineering:
+    '<path d="M7 30l7-8 5 5 8-11 6 7"/><path d="M7 7v26h27"/>',
+};
+
+const inner = paths[name] ?? '';
+---
+
+<svg
+  class:list={['fwd-ico', cls]}
+  width={size}
+  height={size}
+  viewBox="0 0 40 40"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2.2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  set:html={inner}
+/>

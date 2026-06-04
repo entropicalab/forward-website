@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import BrandMark from '../../components/BrandMark.astro';
+import TriMark from '../../components/TriMark.astro';
 import { getCollection } from 'astro:content';
 import { localized, tr } from '../../i18n/utils';
 
@@ -9,29 +12,43 @@ const t = tr(locale);
 const featured = (await getCollection('projects', ({ data }) => data.locale === locale && data.featured && !data.comingSoon))
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 
-const lifecycle = ['Development', 'Engineering', 'Permitting', 'Construction', 'Commissioning', 'Operations'];
+const lifecycle = ['Development', 'Engineering', 'Permitting', 'Construction', 'Commissioning', 'Operation'];
+
+const cred = [
+  { k: 'Track record', v: 'Over a decade', d: 'of energy projects that actually get built and operated.' },
+  { k: 'Leadership', v: 'State level', d: 'leadership experience at the highest level of the country’s power sector.' },
+  { k: 'Scope', v: 'Idea to operation', d: 'a single firm across the full lifecycle of the project.' },
+];
 
 const values = [
-  { n: '01', h: 'Local regulatory expertise', p: 'We know ASEP and the interconnection process in Panama. We move projects that stall on permits.' },
-  { n: '02', h: 'Concept to operation', p: 'We stay through every stage — feasibility, engineering, construction and operations — without handing the project off halfway.' },
-  { n: '03', h: 'Independent engineering', p: 'Technical judgment in service of owners, funds and lenders. Honest support, with verifiable data.' },
-  { n: '04', h: 'Asset optimization', p: 'It doesn’t end at commissioning. We keep the asset performing across its full operating life.' },
+  { n: '01', h: 'Experienced', p: 'A track record and engineering rigor behind every recommendation. We know ASEP and Panama’s interconnection processes.' },
+  { n: '02', h: 'Clear', p: 'We explain without overwhelming. The technical gets translated, not hidden behind jargon. We write to be understood by a busy investor.' },
+  { n: '03', h: 'Honest', p: 'No empty green promises. Every claim has data and engineering behind it. We’ll tell you if a project isn’t viable.' },
+  { n: '04', h: 'Close', p: 'We treat your capital and your land as if they were our own. Accessible and human, within professional respect.' },
 ];
 
 const services = [
   { i: '01', name: 'Feasibility & interconnection', desc: 'Technical viability and grid connection' },
-  { i: '02', name: 'Engineering', desc: 'Electrical design, surveys, topography and environmental studies' },
-  { i: '03', name: 'Permitting', desc: 'Regulatory management and processing' },
-  { i: '04', name: 'Power purchase agreements', desc: 'PPA structuring and support' },
-  { i: '05', name: 'Maintenance', desc: 'On-site operations and service' },
-  { i: '06', name: 'Financial due diligence', desc: 'Technical support for financing' },
+  { i: '02', name: 'Engineering & design', desc: 'Electrical, civil and energy modeling' },
+  { i: '03', name: 'Permitting & approvals', desc: 'Regulatory management and filings' },
+  { i: '04', name: 'Construction management', desc: 'Quality, cost and schedule oversight' },
+  { i: '05', name: 'Operations & maintenance', desc: 'On-site service across the asset life' },
+  { i: '06', name: 'Owner’s engineer', desc: 'Independent engineering for the capital' },
+  { i: '07', name: 'Asset optimization', desc: 'More yield, including BESS integration' },
+  { i: '08', name: 'Power purchase agreements', desc: 'PPA structuring' },
+];
+
+const audiences = [
+  { i: '01', icon: 'verified', h: 'Investors & funds', p: 'Bankable due diligence and independent judgment. We cut regulatory and technical risk before you commit capital.' },
+  { i: '02', icon: 'home_work', h: 'Landowners', p: 'Fair, transparent segmentation of your land, designed to yield the maximum output over twenty years.' },
+  { i: '03', icon: 'factory', h: 'Large energy users', p: 'Bespoke PPAs, self-generation and reliable maintenance. Energy as an asset, free of surprises.' },
 ];
 
 const sectors = [
-  { icon: 'solar_power', img: '/img/solar.jpg', h: 'Utility-scale solar', p: 'Grid-connected generation, from feasibility to operation.' },
+  { icon: 'solar_power', img: '/img/solar.jpg', h: 'Utility-scale solar', p: 'Grid-connected generation plants, from feasibility to operation.' },
   { icon: 'wind_power', img: '/img/turbinefield.jpg', h: 'Wind', p: 'Resource assessment, engineering and project management for wind.' },
   { icon: 'home_work', img: '/img/rooftop.jpg', h: 'Distributed solar', p: 'On-site generation for commercial and industrial clients.' },
-  { icon: 'factory', img: '/img/aerial.jpg', h: 'Industrial solutions', p: 'Efficiency and self-generation for large energy users.' },
+  { icon: 'factory', img: '/img/aerial.jpg', h: 'Industrial solutions', p: 'Efficiency and self-generation for large energy consumers.' },
   { icon: 'battery_charging_full', img: '/img/storage.jpg', h: 'Storage', p: 'Battery integration for firmness and demand management.' },
   { icon: 'verified', img: '/img/engineer.jpg', h: 'Owner’s engineer', p: 'Independent engineering for investors and lenders.' },
 ];
@@ -41,7 +58,7 @@ const businessSchema = {
   '@type': 'Organization',
   name: 'forward energy',
   description: 'engineering and services firm for renewable energy projects in panama.',
-  url: 'https://forward-nrg.com/',
+  url: 'https://forward-nrg.com/en',
   email: 'admin@forward-nrg.com',
   areaServed: { '@type': 'Country', name: 'Panama' },
   knowsLanguage: ['es', 'en'],
@@ -49,28 +66,46 @@ const businessSchema = {
 ---
 
 <BaseLayout
-  title="forward energy · renewable energy project development & delivery in panama"
-  description="forward energy is a panama-based engineering and services firm for renewable energy projects — from feasibility to operations."
+  title="forward energy · engineering for renewable energy projects in panama"
+  description="forward energy is a Panamanian engineering and services firm for renewable energy projects — judgment and clarity, from feasibility to operation."
   locale={locale}
 >
   <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
 
   <section class="hero">
+    <BrandMark />
     <div class="site-wrap">
       <div class="hero-inner">
-        <div class="hero-eb">// renewable energy · panama · from feasibility to operation</div>
-        <h1 class="hero-h">From concept to <span class="accent">operation.</span></h1>
+        <div class="hero-eb">// renewable energy · panama · idea to operation</div>
+        <h1 class="hero-h">Engineering judgment for Panama’s complex <span class="accent">energy grid.</span></h1>
       </div>
       <p class="hero-lede">
-        Forward Energy takes renewable energy projects from start to finish: feasibility,
-        engineering, permitting, construction and operations. The technical partner that
-        reduces your risk and keeps the asset performing.
+        For over a decade, Forward Energy has designed, built and optimized high-yield renewable
+        projects. We pair regulatory foresight with creative engineering to turn a complex grid
+        into predictable, long-term assets.
       </p>
       <div class="hero-ctas">
         <a class="btn accent" href={localized('/contact', locale)}>
           {t('cta.consult')}<span class="arrow-tail" aria-hidden="true"></span>
         </a>
         <a class="btn" href={localized('/services', locale)}>{t('cta.viewServices')}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// why Forward</div>
+      <h2 class="block-h">Agile specialists, with institutional-grade authority.</h2>
+      <p class="block-sub">We don’t win by being the loudest in the room — we win by being the clearest in a complex regulatory landscape.</p>
+      <div class="cred-band">
+        {cred.map((c) => (
+          <div class="cred-cell">
+            <span class="cred-k">{c.k}</span>
+            <span class="cred-v">{c.v}</span>
+            <span class="cred-d">{c.d}</span>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -91,8 +126,8 @@ const businessSchema = {
 
   <section class="block dark">
     <div class="site-wrap">
-      <div class="block-eb">// why forward</div>
-      <h2 class="block-h">Execution certainty, not green promises.</h2>
+      <div class="block-eb">// how we work</div>
+      <h2 class="block-h">Certainty of execution, not green promises.</h2>
       <div class="vcards">
         {values.map((v) => (
           <div class="vcard">
@@ -105,11 +140,41 @@ const businessSchema = {
     </div>
   </section>
 
+  <section class="block dark" style="border-top:1px solid var(--line-on-ink);">
+    <div class="site-wrap">
+      <div class="block-eb">// judgment in action</div>
+      <div class="grid-2" style="align-items:center;">
+        <div>
+          <TriMark width={64} />
+          <h2 class="block-h" style="margin-top:20px;">The standard permit leaves <span class="accent">energy on the table.</span></h2>
+          <p class="block-sub" style="margin-bottom:18px;">
+            Many solar plants in Panama are designed strictly around peak solar hours, leaving
+            capacity unused because of standard permit limits. By integrating storage (BESS), that
+            surplus is captured and dispatched off-peak — under the same permit.
+          </p>
+          <p class="block-sub" style="color:var(--on-ink);">
+            That’s the difference between standard engineering and judgment. We’ll gladly look at
+            your project’s hidden capacity.
+          </p>
+          <div style="margin-top:28px;">
+            <a class="btn accent" href={localized('/services/optimization', locale)}>
+              Asset optimization<span class="arrow-tail" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+        <div class="proof-metric">
+          <span class="pm-num">≈2×</span>
+          <span class="pm-label">potential capacity utilization of the asset, without renegotiating the permit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="block">
     <div class="site-wrap">
       <div class="block-eb">// what we do</div>
-      <h2 class="block-h">Services across the <span class="accent">whole project lifecycle.</span></h2>
-      <p class="block-sub">One firm, from feasibility through long-term operations.</p>
+      <h2 class="block-h">Services for the entire <span class="accent">project lifecycle.</span></h2>
+      <p class="block-sub">A single firm from feasibility through long-term operation.</p>
       <div class="svc-list">
         {services.map((s) => (
           <div class="svc-row">
@@ -129,12 +194,30 @@ const businessSchema = {
 
   <section class="block alt">
     <div class="site-wrap">
+      <div class="block-eb">// who we serve</div>
+      <h2 class="block-h">Your project, from your point of view.</h2>
+      <p class="block-sub">We adjust the focus to who’s deciding — but the judgment is the same.</p>
+      <div class="aud-grid">
+        {audiences.map((a) => (
+          <div class="aud-card">
+            <Icon name={a.icon} class="aud-icon" size={30} />
+            <span class="aud-i">{a.i}</span>
+            <h3>{a.h}</h3>
+            <p>{a.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
       <div class="block-eb">// sectors</div>
       <h2 class="block-h">Where we work.</h2>
       <div class="imgcard-grid">
         {sectors.map((s) => (
           <div class="imgcard" style={`--card-img:url(${s.img})`}>
-            <span class="material-symbols-outlined icon-md ic-icon">{s.icon}</span>
+            <Icon name={s.icon} class="ic-icon" size={32} />
             <h3>{s.h}</h3>
             <p>{s.p}</p>
           </div>
@@ -147,7 +230,7 @@ const businessSchema = {
     <div class="site-wrap">
       <div class="mb-inner">
         <div class="block-eb">// panama</div>
-        <h2>Another plant connected to the grid. No grand headlines.</h2>
+        <h2>We connected another plant to the grid. No grand headlines.</h2>
       </div>
     </div>
   </section>
@@ -177,7 +260,7 @@ const businessSchema = {
       ) : (
         <div class="empty-state">
           <img src="/forward-mark.png" alt="" />
-          <p>We’re documenting our project portfolio. In the meantime, we’re glad to walk you through what we’ve brought to operation in Panama — get in touch.</p>
+          <p>We’re documenting our project portfolio. In the meantime, we’d be glad to tell you what we’ve brought to operation in Panama — get in touch.</p>
           <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
         </div>
       )}

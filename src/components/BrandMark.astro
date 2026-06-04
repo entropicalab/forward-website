@@ -1,0 +1,20 @@
+---
+/**
+ * forward energy · brand symbol (two advancing triangles)
+ * decorative, faint — used large behind dark heroes (brandbook v2 §03/§07).
+ */
+interface Props {
+  class?: string;
+}
+const cls = Astro.props.class ?? '';
+---
+
+<svg
+  class:list={['brand-mark', cls]}
+  viewBox="0 0 120 132"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path d="M4 6 L4 86 L62 46 Z" opacity="0.45"></path>
+  <path d="M30 46 L30 128 L92 87 Z"></path>
+</svg>

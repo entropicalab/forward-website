@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { localized, tr } from '../i18n/utils';
 
 const locale = 'es' as const;
@@ -36,7 +37,7 @@ const resources = [
         {resources.map((r) => (
           <div class="list-row">
             <div class="lr-main">
-              <span class="material-symbols-outlined icon-md lr-icon">{r.icon}</span>
+              <Icon name={r.icon} class="lr-icon" size={28} />
               <div>
                 <h3>{r.title}</h3>
                 <p>{r.desc}</p>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forward Energy — Manual de Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  /* ---- core palette ---- */
+  --white:#ffffff;
+  --paper:#FBFBF9;          /* page background, barely-off white */
+  --paper-2:#F3F2EC;        /* soft panel on light */
+  --basalt:#0F120A;         /* "black" — Basalt Shadow */
+  --basalt-2:#191D12;       /* lifted panel on black */
+  --ink-soft:#ECEDE6;       /* off-white text on dark */
+
+  --green:#84BC69;          /* Forward Green — the logo green */
+  --green-bright:#99C884;   /* lighter logo tint */
+  --green-ink:#3E6730;      /* deep green — accent text on light */
+
+  --mist:#75A39A;           /* Sea Mist — secondary accent */
+  --mist-ink:#3F5C55;       /* deeper mist for text on light */
+  --mist-soft:#AECBC4;      /* light mist for graphics */
+  --panel-tint:#E8EEEB;     /* light green-gray hover */
+
+  --muted:#62675A;          /* secondary text on light */
+  --line:rgba(15,18,10,.13);
+  --line-on-dark:rgba(255,255,255,.15);
+  --line-on-green:rgba(15,18,10,.22);
+
+  --f-sans:"Roboto", system-ui, -apple-system, sans-serif;
+  --f-mono:"Roboto Mono", ui-monospace, monospace;
+
+  --maxw:1240px;
+  --pad:clamp(20px,5vw,72px);
+  --r:16px;                 /* corner radius (tweakable) */
+  --title-weight:700;       /* heading weight (tweakable) */
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body{
+  font-family:var(--f-sans);
+  background:var(--paper);
+  color:var(--basalt);
+  font-size:18px;
+  line-height:1.62;
+  font-weight:400;
+  overflow-x:hidden;
+}
+::selection{background:var(--green);color:var(--basalt);}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);}
+section{position:relative;}
+.section-pad{padding-top:clamp(82px,11vw,148px);padding-bottom:clamp(82px,11vw,148px);}
+
+h1,h2,h3,h4{font-family:var(--f-sans);font-weight:600;line-height:1.02;letter-spacing:-.025em;}
+.section-title{font-size:clamp(40px,6.4vw,80px);font-weight:var(--title-weight);letter-spacing:-.035em;line-height:.98;margin-top:24px;text-wrap:balance;}
+.lead{font-size:clamp(19px,2.1vw,24px);line-height:1.5;max-width:60ch;font-weight:400;}
+.muted{color:var(--muted);}
+
+/* eyebrow / mono label */
+.eyebrow{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:14px;color:var(--green-ink);font-weight:500;}
+.eyebrow .bar{height:1px;width:44px;background:currentColor;opacity:.45;}
+
+/* accent text colors */
+.t-green{color:var(--green-ink);}
+.t-mist{color:var(--mist-ink);}
+
+/* ---- background modes ---- */
+.sec-black{background:var(--basalt);color:var(--ink-soft);}
+.sec-black .section-title{color:var(--white);}
+.sec-black .lead{color:#C7C9BE;}
+.sec-black .muted{color:#9A9D90;}
+.sec-black .eyebrow{color:var(--green-bright);}
+.sec-black .t-green{color:var(--green-bright);}
+
+.sec-green{background:var(--green);color:var(--basalt);}
+.sec-green .section-title{color:var(--basalt);}
+.sec-green .lead{color:#16331A;}
+.sec-green .muted{color:#2C3F25;}
+.sec-green .eyebrow{color:var(--basalt);}
+.sec-green .t-green{color:#1E3D17;}
+
+/* logo images */
+.logo-img{display:block;height:auto;}
+
+/* svg mark (single-colour, tintable) */
+.mk{display:block;color:var(--green);}
+.mk path{fill:currentColor;}
+
+/* ============ NAV ============ */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:17px var(--pad);background:transparent;transition:background .3s ease,padding .3s ease,border-color .3s ease;border-bottom:1px solid transparent;}
+.topbar.solid{background:rgba(15,18,10,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-on-dark);padding-top:13px;padding-bottom:13px;}
+.topbar .brand{display:flex;align-items:center;}
+.topbar .brand img{height:23px;width:auto;display:block;}
+.topbar nav{display:flex;gap:24px;}
+.topbar nav a{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;opacity:.72;transition:opacity .2s,color .2s;}
+.topbar nav a:hover{opacity:1;color:var(--green-bright);}
+@media(max-width:880px){.topbar nav{display:none;}}
+
+/* ============ HERO ============ */
+.hero{background:var(--basalt);color:var(--ink-soft);min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;padding-top:118px;padding-bottom:46px;}
+.hero .markbg{position:absolute;top:50%;right:clamp(-120px,-4vw,-40px);transform:translateY(-50%);width:clamp(360px,46vw,720px);color:#1C2114;opacity:.9;pointer-events:none;z-index:1;}
+.hero-top,.hero-center,.hero-bottom{position:relative;z-index:2;}
+.hero-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8B8E81;border-bottom:1px solid var(--line-on-dark);padding-bottom:22px;}
+.hero-center{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0;}
+.hero-logo{width:clamp(300px,54vw,660px);height:auto;}
+.hero-tag{margin-top:clamp(34px,4.5vw,54px);font-weight:400;font-size:clamp(20px,2.4vw,30px);max-width:25ch;line-height:1.34;color:var(--ink-soft);letter-spacing:-.01em;}
+.hero-tag b{font-weight:600;color:var(--green-bright);}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;font-family:var(--f-mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#8B8E81;}
+.hero-bottom .scroll{display:flex;align-items:center;gap:10px;}
+.hero-bottom .scroll .dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+
+/* ============ layout helpers ============ */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);}
+.grid-2.align-top{align-items:start;}
+@media(max-width:820px){.grid-2{grid-template-columns:1fr;gap:42px;}}
+
+/* services list */
+.svc-list{margin-top:40px;border-top:1px solid var(--line);}
+.svc-row{display:grid;grid-template-columns:64px 1fr auto;align-items:baseline;gap:20px;padding:22px 4px;border-bottom:1px solid var(--line);transition:padding-left .25s ease,background .25s ease;}
+.svc-row:hover{padding-left:14px;background:linear-gradient(90deg,rgba(132,188,105,.14),transparent);}
+.svc-row .idx{font-family:var(--f-mono);font-size:13px;color:var(--green-ink);letter-spacing:.04em;}
+.svc-row .name{font-size:clamp(22px,3vw,32px);font-weight:600;letter-spacing:-.025em;line-height:1.08;}
+.svc-row .desc{font-size:14.5px;color:var(--muted);max-width:36ch;text-align:right;line-height:1.45;}
+@media(max-width:680px){.svc-row{grid-template-columns:42px 1fr;}.svc-row .desc{display:none;}}
+
+/* value cards (on green) */
+.vcards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:54px;}
+.vcard{background:var(--basalt);color:var(--ink-soft);border-radius:var(--r);padding:30px 26px;display:flex;flex-direction:column;gap:13px;min-height:262px;}
+.vcard .vc-num{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;color:var(--green-bright);}
+.vcard h3{font-size:25px;font-weight:600;letter-spacing:-.025em;color:var(--white);}
+.vcard p{font-size:14.5px;color:#A9AC9F;line-height:1.55;}
+.vcard .mk{margin-top:auto;width:26px;color:var(--green);}
+@media(max-width:880px){.vcards{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.vcards{grid-template-columns:1fr;}}
+
+/* ============ swatches / color ============ */
+.sw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(40px,5vw,60px);}
+@media(max-width:880px){.sw-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.sw-grid{grid-template-columns:1fr;}}
+.sw{border-radius:var(--r);overflow:hidden;border:1px solid var(--line-on-dark);display:flex;flex-direction:column;min-height:300px;}
+.sw .swatch{flex:1;min-height:150px;}
+.sw .meta{background:var(--basalt-2);padding:20px 22px;display:flex;flex-direction:column;gap:3px;}
+.sw .nm{font-size:21px;font-weight:600;letter-spacing:-.02em;color:var(--white);}
+.sw .role{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8B8E81;margin-bottom:6px;}
+.sw .vals{font-family:var(--f-mono);font-size:11.5px;color:#A9AC9F;line-height:1.7;letter-spacing:.01em;margin-top:8px;}
+.sw .vals b{color:var(--ink-soft);font-weight:500;}
+
+/* hue arc */
+.arc{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-on-dark);margin-top:18px;}
+.arc div{height:84px;display:flex;align-items:flex-end;padding:12px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.04em;}
+
+/* proportion bar */
+.prop{display:flex;height:62px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-on-dark);}
+.pair{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:10px;font-weight:600;font-size:16px;}
+.pair span{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;opacity:.72;font-weight:500;}
+
+/* ============ type scale ============ */
+.type-fam{display:grid;grid-template-columns:230px 1fr;gap:30px;align-items:center;}
+@media(max-width:680px){.type-fam{grid-template-columns:1fr;gap:14px;}}
+.ts-row{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line);}
+.ts-meta{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;}
+@media(max-width:680px){.ts-row{grid-template-columns:1fr;gap:8px;}}
+
+/* ============ voice (on green) ============ */
+.callout{background:rgba(15,18,10,.06);border:1px solid var(--line-on-green);border-radius:var(--r);padding:22px 26px;display:flex;gap:16px;align-items:flex-start;}
+.callout .mk{flex:none;width:24px;color:var(--basalt);margin-top:3px;}
+.callout p{font-size:16px;line-height:1.5;color:var(--basalt);}
+.callout b{font-weight:600;}
+.vt-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.vt-card{border-radius:var(--r);padding:26px 28px;display:flex;flex-direction:column;gap:12px;}
+.vt-no{background:rgba(15,18,10,.07);border:1px solid var(--line-on-green);}
+.vt-yes{background:var(--basalt);}
+.vt-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:8px;font-weight:500;}
+.vt-no .vt-tag{color:#7A5A2A;}
+.vt-no .vt-tag::before{content:"\2715";font-weight:700;}
+.vt-yes .vt-tag{color:var(--green-bright);}
+.vt-yes .vt-tag::before{content:"\2192";font-weight:700;}
+.vt-no p{font-size:17px;line-height:1.5;color:#33401F;}
+.vt-yes p{font-size:18px;line-height:1.5;color:var(--ink-soft);font-weight:500;}
+.word-cloud{display:flex;flex-wrap:wrap;gap:10px;}
+.w-use,.w-no{font-weight:500;font-size:clamp(16px,2vw,21px);padding:8px 16px;border-radius:100px;letter-spacing:-.01em;}
+.w-use{background:var(--basalt);color:var(--green-bright);}
+.w-no{background:transparent;color:rgba(15,18,10,.45);border:1px solid rgba(15,18,10,.28);text-decoration:line-through;text-decoration-color:#9C6B2E;}
+.tagbox{background:var(--basalt);border-radius:var(--r);padding:30px 28px;font-weight:600;font-size:clamp(20px,2.6vw,28px);letter-spacing:-.025em;color:var(--white);line-height:1.14;}
+@media(max-width:680px){.vt-pair{grid-template-columns:1fr;}}
+
+/* ============ logo section panels ============ */
+.panel{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);}
+.misuse{display:flex;flex-direction:column;gap:10px;}
+.mu-box{position:relative;background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:18px;}
+.mu-box img{width:80%;max-width:180px;height:auto;}
+.mu-box::after{content:"\2715";position:absolute;top:8px;right:10px;font-family:var(--f-mono);font-size:15px;color:#B0492F;font-weight:700;z-index:3;}
+.mu-cap{font-size:13px;color:var(--muted);line-height:1.35;}
+
+/* ============ iconography ============ */
+.icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.icon-cell{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);padding:24px 16px;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--green-ink);transition:color .2s,background .2s;}
+.icon-cell:hover{color:var(--basalt);background:var(--panel-tint);}
+.icon-cell svg{width:38px;height:38px;}
+.icon-cell span{font-family:var(--f-mono);font-size:11px;letter-spacing:.03em;color:var(--muted);text-align:center;line-height:1.3;}
+@media(max-width:860px){.icon-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:460px){.icon-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* imagery */
+.img-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.img-frame{display:flex;flex-direction:column;gap:12px;}
+.img-ph{aspect-ratio:4/3;border-radius:var(--r);background:linear-gradient(150deg,#5E8F84,#75A39A 70%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.img-ph::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 80% at 75% 12%,rgba(132,188,105,.4),transparent 55%);}
+.img-ph.no-ph{background:repeating-linear-gradient(45deg,#E2E2DC,#E2E2DC 12px,#D5D5CD 12px,#D5D5CD 24px);}
+.img-ph .mk{position:relative;z-index:2;width:46px;color:var(--white);opacity:.92;}
+.img-cap{font-size:13.5px;color:var(--muted);line-height:1.4;}
+.img-cap b{color:var(--basalt);}
+.img-frame.yes .img-cap b{color:var(--green-ink);}
+.img-frame.no .img-cap b{color:#B0492F;}
+@media(max-width:760px){.img-grid{grid-template-columns:1fr;}}
+
+/* applications */
+.bizcard{aspect-ratio:1.75/1;border-radius:var(--r);padding:22px;}
+
+/* footer */
+.footer{background:var(--basalt);color:var(--ink-soft);padding-top:88px;padding-bottom:48px;overflow:hidden;position:relative;}
+.footer-word{font-family:var(--f-mono);font-weight:500;font-size:clamp(60px,16vw,236px);line-height:.9;letter-spacing:-.05em;color:#1A1F12;position:relative;}
+.footer-word .pt{color:var(--green);}
+.footer-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8B8E81;border-top:1px solid var(--line-on-dark);padding-top:26px;margin-top:46px;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+.sec2{display:grid;grid-template-columns:1fr 1.1fr;gap:14px;align-items:stretch;}
+@media(max-width:760px){
+  .sw-grid.cols4{grid-template-columns:1fr 1fr;}
+  #color .grid-2{grid-template-columns:1fr;}
+  .sec2{grid-template-columns:1fr;}
+  #aplicaciones .app-2{grid-template-columns:1fr !important;}
+}
+</style>
+</head>
+<body>
+<!-- ============ TOP NAV ============ -->
+<div class="topbar" id="topbar">
+  <a href="#top" class="brand" aria-label="Forward Energy"><img src="brand/fe-logo-reversed.png" alt="Forward Energy" /></a>
+  <nav>
+    <a href="#marca">Marca</a>
+    <a href="#logo">Logo</a>
+    <a href="#color">Color</a>
+    <a href="#tipografia">Tipografía</a>
+    <a href="#voz">Voz</a>
+    <a href="#aplicaciones">Aplicaciones</a>
+  </nav>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <svg class="markbg" viewBox="0 0 120 132" fill="none" aria-hidden="true"><path d="M4 6 L4 86 L62 46 Z" fill="currentColor" opacity=".55"/><path d="M30 46 L30 128 L92 87 Z" fill="currentColor"/></svg>
+  <div class="wrap hero-top">
+    <div class="hero-meta">
+      <span>Manual de Marca</span>
+      <span>Edición 02 · 2026</span>
+      <span>Panamá</span>
+      <span>Español</span>
+    </div>
+  </div>
+  <div class="wrap hero-center">
+    <img class="hero-logo" src="brand/fe-logo-reversed.png" alt="Forward Energy" />
+    <p class="hero-tag">Ingeniería y servicios para proyectos de energía renovable en Panamá. Acompañamos cada proyecto, <b>de la idea a la operación.</b></p>
+  </div>
+  <div class="wrap hero-bottom">
+    <div class="scroll"><span class="dot"></span> Desplácese para explorar</div>
+    <div>Identidad · Tono · Aplicaciones</div>
+  </div>
+</section>
+
+<!-- ============ 01 · MARCA ============ -->
+<section id="marca" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>01</span><span class="bar"></span><span>La marca</span></div>
+    <h2 class="section-title reveal">Hacemos que los proyectos<br>de energía <span class="t-green">avancen.</span></h2>
+  </div>
+  <div class="wrap grid-2 align-top" style="margin-top:clamp(48px,7vw,90px);">
+    <div class="reveal">
+      <p class="lead">Forward Energy es una firma panameña de ingeniería y servicios para proyectos de generación renovable. Acompañamos a desarrolladores, propietarios, gobiernos y fondos en cada etapa — desde la factibilidad hasta la operación — con criterio técnico y respuestas claras.</p>
+    </div>
+    <div class="reveal">
+      <p style="font-size:17px;line-height:1.65;">El nombre lo dice: hacia adelante. Movemos proyectos que muchas veces se detienen por permisos, dudas técnicas o decisiones de inversión. No prometemos salvar el planeta; resolvemos lo que hace falta para que la energía renovable funcione en el mundo real.</p>
+      <p style="font-size:17px;line-height:1.65;margin-top:20px;">Esa es la promesa que ordena todo este manual: <span class="t-green" style="font-weight:700;">experiencia, criterio y claridad.</span></p>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(64px,9vw,110px);">
+    <div class="eyebrow reveal" style="margin-bottom:24px;"><span class="bar"></span><span>Posicionamiento</span></div>
+    <p class="reveal" style="font-weight:500;font-size:clamp(26px,4.2vw,50px);line-height:1.12;letter-spacing:-.03em;text-wrap:balance;max-width:21ch;">
+      El socio técnico que lleva su proyecto renovable de <span class="t-green">la idea</span> a <span class="t-green">la operación.</span>
+    </p>
+  </div>
+  <div class="wrap" style="margin-top:clamp(64px,9vw,110px);">
+    <div class="eyebrow reveal" style="margin-bottom:8px;"><span class="bar"></span><span>Qué hacemos · Alcance de servicios</span></div>
+    <div class="svc-list reveal">
+      <div class="svc-row"><span class="idx">01</span><span class="name">Factibilidad e interconexión</span><span class="desc">Viabilidad técnica y conexión a la red</span></div>
+      <div class="svc-row"><span class="idx">02</span><span class="name">Ingeniería</span><span class="desc">Diseño eléctrico, levantamientos, topografía y estudios ambientales</span></div>
+      <div class="svc-row"><span class="idx">03</span><span class="name">Permisos</span><span class="desc">Gestión y tramitación regulatoria</span></div>
+      <div class="svc-row"><span class="idx">04</span><span class="name">Contratos de venta de energía</span><span class="desc">Estructuración de acuerdos PPA</span></div>
+      <div class="svc-row"><span class="idx">05</span><span class="name">Mantenimiento</span><span class="desc">Operación y servicio en sitio</span></div>
+      <div class="svc-row"><span class="idx">06</span><span class="name">Termografía para garantías</span><span class="desc">Inspección térmica para reclamos de garantía</span></div>
+      <div class="svc-row"><span class="idx">07</span><span class="name">Due diligence financiero</span><span class="desc">Respaldo técnico para financiamiento</span></div>
+      <div class="svc-row"><span class="idx">08</span><span class="name">Inspecciones</span><span class="desc">Verificación de calidad y desempeño</span></div>
+      <div class="svc-row"><span class="idx">09</span><span class="name">Optimización de proyectos</span><span class="desc">Mejora de rendimiento y retorno</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · PERSONALIDAD (green) ============ -->
+<section id="personalidad" class="sec-green section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>02</span><span class="bar"></span><span>Personalidad y valores</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">Cómo somos<br>cuando hablamos.</h2>
+    <p class="lead reveal" style="margin-top:28px;">Cuatro rasgos guían cada decisión visual y de contenido. Si algo no encaja con ellos, no es Forward.</p>
+    <div class="vcards">
+      <div class="vcard reveal"><span class="vc-num">01</span><h3>Con experiencia</h3><p>Trayectoria y rigor de ingeniería detrás de cada recomendación.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+      <div class="vcard reveal"><span class="vc-num">02</span><h3>Claros</h3><p>Explicamos sin abrumar. Lo técnico se traduce, no se esconde tras la jerga.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+      <div class="vcard reveal"><span class="vc-num">03</span><h3>Honestos</h3><p>Sin promesas verdes vacías. Cada afirmación tiene datos e ingeniería detrás.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+      <div class="vcard reveal"><span class="vc-num">04</span><h3>Cercanos</h3><p>Accesibles y humanos, dentro del respeto profesional. Serios, no acartonados.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · LOGO ============ -->
+<section id="logo" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>03</span><span class="bar"></span><span>El logo</span></div>
+    <h2 class="section-title reveal">El logotipo,<br>tal como <span class="t-green">es.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;">Triángulos que avanzan — la idea de poner los proyectos en marcha — junto al logotipo «Forward Energy» en una tipografía monoespaciada, separados por una línea vertical. Se usa siempre con sus proporciones originales.</p>
+  </div>
+
+  <div class="wrap reveal" style="margin-top:clamp(48px,6vw,80px);">
+    <div style="background:var(--basalt);border-radius:var(--r);padding:clamp(44px,8vw,104px);display:flex;align-items:center;justify-content:center;min-height:340px;position:relative;overflow:hidden;">
+      <svg class="markbg" style="color:#1C2114;opacity:.7;right:-60px;width:46%;" viewBox="0 0 120 132" fill="none" aria-hidden="true"><path d="M4 6 L4 86 L62 46 Z" fill="currentColor" opacity=".55"/><path d="M30 46 L30 128 L92 87 Z" fill="currentColor"/></svg>
+      <img src="brand/fe-logo-reversed.png" alt="Forward Energy" style="position:relative;width:min(560px,80%);height:auto;" />
+    </div>
+    <p class="muted" style="font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:14px;">Lockup principal · versión en negativo para fondos oscuros</p>
+  </div>
+
+  <div class="wrap" style="margin-top:clamp(48px,6vw,72px);">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+      <div class="reveal panel" style="padding:44px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:230px;text-align:center;">
+        <img src="brand/fe-logo.png" alt="Forward Energy" style="width:78%;max-width:230px;height:auto;" />
+        <span style="font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);">Positivo · sobre fondo claro</span>
+      </div>
+      <div class="reveal" style="background:var(--green);border-radius:var(--r);padding:44px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:230px;text-align:center;">
+        <svg class="mk" style="color:var(--basalt);width:64px;" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg>
+        <span style="font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#1E3D17;">Símbolo solo · isotipo</span>
+      </div>
+      <div class="reveal" style="background:var(--basalt);border-radius:var(--r);padding:44px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:230px;text-align:center;">
+        <img src="brand/fe-logo-mono.png" alt="Forward Energy monocromo" style="width:78%;max-width:230px;height:auto;filter:brightness(0) invert(1);opacity:.92;" />
+        <span style="font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8B8E81;">Monocromo · una tinta</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap grid-2 align-top" style="margin-top:clamp(56px,7vw,90px);">
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:22px;"><span class="bar"></span><span>Área de protección</span></div>
+      <div class="panel" style="padding:40px;display:flex;justify-content:center;">
+        <div style="position:relative;padding:30px;">
+          <span style="position:absolute;inset:0;border:1px dashed var(--green-ink);opacity:.6;border-radius:3px;"></span>
+          <span style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:11px;color:var(--green-ink);background:var(--paper-2);padding:0 6px;">x</span>
+          <img src="brand/fe-logo.png" alt="Forward Energy" style="width:240px;max-width:60vw;height:auto;display:block;" />
+        </div>
+      </div>
+      <p class="muted" style="font-size:14.5px;margin-top:16px;">Deje un margen libre de al menos <strong style="color:var(--basalt);">«x»</strong> — la altura del símbolo — alrededor de todo el logo. Ningún otro elemento invade esa zona.</p>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:22px;"><span class="bar"></span><span>Tamaño mínimo</span></div>
+      <div class="panel" style="padding:40px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:44px;">
+        <div style="text-align:center;">
+          <img src="brand/fe-logo.png" alt="Forward Energy" style="width:120px;height:auto;display:block;margin-bottom:14px;" />
+          <span style="font-family:var(--f-mono);font-size:11px;color:var(--muted);">120 px / 32 mm</span><br>
+          <span style="font-family:var(--f-mono);font-size:11px;color:var(--muted);">digital / impreso</span>
+        </div>
+        <div style="text-align:center;">
+          <svg class="mk" style="color:var(--green-ink);width:26px;margin:0 auto 14px;" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg>
+          <span style="font-family:var(--f-mono);font-size:11px;color:var(--muted);">24 px símbolo<br>solo</span>
+        </div>
+      </div>
+      <p class="muted" style="font-size:14.5px;margin-top:16px;">Por debajo de estos tamaños use solo el símbolo. Nunca comprima el logo hasta perder legibilidad.</p>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:clamp(56px,7vw,90px);">
+    <div class="eyebrow reveal" style="margin-bottom:24px;"><span class="bar"></span><span>Usos incorrectos</span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;" class="reveal">
+      <div class="misuse"><div class="mu-box"><img src="brand/fe-logo.png" alt="" style="transform:skewX(-13deg);" /></div><span class="mu-cap">No incline el logo</span></div>
+      <div class="misuse"><div class="mu-box" style="background:linear-gradient(120deg,#ff5e8a,#7b61ff);"><img src="brand/fe-logo-reversed.png" alt="" style="filter:hue-rotate(80deg) saturate(1.5);" /></div><span class="mu-cap">No altere los colores</span></div>
+      <div class="misuse"><div class="mu-box"><img src="brand/fe-logo.png" alt="" style="transform:scaleX(1.7);" /></div><span class="mu-cap">No estire ni cambie las proporciones</span></div>
+      <div class="misuse"><div class="mu-box"><img src="brand/fe-logo.png" alt="" style="filter:drop-shadow(0 6px 6px rgba(0,0,0,.45));" /></div><span class="mu-cap">No aplique sombras ni efectos</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · COLOR (black) ============ -->
+<section id="color" class="sec-black section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>04</span><span class="bar"></span><span>Color</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">El verde de la marca,<br>y la <span class="t-green">bruma fresca.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:60ch;">El sistema se ordena en torno a tres colores estructurales — el verde de la marca, la sombra basalto y el blanco — y un único acento: la bruma marina. Una paleta corta, fácil de aplicar y difícil de romper.</p>
+  </div>
+
+  <!-- primary palette cards -->
+  <div class="sw-grid reveal">
+    <div class="sw">
+      <div class="swatch" style="background:var(--green);"></div>
+      <div class="meta"><span class="role">Primario · Marca</span><span class="nm">Forward Green</span><span class="vals"><b>HEX</b> 84BC69 &nbsp; <b>RGB</b> 132 188 105<br><b>CMYK</b> 30 · 0 · 44 · 26</span></div>
+    </div>
+    <div class="sw">
+      <div class="swatch" style="background:var(--basalt);border-bottom:1px solid var(--line-on-dark);"></div>
+      <div class="meta"><span class="role">Base · Tinta</span><span class="nm">Basalt Shadow</span><span class="vals"><b>HEX</b> 0F120A &nbsp; <b>RGB</b> 15 18 10<br><b>CMYK</b> 17 · 0 · 44 · 93</span></div>
+    </div>
+    <div class="sw">
+      <div class="swatch" style="background:var(--white);"></div>
+      <div class="meta"><span class="role">Fondo · Respiro</span><span class="nm">Blanco</span><span class="vals"><b>HEX</b> FFFFFF &nbsp; <b>RGB</b> 255 255 255<br><b>CMYK</b> 0 · 0 · 0 · 0</span></div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding:0;margin-top:30px;">
+    <div class="eyebrow reveal" style="margin-bottom:18px;"><span class="bar"></span><span>Secundario · el único acento</span></div>
+  </div>
+  <div class="sec2 reveal">
+    <div class="sw" style="min-height:300px;">
+      <div class="swatch" style="background:var(--mist);"></div>
+      <div class="meta"><span class="role">Secundario · Bruma marina</span><span class="nm">Sea Mist</span><span class="vals"><b>HEX</b> 75A39A &nbsp; <b>RGB</b> 117 163 154<br><b>CMYK</b> 28 · 0 · 6 · 36</span></div>
+    </div>
+    <div style="background:var(--basalt-2);border:1px solid var(--line-on-dark);border-radius:var(--r);padding:clamp(26px,3vw,40px);display:flex;flex-direction:column;justify-content:center;gap:14px;">
+      <div style="font-size:clamp(20px,2.4vw,26px);font-weight:600;letter-spacing:-.02em;color:var(--white);line-height:1.2;">Un solo acento, fresco y sin ruido.</div>
+      <p style="font-size:15.5px;color:#A9AC9F;line-height:1.6;max-width:44ch;">Sea Mist es la contraparte fría del verde. Aparece en datos, gráficos, estados e interfaz — presente y reconocible, pero siempre <strong style="color:var(--ink-soft);">un paso por debajo del verde</strong>. El verde manda; la bruma acompaña.</p>
+    </div>
+  </div>
+
+  <!-- hue arc -->
+  <div class="wrap grid-2 align-top" style="padding:0;margin-top:clamp(44px,6vw,68px);">
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:18px;"><span class="bar"></span><span>Verde y bruma</span></div>
+      <p class="muted" style="font-size:15px;margin-bottom:14px;">Comparten el mismo eje frío-verde: la bruma es el verde llevado un poco hacia el azul. Por eso conviven sin competir — la transición entre ambos es continua.</p>
+      <div class="arc">
+        <div style="background:var(--green);color:#1E3D17;">Verde</div>
+        <div style="background:#82B58C;color:#163019;"></div>
+        <div style="background:#7DAE92;color:#13311C;"></div>
+        <div style="background:#79A697;color:#163029;"></div>
+        <div style="background:var(--mist);color:#1D332E;">Mist</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:18px;"><span class="bar"></span><span>Proporción de uso</span></div>
+      <div class="prop">
+        <div style="flex:52;background:var(--white);"></div>
+        <div style="flex:24;background:var(--basalt);"></div>
+        <div style="flex:14;background:var(--green);"></div>
+        <div style="flex:10;background:var(--mist);"></div>
+      </div>
+      <p class="muted" style="font-size:14.5px;margin-top:14px;">Domina el blanco; la basalto estructura y da peso; el verde es la marca y el fondo de energía. La bruma marina es el acento secundario — datos, gráficos y detalles. Aprox. <strong style="color:var(--ink-soft);">52 / 24 / 14 / 10</strong>.</p>
+      <div class="eyebrow" style="margin:26px 0 14px;"><span class="bar"></span><span>Pares seguros</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="pair" style="background:var(--basalt);color:var(--white);">Basalto + Blanco <span>AAA</span></div>
+        <div class="pair" style="background:var(--green);color:var(--basalt);">Verde + Basalto <span>AA</span></div>
+        <div class="pair" style="background:var(--white);color:var(--basalt);border:1px solid var(--line);">Blanco + Basalto <span>AAA</span></div>
+      </div>
+      <p class="muted" style="font-size:13.5px;margin-top:12px;">Para cuerpos de texto use basalto sobre blanco o verde, o blanco sobre basalto. Evite la bruma marina como fondo de texto largo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · TIPOGRAFÍA ============ -->
+<section id="tipografia" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>05</span><span class="bar"></span><span>Tipografía</span></div>
+    <h2 class="section-title reveal">Una sola voz:<br><span class="t-green">Roboto.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:58ch;">Una familia para todo. Roboto es clara, neutral y muy legible — técnica sin frialdad. Para titular pesa fuerte; para explicar se relaja. Roboto Mono aporta el aire técnico de etiquetas, datos y el propio logotipo.</p>
+  </div>
+  <div class="wrap" style="margin-top:clamp(48px,6vw,80px);display:flex;flex-direction:column;gap:18px;">
+    <div class="reveal" style="background:var(--basalt);color:var(--ink-soft);border-radius:var(--r);padding:clamp(28px,4vw,48px);">
+      <div class="type-fam">
+        <div>
+          <span style="font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-bright);">Display · Titulares</span>
+          <div style="font-weight:700;font-size:27px;margin-top:8px;">Roboto · Bold 700</div>
+          <p style="font-size:13.5px;color:#A9AC9F;margin-top:8px;line-height:1.5;">Titulares con peso y matices cerrados. Mira hacia adelante, con seriedad. Pesos 500–700, tracking negativo.</p>
+        </div>
+        <div style="font-weight:700;font-size:clamp(40px,7vw,82px);line-height:.95;letter-spacing:-.04em;">Aa Bb Cc<br><span class="t-green">Ññ 0123</span></div>
+      </div>
+    </div>
+    <div class="reveal panel" style="padding:clamp(28px,4vw,48px);">
+      <div class="type-fam">
+        <div>
+          <span style="font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);">Cuerpo · Texto</span>
+          <div style="font-weight:500;font-size:24px;margin-top:8px;color:var(--basalt);">Roboto · Regular / Medium</div>
+          <p style="font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.5;">Texto corrido e interfaz. Legible y humana. Pesos 300–500.</p>
+        </div>
+        <div>
+          <div style="font-size:clamp(28px,4.5vw,46px);font-weight:500;line-height:1;letter-spacing:-.01em;color:var(--basalt);">Aa Bb Cc Ññ 0123</div>
+          <p style="font-size:16px;color:var(--basalt);margin-top:16px;max-width:48ch;line-height:1.6;">Acompañamos proyectos renovables de principio a fin, con ingeniería clara y respuestas honestas. Sin promesas vacías.</p>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="background:var(--green);color:var(--basalt);border-radius:var(--r);padding:clamp(28px,4vw,48px);">
+      <div class="type-fam">
+        <div>
+          <span style="font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#1E3D17;">Logotipo · Técnico</span>
+          <div style="font-family:var(--f-mono);font-weight:500;font-size:23px;margin-top:8px;">Roboto Mono</div>
+          <p style="font-size:13.5px;color:#2C3F25;margin-top:8px;line-height:1.5;">El eco monoespaciado del logotipo. Para etiquetas, datos y fichas técnicas.</p>
+        </div>
+        <div style="font-family:var(--f-mono);font-size:clamp(15px,2vw,20px);line-height:1.7;letter-spacing:.01em;">01 — FACTIBILIDAD<br>kWp / kWh / MW · 8.7°N<br><span style="color:#1E3D17;">ABCabc · 0123 · Ññ</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(56px,7vw,90px);">
+    <div class="eyebrow reveal" style="margin-bottom:30px;"><span class="bar"></span><span>Escala tipográfica</span></div>
+    <div class="reveal" style="border-top:1px solid var(--line);">
+      <div class="ts-row"><span class="ts-meta">Display · 72px / 700</span><span style="font-weight:700;font-size:clamp(38px,6vw,70px);letter-spacing:-.04em;line-height:1;">Hacia adelante</span></div>
+      <div class="ts-row"><span class="ts-meta">H2 · 44px / 600</span><span style="font-weight:600;font-size:clamp(28px,4vw,44px);letter-spacing:-.03em;">Ingeniería con criterio</span></div>
+      <div class="ts-row"><span class="ts-meta">H3 · 26px / 600</span><span style="font-weight:600;font-size:26px;letter-spacing:-.02em;">Factibilidad e interconexión</span></div>
+      <div class="ts-row"><span class="ts-meta">Lead · 22px / 400</span><span style="font-weight:400;font-size:22px;line-height:1.4;">Acompañamos cada etapa del proyecto.</span></div>
+      <div class="ts-row"><span class="ts-meta">Cuerpo · 17px / 400</span><span style="font-weight:400;font-size:17px;line-height:1.6;max-width:54ch;">Texto base para documentos y web. Pensado para leerse cómodo en español, con tildes y eñes bien resueltas.</span></div>
+      <div class="ts-row"><span class="ts-meta">Etiqueta · 13px mono</span><span style="font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);">Manual de marca · 2026</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · VOZ Y TONO (green) ============ -->
+<section id="voz" class="sec-green section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>06</span><span class="bar"></span><span>Voz y tono</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">Hablamos como<br>quien sabe — y no presume.</h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:58ch;">Serios sin ser acartonados. Cercanos sin perder la compostura. Técnicos cuando hace falta, claros siempre. Y, sobre todo, honestos: nada de greenwashing.</p>
+  </div>
+  <div class="wrap reveal" style="margin-top:clamp(40px,5vw,56px);">
+    <div class="callout">
+      <svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg>
+      <p><b>Tratamos de usted.</b> Nuestros clientes son multinacionales, gobiernos y fondos regionales. Cercanía con respeto — profesional, nunca distante ni acartonado.</p>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(40px,5vw,56px);display:flex;flex-direction:column;gap:16px;">
+    <div class="vt-pair reveal"><div class="vt-card vt-no"><span class="vt-tag">Así no</span><p>«Energía 100% limpia que salva el planeta para las futuras generaciones. Únase a la revolución verde.»</p></div><div class="vt-card vt-yes"><span class="vt-tag">Así sí</span><p>«Energía solar que reduce su factura y sus emisiones, con cifras que puede verificar.»</p></div></div>
+    <div class="vt-pair reveal"><div class="vt-card vt-no"><span class="vt-tag">Así no</span><p>«Soluciones sostenibles de vanguardia con tecnología disruptiva de clase mundial.»</p></div><div class="vt-card vt-yes"><span class="vt-tag">Así sí</span><p>«Diseñamos, conectamos y mantenemos sistemas que funcionan y duran.»</p></div></div>
+    <div class="vt-pair reveal"><div class="vt-card vt-no"><span class="vt-tag">Así no</span><p>«Somos líderes indiscutibles del sector energético del futuro.»</p></div><div class="vt-card vt-yes"><span class="vt-tag">Así sí</span><p>«Hemos llevado [X] proyectos a operación en Panamá. Con gusto le explicamos cómo.»</p></div></div>
+  </div>
+  <div class="wrap grid-2 align-top" style="margin-top:clamp(48px,6vw,72px);">
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:18px;"><span class="bar"></span><span>Palabras que usamos</span></div>
+      <div class="word-cloud"><span class="w-use">claro</span><span class="w-use">factible</span><span class="w-use">rendimiento</span><span class="w-use">criterio</span><span class="w-use">garantía</span><span class="w-use">datos</span><span class="w-use">experiencia</span><span class="w-use">verificable</span><span class="w-use">de principio a fin</span></div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:18px;"><span class="bar"></span><span>Palabras que evitamos</span></div>
+      <div class="word-cloud"><span class="w-no">revolucionario</span><span class="w-no">disruptivo</span><span class="w-no">100% verde</span><span class="w-no">salvar el planeta</span><span class="w-no">ecoamigable</span><span class="w-no">líder mundial</span><span class="w-no">vanguardia</span><span class="w-no">sinergia</span></div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(48px,6vw,72px);">
+    <div class="eyebrow reveal" style="margin-bottom:24px;"><span class="bar"></span><span>Frases de marca</span></div>
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="tagbox">Energía renovable, bien hecha.</div>
+      <div class="tagbox">Hacemos que los proyectos avancen.</div>
+      <div class="tagbox">De la idea a la operación.</div>
+      <div class="tagbox">Ingeniería y criterio para energía renovable.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · SISTEMA GRÁFICO ============ -->
+<section id="grafico" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>07</span><span class="bar"></span><span>Sistema gráfico</span></div>
+    <h2 class="section-title reveal">El triángulo,<br>en <span class="t-green">movimiento.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;">El símbolo se extiende como lenguaje visual: triángulos que avanzan, marcan dirección y dan ritmo — siempre con mesura.</p>
+  </div>
+  <div class="wrap" style="margin-top:clamp(46px,6vw,72px);display:grid;grid-template-columns:1.4fr 1fr;gap:18px;">
+    <div class="reveal" style="background:var(--basalt);border-radius:var(--r);overflow:hidden;position:relative;min-height:280px;display:flex;align-items:center;color:var(--ink-soft);">
+      <svg width="100%" height="100%" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;">
+        <defs><pattern id="tripat" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M22 20 L22 44 L42 32 Z" fill="#26301B"/></pattern></defs>
+        <rect width="600" height="300" fill="url(#tripat)"/>
+      </svg>
+      <div style="position:relative;padding:40px;">
+        <svg class="mk" style="width:112px;color:var(--green);" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg>
+        <p style="font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8B8E81;margin-top:24px;">Patrón de triángulos · textura de fondo</p>
+      </div>
+    </div>
+    <div class="reveal panel" style="padding:40px;display:flex;flex-direction:column;justify-content:space-between;min-height:280px;">
+      <svg width="220" height="74" viewBox="0 0 220 74" fill="none">
+        <path d="M10 24 L10 50 L26 37 Z" fill="var(--mist-soft)"/>
+        <path d="M44 18 L44 56 L67 37 Z" fill="var(--mist)"/>
+        <path d="M86 10 L86 64 L120 37 Z" fill="var(--green)"/>
+      </svg>
+      <p style="font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);">Marca de progresión · datos y avance</p>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(48px,6vw,72px);">
+    <div class="eyebrow reveal" style="margin-bottom:8px;"><span class="bar"></span><span>Iconografía</span></div>
+    <p class="muted reveal" style="margin-bottom:28px;max-width:50ch;">Línea de 2px, esquinas suaves, geometría sencilla. Funcionales, nunca ilustrativos.</p>
+    <div class="icon-grid reveal">
+      <div class="icon-cell"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="7" stroke="currentColor" stroke-width="2.2"/><path d="M20 4v5M20 31v5M4 20h5M31 20h5M8 8l3.5 3.5M28.5 28.5L32 32M32 8l-3.5 3.5M11.5 28.5L8 32" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Solar</span></div>
+      <div class="icon-cell"><svg viewBox="0 0 40 40" fill="none"><rect x="6" y="6" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="2.2"/><rect x="23" y="6" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="2.2"/><rect x="6" y="23" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="2.2"/><rect x="23" y="23" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="2.2"/></svg><span>Red / interconexión</span></div>
+      <div class="icon-cell"><svg viewBox="0 0 40 40" fill="none"><path d="M11 5h13l6 6v24a1 1 0 0 1-1 1H11a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M23 5v7h7M15 22h11M15 28h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Permisos / docs</span></div>
+      <div class="icon-cell"><svg viewBox="0 0 40 40" fill="none"><path d="M25 8a6 6 0 0 0-8 7.5L8 24.5a3 3 0 0 0 0 4.2l3.3 3.3a3 3 0 0 0 4.2 0l9-9A6 6 0 0 0 32 15l-4 4-3-3 4-4a6 6 0 0 0-4-4z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg><span>Mantenimiento</span></div>
+      <div class="icon-cell"><svg viewBox="0 0 40 40" fill="none"><circle cx="17" cy="17" r="10" stroke="currentColor" stroke-width="2.2"/><path d="M24.5 24.5L34 34" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Inspección</span></div>
+      <div class="icon-cell"><svg viewBox="0 0 40 40" fill="none"><path d="M7 30l7-8 5 5 8-11 6 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 7v26h27" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Optimización</span></div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(56px,7vw,90px);">
+    <div class="eyebrow reveal" style="margin-bottom:8px;"><span class="bar"></span><span>Dirección fotográfica</span></div>
+    <p class="lead reveal" style="margin-bottom:30px;max-width:54ch;">Documental y real. Proyectos de verdad, gente de verdad, Panamá de verdad. Luz natural y cielo abierto. Nada de stock genérico ni paneles relucientes contra cielos imposibles.</p>
+    <div class="img-grid reveal">
+      <div class="img-frame yes"><div class="img-ph"><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div><span class="img-cap"><b>Sí</b> · trabajo en sitio, gente real, detalle técnico honesto</span></div>
+      <div class="img-frame yes"><div class="img-ph"><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div><span class="img-cap"><b>Sí</b> · paisaje panameño real, escala e instalación en contexto</span></div>
+      <div class="img-frame no"><div class="img-ph no-ph"></div><span class="img-cap"><b>No</b> · stock idealizado, manos sosteniendo brotes, cielos de catálogo</span></div>
+    </div>
+    <p class="muted reveal" style="font-size:14px;margin-top:18px;">Tratamiento: contraste medio, calidez sutil. Se permite superponer el símbolo o un recorte triangular como acento. Estos marcos son lugares reservados — coloque aquí sus fotografías reales.</p>
+  </div>
+</section>
+
+<!-- ============ 08 · APLICACIONES (black) ============ -->
+<section id="aplicaciones" class="sec-black section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>08</span><span class="bar"></span><span>Aplicaciones</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">La marca,<br>en el <span class="t-green">mundo real.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:52ch;">Ejemplos de cómo se arma el sistema. Mismas reglas, distintos formatos — siempre reconocible.</p>
+  </div>
+  <div class="wrap" style="margin-top:clamp(46px,6vw,72px);">
+    <div class="eyebrow reveal" style="margin-bottom:22px;"><span class="bar"></span><span>Tarjeta de presentación</span></div>
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:780px;">
+      <div class="bizcard" style="background:var(--green);color:var(--basalt);">
+        <div style="display:flex;flex-direction:column;height:100%;justify-content:space-between;">
+          <svg class="mk" style="width:28px;color:var(--basalt);" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg>
+          <img src="brand/fe-logo.png" alt="Forward Energy" style="width:150px;height:auto;" />
+        </div>
+      </div>
+      <div class="bizcard" style="background:var(--white);color:var(--basalt);">
+        <div style="display:flex;flex-direction:column;height:100%;justify-content:space-between;">
+          <div>
+            <div style="font-weight:600;font-size:18px;color:var(--basalt);letter-spacing:-.02em;">Nombre Apellido</div>
+            <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">Ingeniería de Proyectos</div>
+          </div>
+          <div style="font-family:var(--f-mono);font-size:10.5px;color:var(--basalt);line-height:1.7;letter-spacing:.01em;">+507 0000-0000<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c3433303d1c3a332e2b3d2e383932392e3b25722c3d">[email&#160;protected]</a><br><span style="color:var(--green-ink);">forwardenergy.pa</span> · Ciudad de Panamá</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap app-2" style="margin-top:clamp(40px,5vw,60px);display:grid;grid-template-columns:1.3fr 1fr;gap:18px;">
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:22px;"><span class="bar"></span><span>Membrete de documento</span></div>
+      <div style="background:var(--white);border-radius:var(--r);padding:30px 32px;min-height:280px;display:flex;flex-direction:column;color:var(--basalt);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--basalt);padding-bottom:16px;">
+          <img src="brand/fe-logo.png" alt="Forward Energy" style="width:130px;height:auto;" />
+          <div style="font-family:var(--f-mono);font-size:9.5px;color:var(--muted);text-align:right;letter-spacing:.04em;line-height:1.6;">INFORME TÉCNICO<br>FE-2026-0142</div>
+        </div>
+        <div style="margin-top:20px;">
+          <div style="font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-ink);">Factibilidad e interconexión</div>
+          <div style="font-weight:600;font-size:22px;color:var(--basalt);margin-top:6px;letter-spacing:-.025em;line-height:1.1;">Evaluación de planta solar — Provincia de Coclé</div>
+          <div style="width:100%;height:1px;background:var(--line);margin:18px 0;"></div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.9;">———————————————————————————<br>———————————————————————————————<br>————————————————————</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:22px;"><span class="bar"></span><span>Firma de correo</span></div>
+      <div style="background:var(--white);border-radius:var(--r);padding:28px;min-height:280px;display:flex;align-items:center;color:var(--basalt);">
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div style="width:3px;align-self:stretch;background:var(--green);border-radius:2px;"></div>
+          <div>
+            <img src="brand/fe-logo.png" alt="Forward Energy" style="width:124px;height:auto;margin-bottom:12px;" />
+            <div style="font-weight:600;font-size:15px;color:var(--basalt);">Nombre Apellido</div>
+            <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px;">Ingeniería de Proyectos</div>
+            <div style="font-family:var(--f-mono);font-size:11px;color:var(--basalt);line-height:1.7;">+507 0000-0000<br><span style="color:var(--green-ink);">forwardenergy.pa</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(40px,5vw,60px);">
+    <div class="eyebrow reveal" style="margin-bottom:22px;"><span class="bar"></span><span>Redes sociales</span></div>
+    <div class="reveal" style="display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;">
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
+        <div style="width:120px;height:120px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;">
+          <svg class="mk" style="width:50px;color:var(--basalt);" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg>
+        </div>
+        <span style="font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8B8E81;">Avatar</span>
+      </div>
+      <div style="aspect-ratio:16/10;border-radius:var(--r);background:var(--basalt-2);padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;color:var(--ink-soft);">
+        <svg class="mk" style="position:absolute;right:-24px;top:-16px;width:170px;color:var(--green);opacity:.16;" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg>
+        <span style="font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-bright);position:relative;">Forward Energy · Panamá</span>
+        <div style="position:relative;"><div style="font-weight:700;font-size:clamp(22px,3.4vw,38px);color:var(--white);letter-spacing:-.03em;line-height:1.06;text-wrap:balance;">Conectamos otra planta solar a la red. Sin titulares grandilocuentes.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="margin-bottom:20px;color:var(--green-bright);"><span class="bar"></span><span>Cierre</span></div>
+    <p class="reveal" style="font-weight:600;font-size:clamp(24px,3.6vw,42px);letter-spacing:-.03em;line-height:1.12;max-width:22ch;color:var(--white);text-wrap:balance;">Una marca con experiencia, que mira hacia adelante.</p>
+  </div>
+  <div class="wrap" style="margin-top:40px;"><div class="footer-word" aria-hidden="true">Forward<span class="pt">.</span></div></div>
+  <div class="wrap"><div class="footer-meta"><span>Forward Energy · Manual de Marca</span><span>Edición 02 · 2026 · Panamá</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="eb8384878aab8d84999c8a998f8e858e998c92c59b8a">[email&#160;protected]</a></span></div></div>
+</footer>
+
+<div id="tweaks-root"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "titleWeight": "Black",
+  "corners": "Suave"
+}/*EDITMODE-END*/;
+
+const RADIUS = { "Recta": "3px", "Media": "10px", "Suave": "16px" };
+
+function App(){
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(()=>{
+    document.documentElement.style.setProperty('--title-weight', t.titleWeight === 'Bold' ? '600' : '700');
+  },[t.titleWeight]);
+  React.useEffect(()=>{
+    document.documentElement.style.setProperty('--r', RADIUS[t.corners] || '16px');
+  },[t.corners]);
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Titulares" />
+      <TweakRadio label="Énfasis" value={t.titleWeight}
+        options={['Bold','Black']}
+        onChange={(v)=>setTweak('titleWeight', v)} />
+      <TweakSection label="Forma" />
+      <TweakRadio label="Esquinas" value={t.corners}
+        options={['Recta','Media','Suave']}
+        onChange={(v)=>setTweak('corners', v)} />
+    </TweaksPanel>
+  );
+}
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App/>);
+</script>
+
+<script>
+const tb=document.getElementById('topbar');
+const hero=document.getElementById('top');
+new IntersectionObserver(([e])=>{tb.classList.toggle('solid',!e.isIntersecting);},{rootMargin:'-72px 0px 0px 0px'}).observe(hero);
+const rio=new IntersectionObserver((entries)=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');rio.unobserve(en.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>rio.observe(el));
+</script>
+
+</body>
+</html>

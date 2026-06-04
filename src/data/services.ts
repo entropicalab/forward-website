@@ -125,6 +125,54 @@ export const services: Record<Locale, Service[]> = {
       ],
       outcome: 'La certeza técnica que un inversionista o prestamista necesita para comprometer capital.',
     },
+    {
+      slug: 'optimization',
+      num: '07',
+      title: 'Optimización de activos',
+      lede: 'Más energía del mismo permiso.',
+      image: '/img/storage.jpg',
+      intro:
+        'El diseño estándar deja capacidad sobre la mesa. Buscamos los puntos técnicos y regulatorios que elevan el rendimiento de un activo sin rehacer su permiso — incluida la integración de almacenamiento (BESS) para despachar energía fuera de las horas pico.',
+      capabilities: [
+        { name: 'Integración de almacenamiento (BESS)', body: 'Baterías que capturan el excedente y lo despachan fuera de las horas pico, bajo el permiso vigente.' },
+        { name: 'Repotenciación y mejoras', body: 'Ajustes de ingeniería que aumentan la generación de un activo existente.' },
+        { name: 'Análisis de capacidad oculta', body: 'Revisión técnica y legal para encontrar el margen que el diseño estándar deja sin aprovechar.' },
+        { name: 'Modelado de retorno', body: 'Cuantificamos la mejora con cifras verificables antes de invertir.' },
+      ],
+      outcome: 'Un activo que produce —y vende— más, sin renegociar lo esencial de su permiso.',
+    },
+    {
+      slug: 'power-contracts',
+      num: '08',
+      title: 'Contratos de venta de energía',
+      lede: 'Acuerdos PPA estructurados con criterio técnico.',
+      image: '/img/turbinefield.jpg',
+      intro:
+        'Un PPA bien estructurado define la bancabilidad del proyecto. Aportamos el sustento técnico —generación, disponibilidad y riesgo— para negociar acuerdos que se sostienen en el tiempo.',
+      capabilities: [
+        { name: 'Estructuración de PPA', body: 'Definición de los términos técnicos y comerciales del acuerdo.' },
+        { name: 'Modelado de generación', body: 'Proyección de energía y disponibilidad que respalda el precio pactado.' },
+        { name: 'Análisis de riesgo', body: 'Identificación de los supuestos que pueden mover el retorno.' },
+        { name: 'Soporte en negociación', body: 'Respaldo técnico en la mesa de negociación.' },
+      ],
+      outcome: 'Un contrato de energía con bases técnicas sólidas, listo para financiamiento.',
+    },
+    {
+      slug: 'thermography',
+      num: '09',
+      title: 'Termografía para garantías',
+      lede: 'Evidencia térmica para reclamos de garantía.',
+      image: '/img/rooftop.jpg',
+      intro:
+        'Cuando un módulo o una conexión falla, la garantía solo responde con evidencia. Usamos termografía con dron para localizar con precisión dónde el activo pierde energía, y documentarlo para el reclamo.',
+      capabilities: [
+        { name: 'Inspección termográfica con dron', body: 'Imagen térmica de plantas completas en una sola jornada.' },
+        { name: 'Localización de fallas', body: 'Puntos calientes, módulos degradados y conexiones deficientes.' },
+        { name: 'Documentación para garantía', body: 'Informes que sustentan el reclamo ante el fabricante.' },
+        { name: 'Verificación de desempeño', body: 'Confirmación del estado real del activo frente a lo esperado.' },
+      ],
+      outcome: 'Pruebas claras para recuperar lo que la garantía debe cubrir.',
+    },
   ],
   en: [
     {
@@ -225,6 +273,54 @@ export const services: Record<Locale, Service[]> = {
         { name: 'Independent engineering reports', body: 'Auditable documentation to support close and ongoing monitoring.' },
       ],
       outcome: 'The technical certainty an investor or lender needs to commit capital.',
+    },
+    {
+      slug: 'optimization',
+      num: '07',
+      title: 'Asset optimization',
+      lede: 'More energy from the same permit.',
+      image: '/img/storage.jpg',
+      intro:
+        'Standard design leaves capacity on the table. We look for the technical and regulatory leverage points that raise an asset’s output without redoing its permit — including battery storage (BESS) to dispatch energy outside peak hours.',
+      capabilities: [
+        { name: 'Battery storage (BESS) integration', body: 'Batteries that capture surplus and dispatch it off-peak, under the existing permit.' },
+        { name: 'Repowering & upgrades', body: 'Engineering adjustments that lift an existing asset’s generation.' },
+        { name: 'Hidden-capacity analysis', body: 'Technical and legal review to find the headroom standard design leaves unused.' },
+        { name: 'Return modeling', body: 'We quantify the gain with verifiable figures before you invest.' },
+      ],
+      outcome: 'An asset that produces — and sells — more, without renegotiating the core of its permit.',
+    },
+    {
+      slug: 'power-contracts',
+      num: '08',
+      title: 'Power purchase agreements',
+      lede: 'PPAs structured with technical judgment.',
+      image: '/img/turbinefield.jpg',
+      intro:
+        'A well-structured PPA defines a project’s bankability. We bring the technical backing — generation, availability and risk — to negotiate agreements that hold up over time.',
+      capabilities: [
+        { name: 'PPA structuring', body: 'Defining the technical and commercial terms of the agreement.' },
+        { name: 'Generation modeling', body: 'Energy and availability projections that support the agreed price.' },
+        { name: 'Risk analysis', body: 'Identifying the assumptions that can move the return.' },
+        { name: 'Negotiation support', body: 'Technical backing at the negotiating table.' },
+      ],
+      outcome: 'A power contract on solid technical ground, ready for financing.',
+    },
+    {
+      slug: 'thermography',
+      num: '09',
+      title: 'Warranty thermography',
+      lede: 'Thermal evidence for warranty claims.',
+      image: '/img/rooftop.jpg',
+      intro:
+        'When a module or connection fails, the warranty only responds to evidence. We use drone thermography to pinpoint exactly where an asset is losing energy, and document it for the claim.',
+      capabilities: [
+        { name: 'Drone thermographic inspection', body: 'Thermal imaging of entire plants in a single day.' },
+        { name: 'Fault localization', body: 'Hot spots, degraded modules and poor connections.' },
+        { name: 'Warranty documentation', body: 'Reports that support the claim with the manufacturer.' },
+        { name: 'Performance verification', body: 'Confirming the asset’s real condition against expectations.' },
+      ],
+      outcome: 'Clear proof to recover what the warranty should cover.',
     },
   ],
 };
