@@ -14,8 +14,8 @@
 // ============================================================
 
 export const ANALYTICS = {
-  // ga4 measurement id for forward-nrg.com — replace REPLACE_ME once the data stream exists
-  measurementId: 'G-REPLACE_ME',
+  // ga4 measurement id for forward-nrg.com (web stream)
+  measurementId: 'G-0VZ1T52K1M',
 
   // domain to scope cookies to. helps with subdomain consistency.
   cookieDomain: 'forward-nrg.com',
