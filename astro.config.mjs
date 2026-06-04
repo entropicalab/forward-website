@@ -11,6 +11,16 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
+      // emit <xhtml:link rel="alternate" hreflang> pairs for the es/en versions
+      i18n: {
+        defaultLocale: 'es',
+        locales: {
+          es: 'es-PA',
+          en: 'en-US',
+        },
+      },
+      // keep placeholder/template pages out of the index
+      filter: (page) => !page.includes('/projects/proyecto-ejemplo'),
       // stamp each url with its source file's last git-commit date
       serialize(item) {
         try {

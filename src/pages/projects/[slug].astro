@@ -25,7 +25,7 @@ const band = [
 ].filter(Boolean) as { k: string; v: string }[];
 ---
 
-<BaseLayout title={`${data.title} · forward energy`} description={data.lede} locale={locale}>
+<BaseLayout title={`${data.title} · forward energy`} description={data.lede} locale={locale} noindex={data.comingSoon}>
   <section class="page-head">
     <div class="site-wrap">
       <a class="ph-eb" href={localized('/projects', locale)}>{t('cta.back')}</a>
