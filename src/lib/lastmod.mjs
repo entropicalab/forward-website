@@ -46,6 +46,8 @@ export function pathToFile(pathname) {
   if (proj) return `src/content/projects/${locale}/${proj[1]}.md`;
   const blog = p.match(/^insights\/(.+)$/);
   if (blog) return `src/content/blog/${locale}/${blog[1]}.md`;
+  // service subpages are data-driven (single source); attribute to the data file
+  if (/^services\/.+/.test(p)) return 'src/data/services.ts';
 
   if (p === 'projects') return `src/pages/${dir}projects/index.astro`;
   if (p === 'insights') return `src/pages/${dir}insights/index.astro`;

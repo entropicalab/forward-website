@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localized, tr } from '../../i18n/utils';
+import { services } from '../../data/services';
+
+export function getStaticPaths() {
+  return services.es.map((s) => ({ params: { service: s.slug }, props: { service: s } }));
+}
+
+const locale = 'es' as const;
+const t = tr(locale);
+const { service } = Astro.props;
+---
+
+<BaseLayout title={`${service.title} · servicios · forward energy`} description={service.lede} locale={locale}>
+  <section class="page-head has-img" style={`--ph-img:url(${service.image})`}>
+    <div class="site-wrap">
+      <a class="ph-eb" href={localized('/services', locale)}>{t('cta.back')}</a>
+      <div class="ph-eb" style="margin-top:18px;">// servicio {service.num}</div>
+      <h1>{service.title}</h1>
+      <p class="ph-lede">{service.lede}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="grid-2">
+        <div>
+          <div class="block-eb">// alcance</div>
+          <h2 class="block-h">Qué incluye.</h2>
+        </div>
+        <div class="prose"><p>{service.intro}</p></div>
+      </div>
+
+      <div class="cap-grid">
+        {service.capabilities.map((c, i) => (
+          <div class="cap">
+            <span class="cap-idx">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{c.name}</h3>
+            <p>{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="media-band" style={`--band-img:url(${service.image})`}>
+    <div class="site-wrap">
+      <div class="mb-inner">
+        <div class="block-eb">// resultado</div>
+        <h2>{service.outcome}</h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// siguiente paso</div>
+        <h2 class="closing-h">¿Necesita {service.title.toLowerCase()}?</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.consult')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href={localized('/services', locale)}>Ver todos los servicios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line-on-paper); border: 1px solid var(--line-on-paper); margin-top: 48px; }
+  .cap { background: var(--paper); padding: 28px 30px; display: flex; flex-direction: column; gap: 8px; }
+  .cap-idx { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--green); }
+  .cap h3 { font-family: var(--font-display); font-size: 21px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+  .cap p { font-size: 14.5px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
+  @media (max-width: 680px) { .cap-grid { grid-template-columns: 1fr; } }
+</style>

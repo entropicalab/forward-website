@@ -1,26 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { localized, tr } from '../i18n/utils';
+import { services } from '../data/services';
 
 const locale = 'es' as const;
 const t = tr(locale);
-
-const services = [
-  { i: '01', name: 'Factibilidad e interconexión', desc: 'Viabilidad técnica del sitio y estudios de conexión a la red. El primer filtro de un proyecto sólido.' },
-  { i: '02', name: 'Ingeniería', desc: 'Diseño eléctrico y civil, levantamientos, topografía y estudios ambientales. De conceptual a detalle.' },
-  { i: '03', name: 'Permisos', desc: 'Gestión y tramitación regulatoria ante ASEP y demás entidades. El diferenciador en Panamá.' },
-  { i: '04', name: 'Contratos de venta de energía', desc: 'Estructuración y soporte técnico de acuerdos PPA.' },
-  { i: '05', name: 'Construcción y supervisión', desc: 'Gestión EPC, control de contratistas, QA/QC, cronograma y puesta en marcha.' },
-  { i: '06', name: 'Mantenimiento', desc: 'Operación y servicio en sitio: preventivo, monitoreo de desempeño y diagnóstico.' },
-  { i: '07', name: 'Termografía para garantías', desc: 'Inspección térmica para sustentar reclamos de garantía.' },
-  { i: '08', name: 'Due diligence financiero', desc: 'Respaldo técnico independiente para financiamiento y cierre.' },
-  { i: '09', name: 'Optimización de proyectos', desc: 'Mejora de rendimiento y retorno sobre el activo existente.' },
-];
+const list = services[locale];
 ---
 
 <BaseLayout
   title="servicios · forward energy"
-  description="servicios de ingeniería para proyectos de energía renovable en panamá: factibilidad, ingeniería, permisos, construcción, mantenimiento y owner's engineer."
+  description="servicios de ingeniería para proyectos de energía renovable en panamá: desarrollo, ingeniería, permisos, construcción, operación y owner's engineer."
   locale={locale}
 >
   <section class="page-head has-img" style="--ph-img:url(/img/engineer.jpg)">
@@ -28,8 +18,8 @@ const services = [
       <div class="ph-eb">// servicios</div>
       <h1>De la factibilidad a la <span class="accent">operación.</span></h1>
       <p class="ph-lede">
-        Una sola firma para todo el ciclo del proyecto. Cada servicio puede contratarse de
-        forma independiente o como parte de una entrega integral.
+        Una sola firma para todo el ciclo del proyecto. Seis áreas de servicio que puede
+        contratar de forma independiente o como una entrega integral.
       </p>
     </div>
   </section>
@@ -37,12 +27,12 @@ const services = [
   <section class="block">
     <div class="site-wrap">
       <div class="svc-list" style="margin-top:0;">
-        {services.map((s) => (
-          <div class="svc-row">
-            <span class="idx">{s.i}</span>
-            <span class="name">{s.name}</span>
-            <span class="desc">{s.desc}</span>
-          </div>
+        {list.map((s) => (
+          <a class="svc-row svc-link" href={localized(`/services/${s.slug}`, locale)}>
+            <span class="idx">{s.num}</span>
+            <span class="name">{s.title}</span>
+            <span class="desc">{s.lede}</span>
+          </a>
         ))}
       </div>
     </div>
@@ -63,3 +53,9 @@ const services = [
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .svc-link { text-decoration: none; color: inherit; }
+  .svc-link .name { transition: color 0.2s; }
+  .svc-link:hover .name { color: var(--forest); }
+</style>

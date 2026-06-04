@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localized, tr } from '../../i18n/utils';
+
+const locale = 'en' as const;
+const t = tr(locale);
+
+// downloadable guides. set `href` once the PDF exists in /public/resources/;
+// while href is empty the item shows as "coming soon" and routes to contact.
+const resources = [
+  { icon: 'menu_book', title: 'Renewable project development guide', desc: 'The full journey, from site identification to operation.', href: '' },
+  { icon: 'insights', title: 'Panama solar market report', desc: 'An overview of resource, regulation and opportunities in the country.', href: '' },
+  { icon: 'fact_check', title: 'Wind project feasibility checklist', desc: 'What to verify before committing capital.', href: '' },
+  { icon: 'electrical_services', title: 'Interconnection process guide', desc: 'The steps and timelines to connect a project to the grid.', href: '' },
+  { icon: 'build', title: 'O&M best practices', desc: 'How to keep an asset performing across its full operating life.', href: '' },
+];
+---
+
+<BaseLayout
+  title="resources · forward energy"
+  description="downloadable guides and reports on development, interconnection and operation of renewable energy projects in panama."
+  locale={locale}
+>
+  <section class="page-head has-img" style="--ph-img:url(/img/rooftop.jpg)">
+    <div class="site-wrap">
+      <div class="ph-eb">// resources</div>
+      <h1>Guides and reports to <span class="accent">decide better.</span></h1>
+      <p class="ph-lede">Reference material on how renewable projects are developed, connected and operated in Panama.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// downloads</div>
+      <div class="list-rows">
+        {resources.map((r) => (
+          <div class="list-row">
+            <div class="lr-main">
+              <span class="material-symbols-outlined icon-md lr-icon">{r.icon}</span>
+              <div>
+                <h3>{r.title}</h3>
+                <p>{r.desc}</p>
+              </div>
+            </div>
+            {r.href ? (
+              <a class="btn accent" href={r.href} download>
+                Download<span class="arrow-tail" aria-hidden="true"></span>
+              </a>
+            ) : (
+              <a class="btn" href={localized('/contact', locale)}>Coming soon · request</a>
+            )}
+          </div>
+        ))}
+      </div>
+      <p class="rs-note">Some materials require email registration. Looking for something specific? <a href="mailto:info@forward-nrg.com">Get in touch.</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .list-row { grid-template-columns: 1fr auto; }
+  .lr-main { display: flex; gap: 18px; align-items: flex-start; }
+  .lr-icon { color: var(--green); flex: none; }
+  .rs-note { margin-top: 32px; font-size: 14px; color: var(--mute-on-paper); }
+  .rs-note a { color: var(--forest); border-bottom: 1px solid currentColor; }
+  @media (max-width: 640px) { .list-row { grid-template-columns: 1fr; gap: 16px; } }
+</style>

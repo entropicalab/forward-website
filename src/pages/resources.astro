@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localized, tr } from '../i18n/utils';
+
+const locale = 'es' as const;
+const t = tr(locale);
+
+// downloadable guides. set `href` once the PDF exists in /public/resources/;
+// while href is empty the item shows as "próximamente" and routes to contact.
+const resources = [
+  { icon: 'menu_book', title: 'Guía de desarrollo de proyectos renovables', desc: 'El recorrido completo, de la identificación del sitio a la operación.', href: '' },
+  { icon: 'insights', title: 'Reporte del mercado solar de Panamá', desc: 'Panorama del recurso, la regulación y las oportunidades en el país.', href: '' },
+  { icon: 'fact_check', title: 'Checklist de factibilidad para proyectos eólicos', desc: 'Lo que conviene verificar antes de comprometer capital.', href: '' },
+  { icon: 'electrical_services', title: 'Guía del proceso de interconexión', desc: 'Los pasos y tiempos para conectar un proyecto a la red.', href: '' },
+  { icon: 'build', title: 'Buenas prácticas de O&M', desc: 'Cómo mantener el desempeño del activo durante toda su vida útil.', href: '' },
+];
+---
+
+<BaseLayout
+  title="recursos · forward energy"
+  description="guías y reportes descargables sobre desarrollo, interconexión y operación de proyectos de energía renovable en panamá."
+  locale={locale}
+>
+  <section class="page-head has-img" style="--ph-img:url(/img/rooftop.jpg)">
+    <div class="site-wrap">
+      <div class="ph-eb">// recursos</div>
+      <h1>Guías y reportes para <span class="accent">decidir mejor.</span></h1>
+      <p class="ph-lede">Material de referencia sobre cómo se desarrollan, conectan y operan los proyectos renovables en Panamá.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// descargas</div>
+      <div class="list-rows">
+        {resources.map((r) => (
+          <div class="list-row">
+            <div class="lr-main">
+              <span class="material-symbols-outlined icon-md lr-icon">{r.icon}</span>
+              <div>
+                <h3>{r.title}</h3>
+                <p>{r.desc}</p>
+              </div>
+            </div>
+            {r.href ? (
+              <a class="btn accent" href={r.href} download>
+                Descargar<span class="arrow-tail" aria-hidden="true"></span>
+              </a>
+            ) : (
+              <a class="btn" href={localized('/contact', locale)}>Próximamente · solicitar</a>
+            )}
+          </div>
+        ))}
+      </div>
+      <p class="rs-note">Algunos materiales requieren registro por correo. ¿Busca algo en particular? <a href="mailto:info@forward-nrg.com">Escríbanos.</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .list-row { grid-template-columns: 1fr auto; }
+  .lr-main { display: flex; gap: 18px; align-items: flex-start; }
+  .lr-icon { color: var(--green); flex: none; }
+  .rs-note { margin-top: 32px; font-size: 14px; color: var(--mute-on-paper); }
+  .rs-note a { color: var(--forest); border-bottom: 1px solid currentColor; }
+  @media (max-width: 640px) { .list-row { grid-template-columns: 1fr; gap: 16px; } }
+</style>
