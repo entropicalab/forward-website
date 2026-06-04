@@ -28,12 +28,12 @@ const services = [
 ];
 
 const sectors = [
-  { icon: 'solar_power', h: 'Utility-scale solar', p: 'Grid-connected generation, from feasibility to operation.' },
-  { icon: 'wind_power', h: 'Wind', p: 'Resource assessment, engineering and project management for wind.' },
-  { icon: 'home_work', h: 'Distributed solar', p: 'On-site generation for commercial and industrial clients.' },
-  { icon: 'factory', h: 'Industrial solutions', p: 'Efficiency and self-generation for large energy users.' },
-  { icon: 'battery_charging_full', h: 'Storage', p: 'Battery integration for firmness and demand management.' },
-  { icon: 'verified', h: 'Owner’s engineer', p: 'Independent engineering for investors and lenders.' },
+  { icon: 'solar_power', img: '/img/solar.jpg', h: 'Utility-scale solar', p: 'Grid-connected generation, from feasibility to operation.' },
+  { icon: 'wind_power', img: '/img/turbinefield.jpg', h: 'Wind', p: 'Resource assessment, engineering and project management for wind.' },
+  { icon: 'home_work', img: '/img/rooftop.jpg', h: 'Distributed solar', p: 'On-site generation for commercial and industrial clients.' },
+  { icon: 'factory', img: '/img/aerial.jpg', h: 'Industrial solutions', p: 'Efficiency and self-generation for large energy users.' },
+  { icon: 'battery_charging_full', img: '/img/storage.jpg', h: 'Storage', p: 'Battery integration for firmness and demand management.' },
+  { icon: 'verified', img: '/img/engineer.jpg', h: 'Owner’s engineer', p: 'Independent engineering for investors and lenders.' },
 ];
 
 const businessSchema = {
@@ -131,14 +131,23 @@ const businessSchema = {
     <div class="site-wrap">
       <div class="block-eb">// sectors</div>
       <h2 class="block-h">Where we work.</h2>
-      <div class="sector-grid">
+      <div class="imgcard-grid">
         {sectors.map((s) => (
-          <div class="sector">
-            <span class="material-symbols-outlined icon-md sector-icon">{s.icon}</span>
+          <div class="imgcard" style={`--card-img:url(${s.img})`}>
+            <span class="material-symbols-outlined icon-md ic-icon">{s.icon}</span>
             <h3>{s.h}</h3>
             <p>{s.p}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="media-band" style="--band-img:url(/img/panama.jpg)">
+    <div class="site-wrap">
+      <div class="mb-inner">
+        <div class="block-eb">// panama</div>
+        <h2>Another plant connected to the grid. No grand headlines.</h2>
       </div>
     </div>
   </section>

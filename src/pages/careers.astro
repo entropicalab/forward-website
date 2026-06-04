@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const locale = 'es' as const;
+---
+
+<BaseLayout
+  title="empleo · forward energy"
+  description="únase a forward energy. ingeniería de proyectos de energía renovable en panamá."
+  locale={locale}
+>
+  <section class="page-head has-img" style="--ph-img:url(/img/wind.jpg)">
+    <div class="site-wrap">
+      <div class="ph-eb">// empleo</div>
+      <h1>Trabaje en proyectos que <span class="accent">avanzan.</span></h1>
+      <p class="ph-lede">Buscamos gente con criterio técnico y honestidad. Si eso le describe, hablemos.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="block-eb">// posiciones abiertas</div>
+      <h2 class="block-h">Sin vacantes publicadas ahora mismo.</h2>
+      <p class="block-sub">
+        No tenemos posiciones abiertas en este momento, pero siempre conocemos buen talento.
+        Si quiere trabajar con nosotros, escríbanos con su experiencia y en qué le gustaría
+        aportar.
+      </p>
+      <div style="margin-top:32px;">
+        <a class="btn accent" href="mailto:info@forward-nrg.com?subject=Trabajar en Forward Energy">
+          Enviar su perfil<span class="arrow-tail" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="media-band" style="--band-img:url(/img/solar.jpg)">
+    <div class="site-wrap">
+      <div class="mb-inner">
+        <div class="block-eb">// cómo trabajamos</div>
+        <h2>Serios, no acartonados. Técnicos, siempre claros.</h2>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { localized, tr } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog', ({ data }) => data.locale === 'en' && !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+const locale = 'en' as const;
+const t = tr(locale);
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+const fmt = (d: Date) => new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+---
+
+<BaseLayout title={`${data.title} · forward energy`} description={data.summary} locale={locale} ogImage={data.heroImage}>
+  <section class="page-head has-img" style={data.heroImage ? `--ph-img:url(${data.heroImage})` : ''}>
+    <div class="site-wrap">
+      <a class="ph-eb" href={localized('/insights', locale)}>{t('cta.back')}</a>
+      {data.eyebrow && <div class="ph-eb" style="margin-top:18px;">{data.eyebrow}</div>}
+      <h1>{data.title}</h1>
+      <p class="ph-lede">{data.summary}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <div class="article-meta">{fmt(data.date)} · {data.author}</div>
+      <article class="prose article-body"><Content /></article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .article-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 32px; }
+  .article-body { max-width: 70ch; }
+  .article-body :global(h2) { font-family: var(--font-display); font-size: clamp(24px, 3vw, 32px); font-weight: 600; letter-spacing: -0.02em; margin: 40px 0 16px; }
+  .article-body :global(a) { color: var(--forest); border-bottom: 1px solid currentColor; }
+</style>

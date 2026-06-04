@@ -28,12 +28,12 @@ const services = [
 ];
 
 const sectors = [
-  { icon: 'solar_power', h: 'Solar utility-scale', p: 'Plantas de generación conectadas a la red, de la factibilidad a la operación.' },
-  { icon: 'wind_power', h: 'Eólica', p: 'Evaluación de recurso, ingeniería y gestión de proyectos eólicos.' },
-  { icon: 'home_work', h: 'Solar distribuida', p: 'Generación en sitio para clientes comerciales e industriales.' },
-  { icon: 'factory', h: 'Soluciones industriales', p: 'Eficiencia y autogeneración para grandes consumidores de energía.' },
-  { icon: 'battery_charging_full', h: 'Almacenamiento', p: 'Integración de baterías para firmeza y gestión de demanda.' },
-  { icon: 'verified', h: 'Owner’s engineer', p: 'Ingeniería independiente para inversionistas y prestamistas.' },
+  { icon: 'solar_power', img: '/img/solar.jpg', h: 'Solar utility-scale', p: 'Plantas de generación conectadas a la red, de la factibilidad a la operación.' },
+  { icon: 'wind_power', img: '/img/turbinefield.jpg', h: 'Eólica', p: 'Evaluación de recurso, ingeniería y gestión de proyectos eólicos.' },
+  { icon: 'home_work', img: '/img/rooftop.jpg', h: 'Solar distribuida', p: 'Generación en sitio para clientes comerciales e industriales.' },
+  { icon: 'factory', img: '/img/aerial.jpg', h: 'Soluciones industriales', p: 'Eficiencia y autogeneración para grandes consumidores de energía.' },
+  { icon: 'battery_charging_full', img: '/img/storage.jpg', h: 'Almacenamiento', p: 'Integración de baterías para firmeza y gestión de demanda.' },
+  { icon: 'verified', img: '/img/engineer.jpg', h: 'Owner’s engineer', p: 'Ingeniería independiente para inversionistas y prestamistas.' },
 ];
 
 const businessSchema = {
@@ -131,14 +131,23 @@ const businessSchema = {
     <div class="site-wrap">
       <div class="block-eb">// sectores</div>
       <h2 class="block-h">Dónde trabajamos.</h2>
-      <div class="sector-grid">
+      <div class="imgcard-grid">
         {sectors.map((s) => (
-          <div class="sector">
-            <span class="material-symbols-outlined icon-md sector-icon">{s.icon}</span>
+          <div class="imgcard" style={`--card-img:url(${s.img})`}>
+            <span class="material-symbols-outlined icon-md ic-icon">{s.icon}</span>
             <h3>{s.h}</h3>
             <p>{s.p}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="media-band" style="--band-img:url(/img/panama.jpg)">
+    <div class="site-wrap">
+      <div class="mb-inner">
+        <div class="block-eb">// panamá</div>
+        <h2>Conectamos otra planta a la red. Sin titulares grandilocuentes.</h2>
       </div>
     </div>
   </section>

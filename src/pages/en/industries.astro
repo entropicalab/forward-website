@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localized, tr } from '../../i18n/utils';
+
+const locale = 'en' as const;
+const t = tr(locale);
+
+const audiences = [
+  {
+    img: '/img/grid.jpg',
+    eb: '01',
+    h: 'Developers',
+    challenge: 'Sites that stall in feasibility, uncertain interconnection, and timelines that keep slipping.',
+    solution: 'We take the project from site identification to technical close: resource, grid, permits and due diligence.',
+  },
+  {
+    img: '/img/engineer.jpg',
+    eb: '02',
+    h: 'Investors & funds',
+    challenge: 'You need technical certainty before committing capital, and an independent party to stand behind it.',
+    solution: 'Owner’s engineer: technical due diligence, design review, construction monitoring and independent reports.',
+  },
+  {
+    img: '/img/rooftop.jpg',
+    eb: '03',
+    h: 'Commercial & industrial',
+    challenge: 'High energy bills and pressure to cut emissions, without distracting from the core business.',
+    solution: 'Distributed generation and self-consumption, sized and maintained for a return you can verify.',
+  },
+  {
+    img: '/img/panama.jpg',
+    eb: '04',
+    h: 'Government',
+    challenge: 'Public-interest projects that demand technical rigor, transparency and regulatory compliance.',
+    solution: 'Impartial technical support at every stage, with engineering judgment and auditable documentation.',
+  },
+  {
+    img: '/img/tropical.jpg',
+    eb: '05',
+    h: 'Landowners',
+    challenge: 'You have land with potential, but not the technical information to assess a renewable opportunity.',
+    solution: 'We assess the resource, grid access and viability — clear data to decide with confidence.',
+  },
+];
+---
+
+<BaseLayout
+  title="sectors · forward energy"
+  description="how forward energy solves the challenges of developers, investors, commercial & industrial clients, governments and landowners."
+  locale={locale}
+>
+  <section class="page-head has-img" style="--ph-img:url(/img/wind.jpg)">
+    <div class="site-wrap">
+      <div class="ph-eb">// sectors</div>
+      <h1>Who we <span class="accent">serve.</span></h1>
+      <p class="ph-lede">Every client arrives with a different challenge. Here's what we solve for each.</p>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0;">
+    <div class="site-wrap">
+      {audiences.map((a, i) => (
+        <div class={`industry-row ${i % 2 === 1 ? 'flip' : ''}`}>
+          <div class="ir-media" style={`background-image:url(${a.img})`}></div>
+          <div class="ir-body">
+            <div class="block-eb">// {a.eb}</div>
+            <h2>{a.h}</h2>
+            <div class="ir-pair">
+              <div class="ir-block"><span class="ir-k">The challenge</span><p>{a.challenge}</p></div>
+              <div class="ir-block sol"><span class="ir-k">Our solution</span><p>{a.solution}</p></div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// sound like you?</div>
+        <h2 class="closing-h">Tell us what stage you're at.</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.contact')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:info@forward-nrg.com">info@forward-nrg.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -13,6 +13,8 @@ export const strings = {
     'nav.services': 'servicios',
     'nav.projects': 'proyectos',
     'nav.industries': 'sectores',
+    'nav.insights': 'recursos',
+    'nav.careers': 'empleo',
     'nav.about': 'nosotros',
     'nav.contact': 'contacto',
 
@@ -60,6 +62,8 @@ export const strings = {
     'nav.services': 'services',
     'nav.projects': 'projects',
     'nav.industries': 'sectors',
+    'nav.insights': 'insights',
+    'nav.careers': 'careers',
     'nav.about': 'about',
     'nav.contact': 'contact',
 

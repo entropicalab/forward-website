@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { localized } from '../../../i18n/utils';
+
+const locale = 'en' as const;
+
+const posts = (await getCollection('blog', ({ data }) => data.locale === locale && !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const fmt = (d: Date) => new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+---
+
+<BaseLayout
+  title="insights · forward energy"
+  description="knowledge on development, interconnection, permitting and financing of renewable energy projects in panama."
+  locale={locale}
+>
+  <section class="page-head has-img" style="--ph-img:url(/img/turbinefield.jpg)">
+    <div class="site-wrap">
+      <div class="ph-eb">// insights</div>
+      <h1>Knowledge, no <span class="accent">smoke.</span></h1>
+      <p class="ph-lede">What we've learned developing, connecting and operating renewable projects in Panama.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      {posts.length > 0 ? (
+        <div class="article-grid">
+          {posts.map((p) => (
+            <a class="article-card" href={localized(`/insights/${p.data.slug}`, locale)}>
+              <div class="ac-media" style={p.data.heroImage ? `--ac-img:url(${p.data.heroImage})` : ''}></div>
+              {p.data.eyebrow && <div class="ac-eb">{p.data.eyebrow}</div>}
+              <h3>{p.data.title}</h3>
+              <p>{p.data.summary}</p>
+              <div class="ac-date">{fmt(p.data.date)}</div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <img src="/forward-mark.png" alt="" />
+          <p>We're preparing the first articles. Check back soon.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
