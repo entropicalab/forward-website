@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import BrandMark from '../../components/BrandMark.astro';
-import TriMark from '../../components/TriMark.astro';
 import { getCollection } from 'astro:content';
 import { localized, tr } from '../../i18n/utils';
 
@@ -12,7 +11,14 @@ const t = tr(locale);
 const featured = (await getCollection('projects', ({ data }) => data.locale === locale && data.featured && !data.comingSoon))
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 
-const lifecycle = ['Development', 'Engineering', 'Permitting', 'Construction', 'Commissioning', 'Operation'];
+const lifecycle = [
+  { name: 'Development', desc: 'Site, resource and feasibility: the basis that decides if the project moves.' },
+  { name: 'Engineering', desc: 'Electrical and civil design the contractor can build without surprises.' },
+  { name: 'Permitting', desc: 'ASEP, ETESA and environmental permits, in the right sequence.' },
+  { name: 'Construction', desc: 'Quality, cost and schedule oversight on behalf of the owner.' },
+  { name: 'Commissioning', desc: 'Testing, energization and handover of the operating system.' },
+  { name: 'Operation', desc: 'Maintenance and asset performance across its full operating life.' },
+];
 
 const cred = [
   { k: 'Track record', v: 'Over a decade', d: 'of energy projects that actually get built and operated.' },
@@ -21,10 +27,10 @@ const cred = [
 ];
 
 const values = [
-  { n: '01', h: 'Experienced', p: 'A track record and engineering rigor behind every recommendation. We know ASEP and Panama’s interconnection processes.' },
+  { n: '01', h: 'Experienced', p: 'A track record and engineering rigor behind every recommendation. We know ASEP and ETESA, and Panama’s interconnection processes.' },
   { n: '02', h: 'Clear', p: 'We explain without overwhelming. The technical gets translated, not hidden behind jargon. We write to be understood by a busy investor.' },
   { n: '03', h: 'Honest', p: 'No empty green promises. Every claim has data and engineering behind it. We’ll tell you if a project isn’t viable.' },
-  { n: '04', h: 'Close', p: 'We treat your capital and your land as if they were our own. Accessible and human, within professional respect.' },
+  { n: '04', h: 'Close', p: 'We sit down with you to look at your project, we listen, and we answer fast. We treat your capital and your land as if they were our own — closeness with respect, never distance.' },
 ];
 
 const services = [
@@ -40,7 +46,7 @@ const services = [
 
 const audiences = [
   { i: '01', icon: 'verified', h: 'Investors & funds', p: 'Bankable due diligence and independent judgment. We cut regulatory and technical risk before you commit capital.' },
-  { i: '02', icon: 'home_work', h: 'Landowners', p: 'Fair, transparent segmentation of your land, designed to yield the maximum output over twenty years.' },
+  { i: '02', icon: 'home_work', h: 'Landowners', p: 'Fair, transparent segmentation of your land, designed to yield the maximum output over the project’s operating life.' },
   { i: '03', icon: 'factory', h: 'Large energy users', p: 'Bespoke PPAs, self-generation and reliable maintenance. Energy as an asset, free of surprises.' },
 ];
 
@@ -76,7 +82,7 @@ const businessSchema = {
     <BrandMark />
     <div class="site-wrap">
       <div class="hero-inner">
-        <div class="hero-eb">// renewable energy · panama · idea to operation</div>
+        <div class="hero-eb">// design, financing & management of renewables in panama</div>
         <h1 class="hero-h">Engineering judgment for Panama’s complex <span class="accent">energy grid.</span></h1>
       </div>
       <p class="hero-lede">
@@ -96,7 +102,7 @@ const businessSchema = {
   <section class="block">
     <div class="site-wrap">
       <div class="block-eb">// why Forward</div>
-      <h2 class="block-h">Agile specialists, with institutional-grade authority.</h2>
+      <h2 class="block-h">Technical specialists, with institutional-grade authority.</h2>
       <p class="block-sub">We don’t win by being the loudest in the room — we win by being the clearest in a complex regulatory landscape.</p>
       <div class="cred-band">
         {cred.map((c) => (
@@ -113,11 +119,17 @@ const businessSchema = {
   <section class="lifecycle">
     <div class="site-wrap">
       <div class="block-eb">// project lifecycle</div>
-      <div class="lifecycle-steps">
-        {lifecycle.map((step, idx) => (
-          <div class="lc-step">
-            <span class="lc-idx">{String(idx + 1).padStart(2, '0')}</span>
-            <span class="lc-name">{step}</span>
+      <h2 class="block-h" style="margin-bottom:10px;">One partner, start to finish.</h2>
+      <p class="block-sub">We stay with the project through every stage — we don’t hand it off halfway.</p>
+      <div class="lifecycle-flow">
+        {lifecycle.map((s, idx) => (
+          <div class="lc-node">
+            <div class="lc-head">
+              <span class="lc-badge">{String(idx + 1).padStart(2, '0')}</span>
+              <span class="lc-connect"></span>
+            </div>
+            <h3>{s.name}</h3>
+            <p>{s.desc}</p>
           </div>
         ))}
       </div>
@@ -136,36 +148,6 @@ const businessSchema = {
             <p>{v.p}</p>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="block dark" style="border-top:1px solid var(--line-on-ink);">
-    <div class="site-wrap">
-      <div class="block-eb">// judgment in action</div>
-      <div class="grid-2" style="align-items:center;">
-        <div>
-          <TriMark width={64} />
-          <h2 class="block-h" style="margin-top:20px;">The standard permit leaves <span class="accent">energy on the table.</span></h2>
-          <p class="block-sub" style="margin-bottom:18px;">
-            Many solar plants in Panama are designed strictly around peak solar hours, leaving
-            capacity unused because of standard permit limits. By integrating storage (BESS), that
-            surplus is captured and dispatched off-peak — under the same permit.
-          </p>
-          <p class="block-sub" style="color:var(--on-ink);">
-            That’s the difference between standard engineering and judgment. We’ll gladly look at
-            your project’s hidden capacity.
-          </p>
-          <div style="margin-top:28px;">
-            <a class="btn accent" href={localized('/services/optimization', locale)}>
-              Asset optimization<span class="arrow-tail" aria-hidden="true"></span>
-            </a>
-          </div>
-        </div>
-        <div class="proof-metric">
-          <span class="pm-num">≈2×</span>
-          <span class="pm-label">potential capacity utilization of the asset, without renegotiating the permit</span>
-        </div>
       </div>
     </div>
   </section>
@@ -230,7 +212,7 @@ const businessSchema = {
     <div class="site-wrap">
       <div class="mb-inner">
         <div class="block-eb">// panama</div>
-        <h2>We connected another plant to the grid. No grand headlines.</h2>
+        <h2>We connected another solar plant to the grid. No grand headlines.</h2>
       </div>
     </div>
   </section>
@@ -260,7 +242,7 @@ const businessSchema = {
       ) : (
         <div class="empty-state">
           <img src="/forward-mark.png" alt="" />
-          <p>We’re documenting our project portfolio. In the meantime, we’d be glad to tell you what we’ve brought to operation in Panama — get in touch.</p>
+          <p>Our project portfolio is under construction.</p>
           <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
         </div>
       )}

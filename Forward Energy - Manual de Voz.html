@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forward Energy — Manual de Voz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --white:#ffffff;
+  --paper:#FBFBF9;
+  --paper-2:#F3F2EC;
+  --basalt:#0F120A;
+  --basalt-2:#191D12;
+  --ink-soft:#ECEDE6;
+
+  --green:#84BC69;
+  --green-bright:#99C884;
+  --green-ink:#3E6730;
+
+  --mist:#75A39A;
+  --mist-ink:#3F5C55;
+  --mist-soft:#AECBC4;
+  --panel-tint:#E8EEEB;
+
+  --muted:#62675A;
+  --line:rgba(15,18,10,.13);
+  --line-on-dark:rgba(255,255,255,.15);
+  --line-on-green:rgba(15,18,10,.22);
+
+  --f-sans:"Roboto", system-ui, -apple-system, sans-serif;
+  --f-mono:"Roboto Mono", ui-monospace, monospace;
+
+  --maxw:1240px;
+  --pad:clamp(20px,5vw,72px);
+  --r:16px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body{
+  font-family:var(--f-sans);
+  background:var(--paper);
+  color:var(--basalt);
+  font-size:18px;
+  line-height:1.62;
+  font-weight:400;
+  overflow-x:hidden;
+}
+::selection{background:var(--green);color:var(--basalt);}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);}
+section{position:relative;}
+.section-pad{padding-top:clamp(82px,11vw,148px);padding-bottom:clamp(82px,11vw,148px);}
+
+h1,h2,h3,h4{font-family:var(--f-sans);font-weight:600;line-height:1.02;letter-spacing:-.025em;}
+.section-title{font-size:clamp(40px,6.4vw,80px);font-weight:700;letter-spacing:-.035em;line-height:.98;margin-top:24px;text-wrap:balance;}
+.lead{font-size:clamp(19px,2.1vw,24px);line-height:1.5;max-width:62ch;font-weight:400;}
+.muted{color:var(--muted);}
+
+.eyebrow{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:14px;color:var(--green-ink);font-weight:500;}
+.eyebrow .bar{height:1px;width:44px;background:currentColor;opacity:.45;}
+
+.t-green{color:var(--green-ink);}
+.t-mist{color:var(--mist-ink);}
+
+.sec-black{background:var(--basalt);color:var(--ink-soft);}
+.sec-black .section-title{color:var(--white);}
+.sec-black .lead{color:#C7C9BE;}
+.sec-black .muted{color:#9A9D90;}
+.sec-black .eyebrow{color:var(--green-bright);}
+.sec-black .t-green{color:var(--green-bright);}
+
+.sec-green{background:var(--green);color:var(--basalt);}
+.sec-green .section-title{color:var(--basalt);}
+.sec-green .lead{color:#16331A;}
+.sec-green .muted{color:#2C3F25;}
+.sec-green .eyebrow{color:var(--basalt);}
+.sec-green .t-green{color:#1E3D17;}
+
+.mk{display:block;color:var(--green);}
+.mk path{fill:currentColor;}
+
+/* ============ NAV ============ */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:17px var(--pad);background:transparent;transition:background .3s ease,padding .3s ease,border-color .3s ease;border-bottom:1px solid transparent;}
+.topbar.solid{background:rgba(15,18,10,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-on-dark);padding-top:13px;padding-bottom:13px;}
+.topbar .brand{display:flex;align-items:center;gap:13px;text-decoration:none;}
+.topbar .brand img{height:22px;width:auto;display:block;}
+.topbar .brand .vol{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--green-bright);border-left:1px solid var(--line-on-dark);padding-left:13px;}
+.topbar nav{display:flex;gap:22px;}
+.topbar nav a{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;opacity:.72;transition:opacity .2s,color .2s;}
+.topbar nav a:hover{opacity:1;color:var(--green-bright);}
+@media(max-width:980px){.topbar nav{display:none;}}
+
+/* ============ HERO ============ */
+.hero{background:var(--basalt);color:var(--ink-soft);min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;padding-top:118px;padding-bottom:46px;}
+.hero .markbg{position:absolute;top:50%;right:clamp(-120px,-4vw,-40px);transform:translateY(-50%);width:clamp(360px,46vw,720px);color:#1C2114;opacity:.9;pointer-events:none;z-index:1;}
+.hero-top,.hero-center,.hero-bottom{position:relative;z-index:2;}
+.hero-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8B8E81;border-bottom:1px solid var(--line-on-dark);padding-bottom:22px;}
+.hero-center{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0;}
+.hero-kicker{font-family:var(--f-mono);font-size:clamp(12px,1.4vw,15px);letter-spacing:.2em;text-transform:uppercase;color:var(--green-bright);margin-bottom:clamp(22px,3vw,34px);}
+.hero-title{font-weight:700;font-size:clamp(52px,11vw,150px);line-height:.9;letter-spacing:-.05em;color:var(--white);}
+.hero-title .amp{color:var(--green);font-weight:300;}
+.hero-tag{margin-top:clamp(34px,4.5vw,52px);font-weight:400;font-size:clamp(20px,2.4vw,30px);max-width:30ch;line-height:1.34;color:var(--ink-soft);letter-spacing:-.01em;}
+.hero-tag b{font-weight:600;color:var(--green-bright);}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;font-family:var(--f-mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#8B8E81;}
+.hero-bottom .scroll{display:flex;align-items:center;gap:10px;}
+.hero-bottom .scroll .dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+
+/* ============ layout helpers ============ */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);}
+.grid-2.align-top{align-items:start;}
+@media(max-width:820px){.grid-2{grid-template-columns:1fr;gap:42px;}}
+
+/* big quote / north-star statement */
+.northstar{font-weight:500;font-size:clamp(28px,4.6vw,58px);line-height:1.1;letter-spacing:-.03em;text-wrap:balance;max-width:20ch;}
+
+/* ============ traits cards ============ */
+.vcards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:54px;}
+.vcard{background:var(--basalt);color:var(--ink-soft);border-radius:var(--r);padding:30px 26px;display:flex;flex-direction:column;gap:13px;min-height:288px;}
+.vcard .vc-num{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;color:var(--green-bright);}
+.vcard h3{font-size:24px;font-weight:600;letter-spacing:-.025em;color:var(--white);line-height:1.08;}
+.vcard p{font-size:14.5px;color:#A9AC9F;line-height:1.55;}
+.vcard .mk{margin-top:auto;width:26px;color:var(--green);}
+@media(max-width:880px){.vcards{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.vcards{grid-template-columns:1fr;}}
+
+/* ============ pillars ============ */
+.pillar{border-top:1px solid var(--line);padding-top:clamp(34px,5vw,56px);margin-top:clamp(40px,6vw,64px);}
+.pillar:first-of-type{margin-top:clamp(48px,7vw,84px);}
+.pillar-head{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,56px);align-items:start;}
+.pillar-no{font-family:var(--f-mono);font-size:clamp(34px,5vw,62px);font-weight:500;color:var(--green);line-height:.9;letter-spacing:-.02em;}
+.pillar-name{font-size:clamp(28px,4.2vw,48px);font-weight:600;letter-spacing:-.03em;line-height:1.02;}
+.pillar-sub{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);margin-top:14px;}
+.pillar-body{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,54px);margin-top:clamp(28px,3.5vw,40px);align-items:start;}
+.pillar-body .mean{font-size:clamp(17px,1.9vw,20px);line-height:1.55;}
+.guard{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;}
+.guard .glab{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);display:flex;align-items:center;gap:9px;margin-bottom:11px;}
+.guard .glab::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--green);transform:rotate(45deg);}
+.guard p{font-size:15.5px;line-height:1.55;color:var(--basalt);}
+@media(max-width:760px){.pillar-body{grid-template-columns:1fr;gap:24px;}.pillar-head{grid-template-columns:1fr;gap:10px;}}
+
+/* before / after pair */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;}
+.ba-card{border-radius:var(--r);padding:22px 24px;display:flex;flex-direction:column;gap:10px;}
+.ba-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:8px;font-weight:500;}
+.ba-no{background:var(--paper-2);border:1px solid var(--line);}
+.ba-no .ba-tag{color:#9C6B2E;}
+.ba-no .ba-tag::before{content:"\2715";font-weight:700;}
+.ba-no p{font-size:16px;line-height:1.5;color:#5A5247;}
+.ba-yes{background:var(--basalt);}
+.ba-yes .ba-tag{color:var(--green-bright);}
+.ba-yes .ba-tag::before{content:"\2192";font-weight:700;}
+.ba-yes p{font-size:16.5px;line-height:1.5;color:var(--ink-soft);font-weight:500;}
+@media(max-width:620px){.ba{grid-template-columns:1fr;}}
+
+/* on-green before/after (reused style) */
+.sec-green .ba-no{background:rgba(15,18,10,.07);border:1px solid var(--line-on-green);}
+.sec-green .ba-no p{color:#33401F;}
+
+/* ============ rules list ============ */
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(44px,6vw,64px);}
+.rule{background:var(--basalt-2);border:1px solid var(--line-on-dark);border-radius:var(--r);padding:28px 30px;}
+.rule .rn{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--green-bright);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.rule .rn .bar{height:1px;width:26px;background:currentColor;opacity:.5;}
+.rule h3{font-size:23px;font-weight:600;letter-spacing:-.025em;color:var(--white);margin-bottom:10px;line-height:1.1;}
+.rule p{font-size:15px;color:#A9AC9F;line-height:1.58;}
+.rule .pa{margin-top:16px;display:flex;flex-direction:column;gap:7px;}
+.rule .pa div{font-size:14px;line-height:1.45;padding:9px 13px;border-radius:9px;font-family:var(--f-mono);letter-spacing:.005em;}
+.rule .pa .x{background:rgba(156,107,46,.13);color:#C99A5E;}
+.rule .pa .v{background:rgba(132,188,105,.12);color:var(--green-bright);}
+@media(max-width:760px){.rules{grid-template-columns:1fr;}}
+
+/* ============ this/that table ============ */
+.tnt{margin-top:clamp(44px,6vw,64px);border-top:1px solid var(--line);}
+.tnt-row{display:grid;grid-template-columns:1fr 1fr 0.9fr;gap:clamp(18px,3vw,40px);padding:26px 4px;border-bottom:1px solid var(--line);align-items:baseline;}
+.tnt-yes{font-size:clamp(17px,2vw,21px);font-weight:600;letter-spacing:-.015em;color:var(--basalt);line-height:1.28;}
+.tnt-yes::before{content:"\201C";color:var(--green);}
+.tnt-yes::after{content:"\201D";color:var(--green);}
+.tnt-no{font-size:clamp(15px,1.7vw,18px);color:#9C8B6E;text-decoration:line-through;text-decoration-color:rgba(156,107,46,.5);line-height:1.35;}
+.tnt-why{font-family:var(--f-mono);font-size:12.5px;line-height:1.55;color:var(--muted);letter-spacing:.01em;}
+.tnt-head{display:grid;grid-template-columns:1fr 1fr 0.9fr;gap:clamp(18px,3vw,40px);padding:0 4px 14px;}
+.tnt-head span{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);}
+.tnt-head .h-no{color:#9C6B2E;}
+@media(max-width:760px){.tnt-row,.tnt-head{grid-template-columns:1fr;gap:10px;}.tnt-head{display:none;}.tnt-why{padding-top:4px;}}
+
+/* ============ lexicon ============ */
+.word-cloud{display:flex;flex-wrap:wrap;gap:10px;}
+.w-use,.w-no{font-weight:500;font-size:clamp(16px,2vw,21px);padding:8px 16px;border-radius:100px;letter-spacing:-.01em;}
+.w-use{background:var(--basalt);color:var(--green-bright);}
+.w-no{background:transparent;color:rgba(15,18,10,.45);border:1px solid rgba(15,18,10,.28);text-decoration:line-through;text-decoration-color:#9C6B2E;}
+.sec-black .w-no{color:rgba(255,255,255,.4);border-color:rgba(255,255,255,.22);}
+
+/* ============ channels ============ */
+.chan{border-top:1px solid var(--line);padding-top:clamp(34px,5vw,52px);margin-top:clamp(44px,6vw,64px);}
+.chan:first-of-type{margin-top:clamp(48px,7vw,84px);}
+.chan-head{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,4vw,54px);align-items:start;}
+.chan-name{display:flex;align-items:baseline;gap:16px;}
+.chan-name .cn-no{font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;color:var(--green-ink);}
+.chan-name h3{font-size:clamp(26px,3.6vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1;}
+.chan-desc{font-size:clamp(16px,1.8vw,19px);line-height:1.55;color:var(--basalt);margin-top:18px;}
+.chan-specs{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.chan-specs li{display:grid;grid-template-columns:130px 1fr;gap:16px;font-size:14.5px;line-height:1.45;padding-bottom:11px;border-bottom:1px solid var(--line);}
+.chan-specs li .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-ink);padding-top:2px;}
+.chan-specs li .v{color:var(--basalt);}
+@media(max-width:820px){.chan-head{grid-template-columns:1fr;gap:26px;}}
+
+/* example post mockups */
+.ex-wrap{margin-top:clamp(28px,3.5vw,40px);}
+.ex-lab{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.ex-lab::before{content:"";width:18px;height:1px;background:var(--green);}
+
+/* linkedin card */
+.post{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;max-width:600px;box-shadow:0 1px 0 rgba(15,18,10,.04);}
+.post-head{display:flex;align-items:center;gap:13px;padding:18px 22px 12px;}
+.post-av{width:48px;height:48px;border-radius:50%;background:var(--basalt);display:flex;align-items:center;justify-content:center;flex:none;}
+.post-av svg{width:24px;color:var(--green);}
+.post-id .nm{font-weight:600;font-size:15px;letter-spacing:-.01em;color:var(--basalt);}
+.post-id .mt{font-size:12.5px;color:var(--muted);line-height:1.35;}
+.post-body{padding:4px 22px 20px;font-size:15px;line-height:1.62;color:#1B1E14;}
+.post-body p{margin-bottom:13px;}
+.post-body p:last-child{margin-bottom:0;}
+.post-body .hl{color:var(--green-ink);font-weight:600;}
+.post-body .tags{color:var(--mist-ink);font-weight:500;}
+.post-foot{border-top:1px solid var(--line);padding:11px 22px;display:flex;gap:26px;font-size:12.5px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.04em;}
+
+/* blog mock */
+.blog{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:clamp(30px,4vw,52px);max-width:720px;}
+.blog .kick{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);margin-bottom:18px;}
+.blog h4{font-size:clamp(27px,3.6vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.04;color:var(--basalt);margin-bottom:18px;text-wrap:balance;}
+.blog .dek{font-size:clamp(17px,1.9vw,20px);line-height:1.5;color:#3A3E32;margin-bottom:24px;}
+.blog .bodyp{font-size:16px;line-height:1.7;color:#2A2E22;}
+.blog .bodyp p{margin-bottom:15px;}
+.blog .bodyp p:last-child{margin-bottom:0;}
+.blog .analogy{border-left:2px solid var(--green);padding:4px 0 4px 20px;margin:22px 0;font-size:16.5px;line-height:1.55;color:var(--green-ink);font-weight:500;}
+
+/* instagram mock */
+.ig{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;max-width:420px;}
+.ig-head{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--line);}
+.ig-av{width:34px;height:34px;border-radius:50%;background:var(--basalt);display:flex;align-items:center;justify-content:center;flex:none;}
+.ig-av svg{width:17px;color:var(--green);}
+.ig-head .ig-nm{font-weight:600;font-size:13.5px;color:var(--basalt);}
+.ig-img{aspect-ratio:1/1;background:linear-gradient(150deg,#5E8F84,#75A39A 70%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.ig-img::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 80% at 75% 12%,rgba(132,188,105,.4),transparent 55%);}
+.ig-img .mk{position:relative;z-index:2;width:64px;color:var(--white);opacity:.9;}
+.ig-img .ph-note{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82);z-index:2;}
+.ig-cap{padding:14px 16px 18px;font-size:14px;line-height:1.55;color:#1B1E14;}
+.ig-cap .nm{font-weight:600;color:var(--basalt);}
+.ig-cap .tags{color:var(--mist-ink);font-weight:500;display:block;margin-top:10px;font-size:13px;}
+
+.chan-ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,32px);align-items:start;}
+@media(max-width:880px){.chan-ex-grid{grid-template-columns:1fr;}}
+
+/* ============ checklist ============ */
+.check{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;margin-top:clamp(44px,6vw,60px);}
+.check .ci{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:18px 0;border-bottom:1px solid var(--line-on-dark);}
+.check .ci .bx{width:24px;height:24px;border-radius:6px;border:1.5px solid var(--green);display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;}
+.check .ci .bx svg{width:13px;color:var(--green);}
+.check .ci .ct{font-size:16.5px;line-height:1.45;color:var(--ink-soft);}
+.check .ci .ct b{color:var(--white);font-weight:600;}
+@media(max-width:760px){.check{grid-template-columns:1fr;}}
+
+/* ============ footer ============ */
+.footer{background:var(--basalt);color:var(--ink-soft);padding-top:88px;padding-bottom:48px;overflow:hidden;position:relative;}
+.footer-word{font-family:var(--f-mono);font-weight:500;font-size:clamp(54px,15vw,220px);line-height:.9;letter-spacing:-.05em;color:#1A1F12;position:relative;}
+.footer-word .pt{color:var(--green);}
+.footer-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8B8E81;border-top:1px solid var(--line-on-dark);padding-top:26px;margin-top:46px;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+</style>
+</head>
+<body>
+<!-- ============ TOP NAV ============ -->
+<div class="topbar" id="topbar">
+  <a href="#top" class="brand" aria-label="Forward Energy — Manual de Voz"><img src="brand/fe-logo-reversed.png" alt="Forward Energy" /><span class="vol">Voz</span></a>
+  <nav>
+    <a href="#principio">Principio</a>
+    <a href="#sonamos">Cómo sonamos</a>
+    <a href="#pilares">Pilares</a>
+    <a href="#reglas">Reglas</a>
+    <a href="#estilo">Estilo</a>
+    <a href="#lexico">Léxico</a>
+    <a href="#canales">Canales</a>
+    <a href="#control">Control</a>
+  </nav>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <svg class="markbg" viewBox="0 0 120 132" fill="none" aria-hidden="true"><path d="M4 6 L4 86 L62 46 Z" fill="currentColor" opacity=".55"/><path d="M30 46 L30 128 L92 87 Z" fill="currentColor"/></svg>
+  <div class="wrap hero-top">
+    <div class="hero-meta">
+      <span>Manual de Voz</span>
+      <span>Volumen complementario · 2026</span>
+      <span>Panamá</span>
+      <span>Español</span>
+    </div>
+  </div>
+  <div class="wrap hero-center">
+    <div class="hero-kicker">Cómo escribe Forward Energy</div>
+    <h1 class="hero-title">Voz <span class="amp">&amp;</span><br>tono.</h1>
+    <p class="hero-tag">La forma de escribir de la marca, en un solo lugar. Para web, LinkedIn, blog e Instagram — <b>una sola voz, escrita siempre igual.</b></p>
+  </div>
+  <div class="wrap hero-bottom">
+    <div class="scroll"><span class="dot"></span> Desplácese para explorar</div>
+    <div>Principios · Pilares · Canales</div>
+  </div>
+</section>
+
+<!-- ============ 01 · PRINCIPIO ============ -->
+<section id="principio" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>01</span><span class="bar"></span><span>El principio</span></div>
+    <h2 class="section-title reveal">No ganamos por ser<br>los más ruidosos.<br>Ganamos por ser<br>los más <span class="t-green">claros.</span></h2>
+  </div>
+  <div class="wrap grid-2 align-top" style="margin-top:clamp(48px,7vw,90px);">
+    <div class="reveal">
+      <p class="lead">Forward Energy es una firma de ingeniería y servicios para proyectos de generación renovable en un mercado complejo y regulado. No competimos siendo los más fuertes en la sala, ni escondiéndonos detrás de jerga densa. Competimos siendo quienes piensan con más claridad y resuelven con más criterio.</p>
+    </div>
+    <div class="reveal">
+      <p style="font-size:17px;line-height:1.65;">Por eso la voz importa tanto como la ingeniería. Cada texto — un post de LinkedIn, un artículo del blog, un pie de foto en Instagram, un correo a un inversionista — debe sonar a la misma firma: una conversación con alguien tranquilo, brillante y honesto, que ya entendió el problema que a usted le quita el sueño.</p>
+      <p style="font-size:17px;line-height:1.65;margin-top:20px;">Esta guía ordena ese cómo. Tres palabras la resumen: <span class="t-green" style="font-weight:700;">claridad, criterio y honestidad.</span></p>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(64px,9vw,110px);">
+    <div class="eyebrow reveal" style="margin-bottom:24px;"><span class="bar"></span><span>La idea que ordena todo</span></div>
+    <p class="northstar reveal">Hacemos que lo <span class="t-green">altamente complejo</span> se sienta simple, estructurado y <span class="t-green">seguro.</span></p>
+  </div>
+</section>
+
+<!-- ============ 02 · CÓMO SONAMOS (green) ============ -->
+<section id="sonamos" class="sec-green section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>02</span><span class="bar"></span><span>Cómo sonamos</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">Cuatro rasgos<br>en cada frase.</h2>
+    <p class="lead reveal" style="margin-top:28px;">No son adornos: son el filtro. Si un texto no suena a estos cuatro rasgos a la vez, todavía no es Forward. Léalos antes de escribir, no después.</p>
+    <div class="vcards">
+      <div class="vcard reveal"><span class="vc-num">01</span><h3>Autoridad tranquila</h3><p>Hablamos con confianza serena. No hace falta presumir: los datos y la trayectoria hablan. Somos el ancla en medio de un mercado volátil.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+      <div class="vcard reveal"><span class="vc-num">02</span><h3>Inteligentes, pero humildes</h3><p>Dejamos que el rigor, la precisión y las soluciones hagan el trabajo pesado. Nunca anunciamos lo brillantes que somos; lo demostramos.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+      <div class="vcard reveal"><span class="vc-num">03</span><h3>Creativos, fuera del molde</h3><p>No ejecutamos plantillas. Cruzamos ingeniería, derecho y finanzas para encontrar el ángulo — legal y técnico — que otros pasan por alto.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+      <div class="vcard reveal"><span class="vc-num">04</span><h3>Cercanos, con respeto</h3><p>Tratamos de usted. Somos un equipo ágil y accesible, no un conglomerado sin rostro. Cuidamos el capital y la tierra del cliente como propios.</p><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · PILARES DE TONO ============ -->
+<section id="pilares" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>03</span><span class="bar"></span><span>Los tres pilares de tono</span></div>
+    <h2 class="section-title reveal">Todo texto<br>equilibra <span class="t-green">tres fuerzas.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;">Cada pieza que publicamos sostiene los tres pilares a la vez. Brillantez sin presunción. Calidez sin perder la compostura. Audacia siempre con respaldo. Si uno falta, el texto se desbalancea.</p>
+  </div>
+
+  <!-- Pilar 1 -->
+  <div class="wrap">
+    <div class="pillar reveal">
+      <div class="pillar-head">
+        <div class="pillar-no">01</div>
+        <div>
+          <div class="pillar-name">Brillantez accesible</div>
+          <div class="pillar-sub">Estratégica y directa</div>
+        </div>
+      </div>
+      <div class="pillar-body">
+        <p class="mean">Quitamos la complejidad innecesaria sin simplificar de más la ingeniería. Comunicamos con claridad elegante: progresión lógica y analogías aterrizadas. Escribimos para que lo entienda un inversionista ocupado en una sola lectura.</p>
+        <div class="guard">
+          <div class="glab">La regla</div>
+          <p>Evite el tono de clase académica. No escriba para demostrar cuántos términos técnicos conoce, sino para que lo entiendan. Lo técnico se traduce, no se esconde tras la jerga.</p>
+        </div>
+      </div>
+      <div class="ba">
+        <div class="ba-card ba-no"><span class="ba-tag">Así no</span><p>«Utilizando un enfoque multifacético de perfilado termodinámico mediante imágenes termográficas con drones, optimizamos la eficiencia del ciclo de vida del activo.»</p></div>
+        <div class="ba-card ba-yes"><span class="ba-tag">Así sí</span><p>«Usamos termografía con drones para señalar exactamente dónde sus paneles pierden energía, y corregirlo antes de que golpee su rentabilidad.»</p></div>
+      </div>
+    </div>
+
+    <!-- Pilar 2 -->
+    <div class="pillar reveal">
+      <div class="pillar-head">
+        <div class="pillar-no">02</div>
+        <div>
+          <div class="pillar-name">Colaboración cercana</div>
+          <div class="pillar-sub">Ágil y humana</div>
+        </div>
+      </div>
+      <div class="pillar-body">
+        <p class="mean">Somos socios cercanos y profundamente colaborativos. Tratamos el capital y la tierra del cliente como si fueran nuestros. Hablamos con un tono cálido y conversacional, pero siempre profesional — y de usted.</p>
+        <div class="guard">
+          <div class="glab">La regla</div>
+          <p>No suene como un conglomerado rígido y sin rostro. Somos un equipo ágil de especialistas, fácil de contactar. Cercanía con respeto: serios, nunca acartonados ni distantes.</p>
+        </div>
+      </div>
+      <div class="ba">
+        <div class="ba-card ba-no"><span class="ba-tag">Así no</span><p>«Los clientes deben someter sus parcelas para evaluación de segmentación a través de nuestro portal de onboarding.»</p></div>
+        <div class="ba-card ba-yes"><span class="ba-tag">Así sí</span><p>«Sentémonos a mirar su terreno juntos. Le ayudamos a segmentarlo para obtener el máximo rendimiento energético en los próximos veinte años.»</p></div>
+      </div>
+    </div>
+
+    <!-- Pilar 3 -->
+    <div class="pillar reveal">
+      <div class="pillar-head">
+        <div class="pillar-no">03</div>
+        <div>
+          <div class="pillar-name">Audacia con respaldo</div>
+          <div class="pillar-sub">Visionaria y aterrizada</div>
+        </div>
+      </div>
+      <div class="pillar-body">
+        <p class="mean">No tememos cuestionar los supuestos del sector — como nuestro modelo de permisos solares con BESS. Pero respaldamos cada afirmación audaz con matemática rigurosa, criterio legal y datos duros.</p>
+        <div class="guard">
+          <div class="glab">La regla</div>
+          <p>Nunca suene como un «startup disruptivo» vendiendo humo. Somos veteranos del sector, no soñadores especulativos. La audacia se gana con cifras, no con adjetivos.</p>
+        </div>
+      </div>
+      <div class="ba">
+        <div class="ba-card ba-no"><span class="ba-tag">Así no</span><p>«¡Estamos revolucionando la revolución verde en Panamá con tecnología de almacenamiento que cambia el paradigma!»</p></div>
+        <div class="ba-card ba-yes"><span class="ba-tag">Así sí</span><p>«Los proyectos solares estándar en Panamá dejan dinero sobre la mesa por los límites de permiso en horas pico. Integrando BESS, le ayudamos a capturar y vender energía en horas valle — casi duplicando su producción bajo el permiso que ya tiene.»</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · REGLAS DE ESCRITURA (black) ============ -->
+<section id="reglas" class="sec-black section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>04</span><span class="bar"></span><span>Reglas de escritura</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">Cuatro hábitos<br>que se ven en la <span class="t-green">página.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:58ch;">Los pilares definen el carácter; estas reglas se ven en la mecánica del texto. Audite cada pieza contra ellas antes de publicar.</p>
+    <div class="rules">
+      <div class="rule reveal">
+        <div class="rn"><span class="bar"></span>Regla 01</div>
+        <h3>Párrafos cortos y con aire</h3>
+        <p>Nuestra escritura es limpia, espaciosa y muy legible. Frases directas, una idea por párrafo. El texto debe respirar; el lector ocupado debe poder escanearlo.</p>
+      </div>
+      <div class="rule reveal">
+        <div class="rn"><span class="bar"></span>Regla 02</div>
+        <h3>Voz activa, siempre</h3>
+        <p>No se esconda detrás de la voz pasiva. El sujeto actúa: nosotros hacemos, resolvemos, conectamos. Es más honesto, más claro y más corto.</p>
+        <div class="pa">
+          <div class="x">Pasiva · «Se lograron optimizaciones por nuestro equipo.»</div>
+          <div class="v">Activa · «Optimizamos la conexión a la red y le ahorramos tres meses de retraso.»</div>
+        </div>
+      </div>
+      <div class="rule reveal">
+        <div class="rn"><span class="bar"></span>Regla 03</div>
+        <h3>Analogías estructurales</h3>
+        <p>Para explicar ingeniería compleja, compare con algo cotidiano — la red como un sistema de autopistas, o como tuberías de agua. Así un decisor no técnico capta el valor al instante.</p>
+        <div class="pa">
+          <div class="v">«La red es una autopista: si todos salen a la misma hora, se congestiona. El BESS es su carril alterno.»</div>
+        </div>
+      </div>
+      <div class="rule reveal">
+        <div class="rn"><span class="bar"></span>Regla 04</div>
+        <h3>No prometa plazos regulatorios</h3>
+        <p>Panamá exige paciencia meticulosa. Nuestra fortaleza es saber navegar el sistema correctamente, no saltárnoslo. Enmarque la capacidad, nunca garantice el calendario.</p>
+        <div class="pa">
+          <div class="x">«Le garantizamos el permiso en tres meses.»</div>
+          <div class="v">«Sabemos exactamente cómo se tramita y qué evita los retrasos.»</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · ESTILO: ESTO SÍ, ESTO NO ============ -->
+<section id="estilo" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>05</span><span class="bar"></span><span>Esto sí, esto no</span></div>
+    <h2 class="section-title reveal">Audite su texto<br>antes de <span class="t-green">publicar.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:56ch;">La tabla de referencia rápida. A la izquierda, cómo lo decimos. Al centro, lo que evitamos. A la derecha, por qué.</p>
+  </div>
+  <div class="wrap" style="margin-top:clamp(40px,5vw,56px);">
+    <div class="tnt-head reveal"><span>Decimos</span><span class="h-no">Evitamos</span><span>Por qué</span></div>
+    <div class="tnt">
+      <div class="tnt-row reveal"><div class="tnt-yes">Navegamos la complejidad.</div><div class="tnt-no">Optimizamos las sinergias.</div><div class="tnt-why">Verbos claros. Nada de jerga corporativa vacía.</div></div>
+      <div class="tnt-row reveal"><div class="tnt-yes">Una década de proyectos que de verdad se construyen.</div><div class="tnt-no">Somos el disruptor líder del mercado.</div><div class="tnt-why">Que la ejecución real construya la credibilidad, no los títulos autoproclamados.</div></div>
+      <div class="tnt-row reveal"><div class="tnt-yes">Resolvemos, en silencio, retos energéticos de gran escala.</div><div class="tnt-no">¡Revolucionando el panorama de la energía verde!</div><div class="tnt-why">El tono se mantiene tranquilo, digno y con autoridad.</div></div>
+      <div class="tnt-row reveal"><div class="tnt-yes">Estrategias de ingeniería hechas a la medida.</div><div class="tnt-no">Soluciones llave en mano, de molde.</div><div class="tnt-why">Resalta nuestro enfoque creativo, ágil y a medida.</div></div>
+      <div class="tnt-row reveal"><div class="tnt-yes">Le diremos si un proyecto no es viable.</div><div class="tnt-no">Éxito garantizado al 100% en todo proyecto.</div><div class="tnt-why">La honestidad absoluta construye confianza de por vida.</div></div>
+      <div class="tnt-row reveal"><div class="tnt-yes">Energía solar que baja su factura, con cifras verificables.</div><div class="tnt-no">Energía 100% limpia que salva el planeta.</div><div class="tnt-why">Beneficio concreto y medible en lugar de greenwashing.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · LÉXICO (green) ============ -->
+<section id="lexico" class="sec-green section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>06</span><span class="bar"></span><span>Léxico</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">Las palabras<br>de la marca.</h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:58ch;">Un vocabulario corto y disciplinado. Estas palabras tiran del tono hacia la claridad y el criterio; las otras, hacia el ruido. Cuando dude, elija de la izquierda.</p>
+  </div>
+  <div class="wrap grid-2 align-top" style="margin-top:clamp(44px,6vw,64px);">
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:18px;"><span class="bar"></span><span>Palabras que usamos</span></div>
+      <div class="word-cloud">
+        <span class="w-use">claro</span><span class="w-use">factible</span><span class="w-use">rendimiento</span><span class="w-use">criterio</span><span class="w-use">garantía</span><span class="w-use">datos</span><span class="w-use">experiencia</span><span class="w-use">verificable</span><span class="w-use">predecible</span><span class="w-use">de principio a fin</span><span class="w-use">a la medida</span><span class="w-use">navegar</span><span class="w-use">rigor</span><span class="w-use">retorno</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow" style="margin-bottom:18px;"><span class="bar"></span><span>Palabras que evitamos</span></div>
+      <div class="word-cloud">
+        <span class="w-no">revolucionario</span><span class="w-no">disruptivo</span><span class="w-no">100% verde</span><span class="w-no">salvar el planeta</span><span class="w-no">ecoamigable</span><span class="w-no">líder mundial</span><span class="w-no">vanguardia</span><span class="w-no">sinergia</span><span class="w-no">paradigma</span><span class="w-no">llave en mano</span><span class="w-no">garantizado al 100%</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(48px,6vw,72px);">
+    <div class="eyebrow reveal" style="margin-bottom:24px;"><span class="bar"></span><span>Frases de marca</span></div>
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="background:var(--basalt);border-radius:var(--r);padding:30px 28px;font-weight:600;font-size:clamp(20px,2.6vw,28px);letter-spacing:-.025em;color:var(--white);line-height:1.14;">Energía renovable, bien hecha.</div>
+      <div style="background:var(--basalt);border-radius:var(--r);padding:30px 28px;font-weight:600;font-size:clamp(20px,2.6vw,28px);letter-spacing:-.025em;color:var(--white);line-height:1.14;">De la idea a la operación.</div>
+      <div style="background:var(--basalt);border-radius:var(--r);padding:30px 28px;font-weight:600;font-size:clamp(20px,2.6vw,28px);letter-spacing:-.025em;color:var(--white);line-height:1.14;">Hacemos que los proyectos avancen.</div>
+      <div style="background:var(--basalt);border-radius:var(--r);padding:30px 28px;font-weight:600;font-size:clamp(20px,2.6vw,28px);letter-spacing:-.025em;color:var(--white);line-height:1.14;">Ingeniería y criterio para energía renovable.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · VOZ POR CANAL ============ -->
+<section id="canales" class="section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>07</span><span class="bar"></span><span>La voz por canal</span></div>
+    <h2 class="section-title reveal">Una sola voz,<br>tres <span class="t-green">escenarios.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:60ch;">El carácter no cambia entre canales — cambia el formato y el ritmo. LinkedIn convence con criterio; el blog explica con profundidad; Instagram muestra el trabajo real. Cada uno con su receta y un ejemplo listo para adaptar.</p>
+  </div>
+
+  <div class="wrap">
+    <!-- LinkedIn -->
+    <div class="chan reveal">
+      <div class="chan-head">
+        <div>
+          <div class="chan-name"><span class="cn-no">A</span><h3>LinkedIn</h3></div>
+          <p class="chan-desc">Nuestro canal principal con inversionistas, empresas y gobierno. Aquí ganamos con foresight estratégico: un ángulo que otros no vieron, explicado con calma y cerrado con una invitación a conversar.</p>
+        </div>
+        <ul class="chan-specs">
+          <li><span class="k">Estructura</span><span class="v">Gancho → status quo → el ángulo → el resultado con cifra → invitación.</span></li>
+          <li><span class="k">Extensión</span><span class="v">120–200 palabras. Párrafos de 1–2 líneas, con aire.</span></li>
+          <li><span class="k">Tono</span><span class="v">Autoridad tranquila. Sin hype, sin emojis. De usted.</span></li>
+          <li><span class="k">Cierre</span><span class="v">Una invitación concreta y de bajo compromiso, no una venta.</span></li>
+        </ul>
+      </div>
+      <div class="ex-wrap reveal">
+        <div class="ex-lab">Ejemplo · publicación lista para adaptar</div>
+        <div class="post">
+          <div class="post-head">
+            <div class="post-av"><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div>
+            <div class="post-id"><div class="nm">Forward Energy</div><div class="mt">Ingeniería para energía renovable · Panamá<br>Patrocinado · <span style="opacity:.7;">3 h</span></div></div>
+          </div>
+          <div class="post-body">
+            <p>El status quo es cómodo — hasta que entiende lo que le está costando.</p>
+            <p>En Panamá, muchos proyectos solares se diseñan estrictamente alrededor de las horas pico de sol. Por los límites del permiso estándar, dejan capacidad valiosa sin aprovechar.</p>
+            <p>Nosotros miramos ese cuello de botella distinto. Integrando un sistema de baterías (BESS) a un activo solar existente, se puede almacenar el excedente de las horas pico y despacharlo en horas valle — <span class="hl">todo bajo el mismo permiso.</span></p>
+            <p>¿El resultado? Casi el doble del potencial de utilidad del proyecto, sin renegociar permisos de base.</p>
+            <p>Esa es la diferencia entre ingeniería estándar y foresight estratégico. Con gusto miramos juntos la capacidad oculta de su proyecto.</p>
+            <p class="tags">#EnergíaSolar #BESS #Panamá #Renovables</p>
+          </div>
+          <div class="post-foot"><span>↑ Recomendar</span><span>Comentar</span><span>Compartir</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog -->
+    <div class="chan reveal">
+      <div class="chan-head">
+        <div>
+          <div class="chan-name"><span class="cn-no">B</span><h3>Blog del sitio web</h3></div>
+          <p class="chan-desc">El espacio para profundizar. Aquí demostramos criterio con artículos que explican un problema real del mercado panameño y cómo lo resolvemos — con la analogía estructural como herramienta estrella.</p>
+        </div>
+        <ul class="chan-specs">
+          <li><span class="k">Estructura</span><span class="v">Titular concreto → bajada → problema → analogía → solución con datos.</span></li>
+          <li><span class="k">Extensión</span><span class="v">600–1.000 palabras. Subtítulos cada 2–3 párrafos.</span></li>
+          <li><span class="k">Tono</span><span class="v">Brillantez accesible. Técnico cuando aporta, traducido siempre.</span></li>
+          <li><span class="k">Titular</span><span class="v">Promete claridad, no revolución. Verbos, no adjetivos.</span></li>
+        </ul>
+      </div>
+      <div class="ex-wrap reveal">
+        <div class="ex-lab">Ejemplo · entrada de blog lista para adaptar</div>
+        <div class="blog">
+          <div class="kick">Análisis · Mercado solar</div>
+          <h4>Por qué su planta solar en Panamá produce menos de lo que podría — y cómo cambiarlo.</h4>
+          <p class="dek">Muchos proyectos dejan dinero sobre la mesa por una razón evitable: están diseñados solo para las horas pico de sol. Hay una forma de capturar el resto, bajo el permiso que ya tiene.</p>
+          <div class="bodyp">
+            <p>Imagine la red eléctrica como una autopista. Al mediodía, cuando el sol pega más fuerte, todas las plantas solares «salen a la carretera» al mismo tiempo. La autopista se congestiona, el precio de la energía cae y su producción más valiosa se vende barata.</p>
+            <div class="analogy">Un sistema de baterías es su carril alterno: guarda la energía cuando la autopista está llena y la libera cuando se despeja.</div>
+            <p>En términos concretos: un Sistema de Almacenamiento por Baterías (BESS) integrado a su planta captura el excedente de las horas pico y lo despacha en horas valle, cuando la energía vale más y la red tiene capacidad. Todo, dentro de los límites de su permiso actual.</p>
+            <p>No es un cambio de paradigma; es ingeniería aplicada con criterio. Antes de recomendarlo, corremos los números de su activo. Y si en su caso no es viable, se lo diremos con la misma claridad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instagram -->
+    <div class="chan reveal">
+      <div class="chan-head">
+        <div>
+          <div class="chan-name"><span class="cn-no">C</span><h3>Instagram</h3></div>
+          <p class="chan-desc">El canal más humano. Aquí la imagen manda — proyectos reales, gente real, Panamá real — y el texto la acompaña, breve y cálido. Es el lugar para mostrar el trabajo, nunca para sonar publicitario.</p>
+        </div>
+        <ul class="chan-specs">
+          <li><span class="k">Imagen</span><span class="v">Documental y real. Sin stock idealizado ni cielos de catálogo.</span></li>
+          <li><span class="k">Texto</span><span class="v">1–3 frases. Cálido, concreto, sin jerga. Un dato si aporta.</span></li>
+          <li><span class="k">Tono</span><span class="v">Cercano con respeto. Más humano que LinkedIn, igual de honesto.</span></li>
+          <li><span class="k">Hashtags</span><span class="v">Pocos y relevantes. Nada de ráfagas de etiquetas genéricas.</span></li>
+        </ul>
+      </div>
+      <div class="ex-wrap reveal">
+        <div class="ex-lab">Ejemplo · publicación lista para adaptar</div>
+        <div class="chan-ex-grid">
+          <div class="ig">
+            <div class="ig-head"><div class="ig-av"><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div><span class="ig-nm">forwardenergy</span></div>
+            <div class="ig-img"><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg><span class="ph-note">Foto real · termografía en sitio</span></div>
+            <div class="ig-cap"><span class="nm">forwardenergy</span> Una cámara térmica ve lo que el ojo no: aquí, el punto exacto donde un panel pierde energía. Encontrarlo a tiempo es la diferencia entre un reclamo de garantía a tiempo y una pérdida silenciosa por años. <span class="tags">#Termografía #EnergíaSolar #Panamá</span></div>
+          </div>
+          <div>
+            <div class="ex-lab" style="margin-top:4px;">Otra opción · hito de proyecto</div>
+            <div class="ig">
+              <div class="ig-head"><div class="ig-av"><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg></div><span class="ig-nm">forwardenergy</span></div>
+              <div class="ig-img"><svg class="mk" viewBox="0 0 120 132" fill="none"><path d="M4 6 L4 86 L62 46 Z" opacity=".42"/><path d="M30 46 L30 128 L92 87 Z"/></svg><span class="ph-note">Foto real · equipo en obra</span></div>
+              <div class="ig-cap"><span class="nm">forwardenergy</span> De la idea a la operación. Hoy energizamos otro proyecto en el interior — un año de factibilidad, ingeniería y permisos detrás de este momento. Gracias al equipo que lo hizo posible. <span class="tags">#Renovables #Panamá #EnergíaLimpia</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 · LISTA DE CONTROL (black) ============ -->
+<section id="control" class="sec-black section-pad">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span>08</span><span class="bar"></span><span>Lista de control</span></div>
+    <h2 class="section-title reveal" style="margin-top:24px;">Antes de dar<br>clic en <span class="t-green">publicar.</span></h2>
+    <p class="lead reveal" style="margin-top:28px;max-width:56ch;">Si una pieza no pasa estos ocho puntos, todavía no está lista. Léala una vez con esta lista al lado.</p>
+    <div class="check">
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>Verbos claros.</b> Sin jerga corporativa ni «sinergias».</div></div>
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>Voz activa.</b> El sujeto actúa; nada se esconde en pasiva.</div></div>
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>Cada afirmación audaz tiene un dato</b> o una cifra detrás.</div></div>
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>Suena tranquilo y digno,</b> nunca a hype ni a vendedor.</div></div>
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>Un inversionista ocupado</b> lo entiende en una sola lectura.</div></div>
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>No promete plazos regulatorios</b> que no controlamos.</div></div>
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>Cero greenwashing.</b> Ningún «salva el planeta» ni «100% verde».</div></div>
+      <div class="ci reveal"><div class="bx"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ct"><b>Párrafos cortos,</b> de usted, y con una invitación clara al final.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--green-bright);margin-bottom:22px;"><span class="bar"></span><span>Manual de Voz</span></div>
+    <div class="footer-word">Claro<span class="pt">.</span></div>
+    <div class="footer-meta">
+      <span>Forward Energy · Manual de Voz</span>
+      <span>Volumen complementario al Manual de Marca</span>
+      <span>Panamá · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// nav background on scroll
+const topbar=document.getElementById('topbar');
+const onScroll=()=>{topbar.classList.toggle('solid',window.scrollY>40);};
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+// reveal on view
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

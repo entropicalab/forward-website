@@ -1,0 +1,31 @@
+0. please update the logo with the "bordeless" version i've added
+
+1. the eyebrow on the hero section should say "diseño, financiamiento y gestión de renovables en panamá"
+
+2. the entire hero section seems to be improperly laid out (the text cuts off every word into a new line).
+
+3. "por qué forward" section title should say "especialistas técnicos, con autoridad de grado institucional."
+
+4. ciclo de vida del proyecto should be a more interactive or graphically interesting flowchart, with a bit more explanation.
+
+5. "cómo trabajamos" section should say:
+
+01, include that we know ETESA as well.
+
+04, please rephrase this body text according to the brand voice, it's a bit too robotic.
+
+6. i'd eliminate the "criterio de acción" section, it's a bit too specific for this stage of marketing.
+
+7. "a quien acompañamos" section should read:
+
+02 "...máximo rendimiento durante la vida útil del proyecto"
+
+8. the "Panamá" section should have a picture of panamá and not some random city in europe please. also the text should be aligned with the brand voice
+
+9. proyectos destacados should simply say it's under construction, not so wordy.
+
+10. let's restructure the "servicios" page. first, a simple list on top, and then one complete section for each of the services (without having subpages per services instead). 
+
+11. sectores page - the picture in gobierno should show panamá (maybe the tribunal electoral) and "propietarios de tierra" should show random land, not a large rock in the middle of the ocean. if you're unable to find a good pic, please keep it as a hatched square instead.
+
+12. the contact page has a "mensaje recibido" sign under the send button, and i haven't clicked anything. should only pop up when someone sends.
