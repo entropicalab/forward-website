@@ -15,6 +15,9 @@ Puede tener el mejor sitio y el mejor financiamiento, pero si no hay capacidad e
 de conexión, no hay proyecto. La interconexión no es un trámite final: es una de las
 primeras cosas que conviene verificar.
 
+> La red es una autopista con cupos. Si el carril por el que quiere entrar ya está lleno,
+> no importa qué tan bueno sea su proyecto: tendrá que esperar o entrar por otro punto.
+
 ## Capacidad disponible
 
 No toda la red puede recibir nueva generación. Identificar puntos con capacidad real, y

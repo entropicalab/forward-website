@@ -15,6 +15,10 @@ A solar project doesn't start with panels. It starts with three questions: is th
 resource, is there grid, and is there permission? Most projects that stall do so because
 one of those three was assumed instead of verified.
 
+> Developing a project is like building a house: the land, the foundation and the permit
+> are verified before the first wall goes up. Here, those three are resource, grid and
+> permission.
+
 ## 1. Resource and site
 
 Irradiation in Panama is good, but not uniform. The right site balances resource,

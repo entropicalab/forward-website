@@ -44,6 +44,7 @@ export const strings = {
     'sector.commercial': 'comercial e industrial',
 
     // footer
+    'footer.tagline': 'Energía renovable, bien hecha.',
     'footer.bio': 'forward energy es una firma panameña de ingeniería y servicios para proyectos de energía renovable. acompañamos cada proyecto, de la idea a la operación.',
     'footer.company': 'empresa',
     'footer.contact': 'contacto',
@@ -94,6 +95,7 @@ export const strings = {
     'sector.commercial': 'commercial & industrial',
 
     // footer
+    'footer.tagline': 'Renewable energy, done right.',
     'footer.bio': 'forward energy is a panama-based engineering and services firm for renewable energy projects. we take every project from concept to operation.',
     'footer.company': 'company',
     'footer.contact': 'contact',

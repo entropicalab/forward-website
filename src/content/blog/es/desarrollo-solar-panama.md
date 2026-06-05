@@ -15,6 +15,10 @@ Un proyecto solar no empieza con paneles. Empieza con tres preguntas: ¿hay recu
 hay red y hay permiso? La mayoría de los proyectos que se detienen lo hacen porque
 alguna de esas tres se asumió en lugar de verificarse.
 
+> Desarrollar un proyecto es como construir una casa: el terreno, los cimientos y el
+> permiso se verifican antes de levantar la primera pared. Aquí, esas tres son recurso,
+> red y permiso.
+
 ## 1. Recurso y sitio
 
 La radiación en Panamá es buena, pero no uniforme. El sitio correcto equilibra recurso,

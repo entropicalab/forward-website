@@ -15,6 +15,10 @@ You can have the best site and the best financing, but if there's no capacity at
 connection point, there's no project. Interconnection is not a final formality — it's one
 of the first things worth verifying.
 
+> The grid is a highway with limited slots. If the lane you want to merge into is already
+> full, it doesn't matter how good your project is: you'll have to wait, or enter somewhere
+> else.
+
 ## Available capacity
 
 Not every part of the grid can take new generation. Identifying points with real capacity,
