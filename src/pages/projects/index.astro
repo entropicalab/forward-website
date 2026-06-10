@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { localized, tr } from '../../i18n/utils';
 
@@ -8,25 +9,119 @@ const t = tr(locale);
 
 const projects = (await getCollection('projects', ({ data }) => data.locale === locale && !data.comingSoon))
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const totals = [
+  { v: '2.850 MW', k: 'En desarrollo', d: 'capacidad combinada en tres tecnologías de generación.' },
+  { v: '35', k: 'Proyectos', d: 'desarrollados, revisados o ejecutados a lo largo de los años.' },
+  { v: '10', k: 'Ejecutados / en ejecución', d: 'plantas que pasaron del papel a la operación.' },
+];
+
+const techs = [
+  {
+    icon: 'factory',
+    name: 'Plantas térmicas',
+    blurb:
+      'La base de nuestra experiencia en generación a escala. Proyectos desarrollados a nivel regional, en asociación con fabricantes de primer nivel — Wärtsilä, Caterpillar, Hyundai Heavy Industries y Karpowership.',
+    stats: [
+      { v: '2.000 MW', k: 'En desarrollo' },
+      { v: '20', k: 'Proyectos' },
+      { v: '6', k: 'Ejecutados' },
+    ],
+  },
+  {
+    icon: 'wind_power',
+    name: 'Energía eólica',
+    blurb: 'Proyectos eólicos en desarrollo, con el rigor de permisos y factibilidad que exige el mercado.',
+    stats: [
+      { v: '350 MW', k: 'En desarrollo' },
+      { v: '5', k: 'Proyectos' },
+      { v: '2', k: 'Con permisos' },
+      { v: '1', k: 'En ejecución' },
+    ],
+  },
+  {
+    icon: 'solar_power',
+    name: 'Energía solar',
+    blurb:
+      'Nuestra cartera más activa, con un proceso disciplinado de revisión antes de avanzar: corremos los números de cada activo y solo recomendamos lo que es factible.',
+    stats: [
+      { v: '500 MW', k: 'En desarrollo' },
+      { v: '10', k: 'Proyectos' },
+      { v: '6', k: 'Revisados' },
+      { v: '3', k: 'Ejecutados' },
+    ],
+  },
+];
 ---
 
 <BaseLayout
   title="proyectos · forward energy"
-  description="proyectos de energía renovable desarrollados, construidos y operados por forward energy en panamá."
+  description="cartera de proyectos de energía térmica, eólica y solar desarrollados, revisados y ejecutados por forward energy a lo largo de los años."
   locale={locale}
 >
   <section class="page-head has-img" style="--ph-img:url(/img/grid.jpg)">
     <div class="site-wrap">
       <div class="ph-eb">// proyectos</div>
       <h1>Lo que hemos llevado a <span class="accent">operación.</span></h1>
-      <p class="ph-lede">Casos reales en Panamá: el problema, el enfoque y el resultado, con cifras verificables.</p>
+      <p class="ph-lede">
+        Una trayectoria de proyectos que de verdad se construyen — térmica, eólica y solar,
+        de la idea a la operación.
+      </p>
     </div>
   </section>
 
   <section class="block">
     <div class="site-wrap">
-      {projects.length > 0 ? (
-        <div class="proj-grid">
+      <div class="block-eb">// la cartera</div>
+      <h2 class="block-h">El panorama, en números.</h2>
+      <p class="block-sub">
+        A lo largo de los años hemos desarrollado, revisado y ejecutado proyectos de
+        generación en tres tecnologías, acompañándolos de principio a fin.
+      </p>
+      <div class="cred-band">
+        {totals.map((c) => (
+          <div class="cred-cell">
+            <span class="cred-k">{c.k}</span>
+            <span class="cred-v">{c.v}</span>
+            <span class="cred-d">{c.d}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="site-wrap">
+      <div class="block-eb">// por tecnología</div>
+      <h2 class="block-h">La cartera, por tecnología.</h2>
+      <div style="margin-top:8px;">
+        {techs.map((tech) => (
+          <div class="tech-row">
+            <div class="tech-head">
+              <Icon name={tech.icon} class="tech-ico" size={34} />
+              <h3>{tech.name}</h3>
+              <p>{tech.blurb}</p>
+            </div>
+            <div class="tech-stats">
+              {tech.stats.map((s) => (
+                <div class="tech-stat"><span class="ts-v">{s.v}</span><span class="ts-k">{s.k}</span></div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <p class="block-sub" style="max-width:64ch;">
+        Cada cifra representa trabajo real: factibilidad, ingeniería, permisos y ejecución.
+        No prometemos plazos que no controlamos; sí sabemos exactamente cómo navegar el sistema
+        para que un proyecto avance.
+      </p>
+      {projects.length > 0 && (
+        <div class="proj-grid" style="margin-top:48px;">
           {projects.map((p) => (
             <a class="proj-card" href={localized(`/projects/${p.data.slug}`, locale)}>
               <div class="proj-photo">{p.data.heroImage && <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />}</div>
@@ -43,13 +138,22 @@ const projects = (await getCollection('projects', ({ data }) => data.locale === 
             </a>
           ))}
         </div>
-      ) : (
-        <div class="empty-state">
-          <img src="/forward-mark.png" alt="" />
-          <p>Estamos documentando nuestro portafolio. Con gusto le compartimos referencias y casos concretos según el tipo de proyecto que esté evaluando.</p>
-          <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
-        </div>
       )}
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// su proyecto</div>
+        <h2 class="closing-h">¿Evalúa un proyecto similar?</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.consult')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:admin@forward-nrg.com">admin@forward-nrg.com</a>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

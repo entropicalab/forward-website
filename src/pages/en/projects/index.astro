@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Icon from '../../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { localized, tr } from '../../../i18n/utils';
 
@@ -8,25 +9,119 @@ const t = tr(locale);
 
 const projects = (await getCollection('projects', ({ data }) => data.locale === locale && !data.comingSoon))
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const totals = [
+  { v: '2,850 MW', k: 'In development', d: 'combined capacity across three generation technologies.' },
+  { v: '35', k: 'Projects', d: 'developed, reviewed or executed over the years.' },
+  { v: '10', k: 'Executed / in execution', d: 'plants that moved from paper to operation.' },
+];
+
+const techs = [
+  {
+    icon: 'factory',
+    name: 'Thermal plants',
+    blurb:
+      'The base of our generation experience at scale. Projects developed regionally, in partnership with first-tier manufacturers — Wärtsilä, Caterpillar, Hyundai Heavy Industries and Karpowership.',
+    stats: [
+      { v: '2,000 MW', k: 'In development' },
+      { v: '20', k: 'Projects' },
+      { v: '6', k: 'Executed' },
+    ],
+  },
+  {
+    icon: 'wind_power',
+    name: 'Wind',
+    blurb: 'Wind projects in development, with the permitting and feasibility rigor the market demands.',
+    stats: [
+      { v: '350 MW', k: 'In development' },
+      { v: '5', k: 'Projects' },
+      { v: '2', k: 'Permitted' },
+      { v: '1', k: 'In execution' },
+    ],
+  },
+  {
+    icon: 'solar_power',
+    name: 'Solar',
+    blurb:
+      'Our most active portfolio, with a disciplined review before we advance: we run the numbers on every asset and only recommend what is viable.',
+    stats: [
+      { v: '500 MW', k: 'In development' },
+      { v: '10', k: 'Projects' },
+      { v: '6', k: 'Reviewed' },
+      { v: '3', k: 'Executed' },
+    ],
+  },
+];
 ---
 
 <BaseLayout
   title="projects · forward energy"
-  description="renewable energy projects developed, built and operated by forward energy in panama."
+  description="a portfolio of thermal, wind and solar energy projects developed, reviewed and executed by forward energy over the years."
   locale={locale}
 >
   <section class="page-head has-img" style="--ph-img:url(/img/grid.jpg)">
     <div class="site-wrap">
       <div class="ph-eb">// projects</div>
       <h1>What we’ve brought to <span class="accent">operation.</span></h1>
-      <p class="ph-lede">Real cases in Panama: the problem, the approach and the outcome, with verifiable numbers.</p>
+      <p class="ph-lede">
+        A track record of projects that actually get built — thermal, wind and solar,
+        from idea to operation.
+      </p>
     </div>
   </section>
 
   <section class="block">
     <div class="site-wrap">
-      {projects.length > 0 ? (
-        <div class="proj-grid">
+      <div class="block-eb">// the portfolio</div>
+      <h2 class="block-h">The picture, in numbers.</h2>
+      <p class="block-sub">
+        Over the years we have developed, reviewed and executed generation projects across
+        three technologies, supporting them from start to finish.
+      </p>
+      <div class="cred-band">
+        {totals.map((c) => (
+          <div class="cred-cell">
+            <span class="cred-k">{c.k}</span>
+            <span class="cred-v">{c.v}</span>
+            <span class="cred-d">{c.d}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="site-wrap">
+      <div class="block-eb">// by technology</div>
+      <h2 class="block-h">The portfolio, by technology.</h2>
+      <div style="margin-top:8px;">
+        {techs.map((tech) => (
+          <div class="tech-row">
+            <div class="tech-head">
+              <Icon name={tech.icon} class="tech-ico" size={34} />
+              <h3>{tech.name}</h3>
+              <p>{tech.blurb}</p>
+            </div>
+            <div class="tech-stats">
+              {tech.stats.map((s) => (
+                <div class="tech-stat"><span class="ts-v">{s.v}</span><span class="ts-k">{s.k}</span></div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="site-wrap">
+      <p class="block-sub" style="max-width:64ch;">
+        Every figure represents real work: feasibility, engineering, permitting and execution.
+        We don’t promise timelines we don’t control; we do know exactly how to navigate the
+        system so a project moves forward.
+      </p>
+      {projects.length > 0 && (
+        <div class="proj-grid" style="margin-top:48px;">
           {projects.map((p) => (
             <a class="proj-card" href={localized(`/projects/${p.data.slug}`, locale)}>
               <div class="proj-photo">{p.data.heroImage && <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />}</div>
@@ -43,13 +138,22 @@ const projects = (await getCollection('projects', ({ data }) => data.locale === 
             </a>
           ))}
         </div>
-      ) : (
-        <div class="empty-state">
-          <img src="/forward-mark.png" alt="" />
-          <p>We’re documenting our portfolio. We’re glad to share references and concrete cases relevant to the kind of project you’re evaluating.</p>
-          <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
-        </div>
       )}
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="site-wrap">
+      <div class="closing-inner">
+        <div class="block-eb">// your project</div>
+        <h2 class="closing-h">Evaluating a similar project?</h2>
+        <div class="closing-ctas">
+          <a class="btn accent" href={localized('/contact', locale)}>
+            {t('cta.consult')}<span class="arrow-tail" aria-hidden="true"></span>
+          </a>
+          <a class="contact-line" href="mailto:admin@forward-nrg.com">admin@forward-nrg.com</a>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
