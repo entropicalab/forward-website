@@ -15,7 +15,7 @@
 
 export const ANALYTICS = {
   // ga4 measurement id for forward-nrg.com (web stream)
-  measurementId: 'G-0VZ1T52K1M',
+  measurementId: 'G-Z99XV0CWXD',
 
   // domain to scope cookies to. helps with subdomain consistency.
   cookieDomain: 'forward-nrg.com',

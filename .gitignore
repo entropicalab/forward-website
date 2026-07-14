@@ -21,3 +21,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# analytics tag (kept out of the repo)
+fwd gtag.txt
